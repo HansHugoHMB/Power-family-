@@ -95,8 +95,6 @@ body {
         <li class="tab-item"><a href="#profil" class="tab-link">Profil</a></li>
         <li class="tab-item"><a href="#galerie" class="tab-link">Galerie</a></li>
         <li class="tab-item"><a href="#contact" class="tab-link">Contact</a></li>
-        <li class="tab-item"><a href="#contact" class="tab-link">Contact</a></li>
-        <li class="tab-item"><a href="#contact" class="tab-link">Contact</a></li>
     </ul>
 </div>
 
@@ -105,88 +103,6 @@ document.querySelectorAll('.tab-link').forEach(link => {
     link.addEventListener('click', function(e) {
         e.preventDefault();
         document.querySelectorAll('.tab-link').forEach(l => l.classList.remove('active'));
-        this.classList.add('active');
-    });
-});
-</script>
-
-</body>
-</html>
-<!DOCTYPE html>
-<html>
-<head>
-<style>
-.tabs-container {
-    border-bottom: 1px solid #e0e0e0;
-    padding: 0 20px;
-}
-
-.tabs-list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-}
-
-.tab-item {
-    margin-right: 25px;
-}
-
-.tab-link {
-    text-decoration: none;
-    color: #606770;
-    font-family: Arial, sans-serif;
-    font-weight: bold;
-    padding: 12px 0;
-    display: block;
-    position: relative;
-    transition: color 0.3s ease;
-}
-
-.tab-link:hover {
-    background-color: #f5f6f7;
-    color: #0077B5;
-}
-
-.tab-link.active {
-    color: #0077B5;
-}
-
-.tab-link.active::after {
-    content: '';
-    position: absolute;
-    bottom: -1px;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background: linear-gradient(to right, #0077B5, #FFD700, #CE1126);
-    border-radius: 2px 2px 0 0;
-}
-
-/* Couleurs RDC */
-/* Bleu: #0077B5 */
-/* Jaune: #FFD700 */
-/* Rouge: #CE1126 */
-</style>
-</head>
-<body>
-
-<div class="tabs-container">
-    <ul class="tabs-list">
-        <li class="tab-item"><a href="#accueil" class="tab-link active">Accueil</a></li>
-        <li class="tab-item"><a href="#actualites" class="tab-link">Actualités</a></li>
-        <li class="tab-item"><a href="#messages" class="tab-link">Messages</a></li>
-        <li class="tab-item"><a href="#profil" class="tab-link">Profil</a></li>
-    </ul>
-</div>
-
-<script>
-// JavaScript pour gérer le changement d'onglet
-document.querySelectorAll('.tab-link').forEach(link => {
-    link.addEventListener('click', function(e) {
-        // Retire la classe active de tous les onglets
-        document.querySelectorAll('.tab-link').forEach(l => l.classList.remove('active'));
-        // Ajoute la classe active à l'onglet cliqué
         this.classList.add('active');
     });
 });
@@ -215,10 +131,7 @@ document.querySelectorAll('.tab-link').forEach(link => {
     </style>
 </head>
 <body>
-<script>
-        let stats = {
-            present: 0,
-            absent: students.length,
+<script>,
             fraude: 0
         };
 
@@ -282,10 +195,103 @@ document.querySelectorAll('.tab-link').forEach(link => {
         renderList();
         updateStats();
     </script>
+    <!DOCTYPE html>
+<html>
+<head>
+<style>
+.rdc-banner {
+    position: relative;
+    width: 100%;
+    height: 1cm;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+}
 
+.color-wave {
+    width: 300%;
+    height: 100%;
+    background: linear-gradient(
+        to right,
+        #0077B5,
+        #0077B5 33.33%,
+        #FFD700 33.33%,
+        #FFD700 66.66%,
+        #CE1126 66.66%,
+        #CE1126 100%
+    );
+    animation: slide 10s linear infinite;
+}
 
+.banner-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-weight: bold;
+    font-size: 1.2em;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    white-space: nowrap;
+    z-index: 2;
+    mix-blend-mode: multiply;
+}
 
+@keyframes slide {
+    0% { transform: translateX(-66.66%); }
+    100% { transform: translateX(0); }
+}
+</style>
+</head>
+<body>
 
+<div class="rdc-banner">
+    <div class="color-wave"></div>
+    <div class="banner-text">PRÉPA H POWER FAMILY 🎓</div>
+</div>
+
+</body>
+</html>
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+.rdc-banner {
+    position: relative;
+    width: 100%;
+    height: 1cm;
+    overflow: hidden;
+}
+
+.color-wave {
+    width: 300%;
+    height: 100%;
+    background: linear-gradient(
+        to right,
+        #0077B5,
+        #0077B5 33.33%,
+        #FFD700 33.33%,
+        #FFD700 66.66%,
+        #CE1126 66.66%,
+        #CE1126 100%
+    );
+    animation: slide 10s linear infinite;
+}
+
+@keyframes slide {
+    0% { transform: translateX(-66.66%); }
+    100% { transform: translateX(0); }
+}
+</style>
+</head>
+<body>
+
+<div class="rdc-banner">
+    <div class="color-wave"></div>
+</div>
+
+</body>
+</html>
 
     
     <h1>Liste des présences Prépa H Power Family 🎓</h1>
@@ -601,191 +607,4 @@ document.addEventListener('DOMContentLoaded', updateTotals);
         /* Overlay style */
         #securityOverlay {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.9);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-
-        .security-box {
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            width: 400px;
-            text-align: center;
-        }
-
-        .security-input {
-            width: 100%;
-            padding: 12px;
-            margin: 15px 0;
-            border: 2px solid #ccc;
-            border-radius: 5px;
-            font-size: 1.2em;
-            text-transform: uppercase;
-            text-align: center;
-            letter-spacing: 2px;
-        }
-
-        .security-btn {
-            background: #2196F3;
-            color: white;
-            border: none;
-            padding: 12px 30px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1.1em;
-        }
-    </style>
-</head>
-<body>
-    <!-- Overlay de sécurité -->
-    <div id="securityOverlay">
-        <div class="security-box">
-            <h2>VÉRIFICATION DE SÉCURITÉ</h2>
-            <p>Les six premiers chiffres de votre matricule :</p>
-            <input type="text" 
-                   id="securityAnswer" 
-                   class="security-input"
-                   placeholder="XX/XXXX" 
-                   maxlength="7"
-                   pattern="[A-Z0-9/]+"
-                   required>
-            <button class="security-btn" onclick="verifySecurity()">VALIDER</button>
-            <p id="securityError" style="color: red; display: none;">Réponse incorrecte !</p>
-        </div>
-    </div>
-
-    <!-- Contenu principal -->
-    <div id="mainContent" style="display: none;">
-        <!-- Votre contenu existant ici -->
-    </div>
-
-    <script>
-        // Réponse attendue
-        const EXPECTED_ANSWER = "24/0000";
-
-        function verifySecurity() {
-            const userInput = document.getElementById('securityAnswer').value.toUpperCase();
-            const errorElement = document.getElementById('securityError');
-
-            if(userInput === EXPECTED_ANSWER) {
-                document.getElementById('securityOverlay').style.display = 'none';
-                document.getElementById('mainContent').style.display = 'block';
-            } else {
-                errorElement.style.display = 'block';
-                document.getElementById('securityAnswer').value = '';
-                setTimeout(() => errorElement.style.display = 'none', 2000);
-            }
-        }
-
-        // Validation automatique du format
-        document.getElementById('securityAnswer').addEventListener('input', function(e) {
-            this.value = this.value.toUpperCase().replace(/[^A-Z0-9/]/g, '');
-            
-            // Ajout automatique du slash
-            if(this.value.length === 2 && !this.value.includes('/')) {
-                this.value += '/';
-            }
-        });
-    </script>
-</body>
-</html>
-
-<!-- Ajouter cette section après les statistiques -->
-<div style="margin: 20px 0; padding: 15px; background: #ffe6e6; border: 1px solid red; border-radius: 5px;">
-    <h3 style="color: #dc3545;">Liste des fraudeurs (Codes erronés)</h3>
-    <ul id="fraudeursList" style="list-style-type: none; padding-left: 0;">
-        <!-- La liste se remplira automatiquement -->
-    </ul>
-</div>
-
-<script>
-// Ajouter ces variables et fonctions dans le script existant
-const fraudeurs = new Set();
-
-function updateFraudeursList(index, value) {
-    const etudiant = students[index].name;
-    
-    if (value === students[index].code) {
-        // Si correction du code, retirer de la liste
-        if (fraudeurs.has(etudiant)) {
-            fraudeurs.delete(etudiant);
-        }
-    } else if (value.length >= 6 && value !== students[index].code) {
-        // Ajouter à la liste des fraudeurs
-        fraudeurs.add(etudiant);
-    }
-    
-    // Mettre à jour l'affichage
-    const liste = document.getElementById('fraudeursList');
-    liste.innerHTML = Array.from(fraudeurs).map(name => 
-        `<li style="padding: 5px; border-bottom: 1px dashed #ff9999;">
-            🚨 ${name} - Tentative à ${new Date().toLocaleTimeString()}
-         </li>`
-    ).join('');
-}
-
-// Modifier la fonction validateCode existante
-function validateCode(index, value) {
-    const row = document.getElementById(`row-${index}`);
-    const status = document.getElementById(`status-${index}`);
-    
-    if (value === students[index].code) {
-        row.classList.add('valid');
-        row.classList.remove('invalid');
-        status.innerText = "Présent";
-    } else if (value.length >= 6) {
-        row.classList.add('invalid');
-        row.classList.remove('valid');
-        status.innerText = "Code erroné";
-    } else {
-        row.classList.remove('valid', 'invalid');
-        status.innerText = "Absent";
-    }
-    
-    updateTotals();
-    updateFraudeursList(index, value); // Appel de la nouvelle fonction
-}
-</script>
-
-<style>
-#content {
-    position: relative;
-}
-
-#overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: repeating-linear-gradient(
-        45deg,
-        rgba(0,0,0,0.1) 0%,
-        rgba(0,0,0,0.1) 10%,
-        transparent 10%,
-        transparent 20%
-    );
-    pointer-events: none;
-    animation: noise 0.2s infinite;
-}
-
-@keyframes noise {
-    0% { transform: translate(2px, -3px); }
-    50% { transform: translate(-1px, 2px); }
-    100% { transform: translate(3px, -1px); }
-}
-</style>
-
-<div id="content">
-    <div id="overlay"></div>
-    <!-- Votre contenu ici -->
-</div>
-
-
+  
