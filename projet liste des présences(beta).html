@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Power Family Présences</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        table { border-collapse: collapse; margin-bottom: 20px; width: 100%; }
+        th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+        .code-input { width: 100px; text-align: center; }
+        
+        /* Couleurs des lignes */
+        tr:nth-child(3n+1) { background-color: #ffffcc; } /* Jaune */
+        tr:nth-child(3n+2) { background-color: #ffcccc; } /* Rouge */
+        tr:nth-child(3n+3) { background-color: #cce5ff; } /* Bleu */
+       
+        .valid { background-color: #cce5ff !important; } /* Validation bleue */
+        .invalid { background-color: #ffcccc !important; } /* Code erroné */
+    </style>
+</head>
+<body>
+<script>
+        let stats = {
+            present: 0,
+            absent: students.length,
+            fraude: 0
+        };
+
+        function renderList() {
+            const tbody = document.getElementById('studentList');
+            tbody.innerHTML = students.map((student, index) => `
+                <tr>
+                    <td>${index + 1}</td>
+                    <td>${student.name}</td>
+                    <td>
+                        <input class="code-input" type="password" 
+                            oninput="validateCode(${index}, this.value)">
+                    </td>
+                    <td id="status-${index}">Absent</td>
+                </tr>
+            `).join('');
+        }
+
+        function validateCode(index, value) {
+            const statusElement = document.getElementById(`status-${index}`);
+            const student = students[index];
+            
+            if (value === student.code) {
+                statusElement.className = 'present';
+                statusElement.textContent = 'Présent';
+                updateStats('present');
+            } else if (value.length >= 6) {
+                statusElement.className = 'fraude';
+                statusElement.textContent = 'Fraude';
+                updateStats('fraude');
+            } else {
+                statusElement.className = 'absent';
+                statusElement.textContent = 'Absent';
+                updateStats('absent');
+            }
+        }
+
+        function updateStats(type) {
+            // Réinitialiser les compteurs
+            stats = {
+                present: 0,
+                fraude: 0,
+                absent: 0
+            };
+
+            // Compter les statuts actuels
+            students.forEach((_, index) => {
+                const status = document.getElementById(`status-${index}`).textContent;
+                if (status === 'Présent') stats.present++;
+                else if (status === 'Fraude') stats.fraude++;
+                else stats.absent++;
+            });
+
+            // Mettre à jour l'affichage
+            document.querySelector('#totalPresent span').textContent = stats.present;
+            document.querySelector('#totalAbsent span').textContent = stats.absent;
+            document.querySelector('#totalFraude span').textContent = stats.fraude;
+        }
+
+        // Initialisation
+        renderList();
+        updateStats();
+    </script>
+    
+    <h1>Liste des présences Prépa H Power Family 🎓</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>N°</th>
+                <th>Nom</th>
+                <th>Code</th>
+                <th>Statut</th>
+            </tr>
+        </thead>
+        <tbody id="studentList">
+            <!-- Généré par JavaScript -->
+        </tbody>
+    </table>
+
+    <script>
+        // Liste complète des élèves avec codes AAA000+
+        const students = [
+            { name: "IBEMBA – NTEMBI", code: "AAA000" },
+            { name: "KITAMBWE - MUDIMBI", code: "AAA001" },
+            { name: "MBALA - LUBAKI", code: "AAA002" },
+            { name: "MBALA - MBIMBA", code: "AAA003" },
+            { name: "MBAMBINA - WAZANGBA", code: "AAA004" },
+            { name: "MBANDJO – IYELE", code: "AAA005" },
+            { name: "MBATU - KIMWANGA", code: "AAA006" },
+            { name: "MBAYA – BAYA", code: "AAA007" },
+            { name: "MBAYA – FAUSTIN", code: "AAA008" },
+            { name: "MBAYO – BONONGE", code: "AAA009" },
+            { name: "MBEKU – ELEKWA", code: "AAA010" },
+            { name: "MBELE – KALUSUTI", code: "AAA011" },
+            { name: "MBELENGA-MBOMBAWANDE", code: "AAA012" },
+            { name: "MBEMA – ZONGO", code: "AAA013" },
+            { name: "MBEMBA – KUKU", code: "AAA014" },
+            { name: "MBENGI – MBO", code: "AAA015" },
+            { name: "MBIMBA - MUFUNGIZI", code: "AAA016" },
+            { name: "MBIRIZE - IMANI", code: "AAA017" },
+            { name: "MBO – MFUMU", code: "AAA018" },
+            { name: "MBO – WEMBA", code: "AAA019" },
+            { name: "MBOBO – LUPOMBO", code: "AAA020" },
+            { name: "MBOKO –NTOKO", code: "AAA021" },
+            { name: "MBOLOLO – MWIMPE", code: "AAA022" },
+            { name: "MBOMA – KALAMBA", code: "AAA023" },
+            { name: "MBOMA – NDOSALA", code: "AAA024" },
+            { name: "MBOMA – TAUBALA", code: "AAA025" },
+            { name: "MBOSO – MAWETE", code: "AAA026" },
+            { name: "MBUAKI - MIEZI", code: "AAA027" },
+            { name: "MBUBA - NDONGALA", code: "AAA028" },
+            { name: "MBUEZO – LUNGENY", code: "AAA029" },
+            { name: "MBUKA - MATUVANG", code: "AAA030" },
+            { name: "MBUKU – KISALU", code: "AAA031" },
+            { name: "MBULA – MBANZA", code: "AAA032" },
+            { name: "MBULAYI - TSHIBANGU", code: "AAA033" },
+            { name: "MBUMBA – NDEMBE", code: "AAA034" },
+            { name: "MBUYA - MUJANI", code: "AAA035" },
+            { name: "MBUYAMBA - TSHISWAKA", code: "AAA036" },
+            { name: "MBUYI – KOLE", code: "AAA037" },
+            { name: "MBUYI – NDAYE", code: "AAA038" },
+            { name: "MBWELIMA - TANGA", code: "AAA039" },
+            { name: "MBWITI - KUYAKANA", code: "AAA040" },
+            { name: "MEKANDA – IWOKO", code: "AAA041" },
+            { name: "MENEMENE – NKOSI", code: "AAA042" },
+            { name: "MENGA - MABALA", code: "AAA043" },
+            { name: "MESA – MUSALU", code: "AAA044" },
+            { name: "MFULUNGANI -NFULAMESO", code: "AAA045" },
+            { name: "MIANTISE – NDOOLE", code: "AAA046" },
+            { name: "MIBO – MPEWA", code: "AAA047" },
+            { name: "MIKADI – MIKADI", code: "AAA048" },
+            { name: "MIKOBI – BELAPIO", code: "AAA049" },
+            { name: "MIKUBA – ALFANI", code: "AAA050" },
+            { name: "MILONGA - MUDIMBANYA", code: "AAA051" },
+            { name: "MILUMBU – KABUYA", code: "AAA052" },
+            { name: "MINGA – KWETE", code: "AAA053" },
+            { name: "MINGA – MBATSHI", code: "AAA054" },
+            { name: "MINGA – PONGO", code: "AAA055" },
+            { name: "MIOMA – KINGOMBE", code: "AAA056" },
+            { name: "MIOMO – MAKANDA", code: "AAA057" },
+            { name: "MISENGABU - TEGRA", code: "AAA058" },
+            { name: "MISIONO – MVUNGU", code: "AAA059" },
+            { name: "MITSHIABU - ILUNGA", code: "AAA060" },
+            { name: "MITUNGA - MUBIANGAT", code: "AAA061" },
+            { name: "MITUNGINI – LUZOLO", code: "AAA062" },
+            { name: "MOBAO – MOPIA", code: "AAA063" },
+            { name: "MOBONDA - BOYELE", code: "AAA064" },
+            { name: "MODJA – ETOTI", code: "AAA065" },
+            { name: "MOGBOKULA-NDOLE", code: "AAA066" },
+            { name: "MOHELE – MATUKA", code: "AAA067" },
+            { name: "MOKIE - INKINI", code: "AAA068" },
+            { name: "MOKILI - KATSHULU", code: "AAA069" },
+            { name: "MOKOSI – KETA", code: "AAA070" },
+            { name: "MOKOYO-BOKIANGA", code: "AAA071" },
+            { name: "MOKUBA – BAPELE", code: "AAA072" },
+            { name: "MOKUTU – GOLO", code: "AAA073" },
+            { name: "MOLITHIO – NDOPO", code: "AAA074" },
+            { name: "MOMELE – BOKILA", code: "AAA075" },
+            { name: "MONGA - MOKESA", code: "AAA076" },
+            { name: "MONGBANI – AKOSU", code: "AAA077" },
+            { name: "MONSENGO-MAFISANGO", code: "AAA078" },
+            { name: "MONSENGO - NTWABOY", code: "AAA079" },
+            { name: "MOONGO - BOMPUSA", code: "AAA080" },
+            { name: "MOPAYI – BOKUNGU", code: "AAA081" },
+            { name: "MOPIA - BENIE", code: "AAA082" },
+            { name: "MOPINI – NGOBILA", code: "AAA083" },
+            { name: "MOPOLO – LENGO", code: "AAA084" },
+            { name: "MOTOKWA - DIDO", code: "AAA085" },
+            { name: "MOUTSIEKOU - PANDI", code: "AAA086" },
+            { name: "MOWENI – BOPOPI", code: "AAA087" },
+            { name: "MPAMALEO - BOSONTIA", code: "AAA088" },
+            { name: "MPANA - NGAMBIELI", code: "AAA089" },
+            { name: "MPATA - LITUMBE", code: "AAA090" },
+            { name: "MPAY – NKE", code: "AAA091" },
+            { name: "MPELA – BAWESI", code: "AAA092" },
+            { name: "MPEMBE – BASSA", code: "AAA093" },
+            { name: "MPENGELE – PONGO", code: "AAA094" },
+            { name: "MPETSHI - BANGONGO", code: "AAA095" },
+            { name: "MPEYA – LINGONGO", code: "AAA096" },
+            { name: "MWANGANI - KATIMUKA", code: "AAA097" },
+            { name: "NOYO – MUKENDI", code: "AAA098" }
+        ];
+
+        function renderList() {
+            const tbody = document.getElementById('studentList');
+            tbody.innerHTML = students.map((student, index) => `
+                <tr id="row-${index}">
+                    <td>${index + 1}</td>
+                    <td>${student.name}</td>
+                    <td>
+                        <input class="code-input" type="password" 
+                               oninput="validateCode(${index}, this.value)">
+                    </td>
+                    <td id="status-${index}">Absent</td>
+                </tr>
+            `).join('');
+        }
+
+        function validateCode(index, value) {
+            const row = document.getElementById(`row-${index}`);
+            const status = document.getElementById(`status-${index}`);
+            
+            if (value === students[index].code) {
+                row.classList.add('valid');
+                row.classList.remove('invalid');
+                status.innerText = "Présent";
+            } else if (value.length >= 6) {
+                row.classList.add('invalid');
+                row.classList.remove('valid');
+                status.innerText = "Code erroné";
+            } else {
+                row.classList.remove('valid', 'invalid');
+                status.innerText = "Absent";
+            }
+        }
+
+        renderList();
+    </script>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Power Family Présences</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        table { border-collapse: collapse; margin-bottom: 20px; width: 100%; }
+        th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+        .code-input { width: 100px; text-align: center; }
+        
+        /* Couleurs des lignes */
+        tr:nth-child(3n+1) { background-color: #ffffcc; }
+        tr:nth-child(3n+2) { background-color: #ffcccc; }
+        tr:nth-child(3n+3) { background-color: #cce5ff; }
+        
+        .valid { background-color: #cce5ff !important; }
+        .invalid { background-color: #ffcccc !important; }
+        
+        /* Style du bouton */
+        #printBtn {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+        
+        #totalSection {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    
+    <button id="printBtn" onclick="window.print()">Imprimer la liste</button>
+    
+    <div id="totalSection">
+        <strong>Total des présents : </strong>
+        <span id="totalPresences">0</span>
+    </div>
+
+    <table>
+        <!-- Le tableau reste identique au précédent -->
+        <!-- ... -->
+    </table>
+
+    <script>
+        // ... (liste des étudiants inchangée) ...
+
+        function updateTotal() {
+            const presentCount = document.querySelectorAll('[id^="status-"]')
+                .forEach(el => el.innerText === "Présent" ? acc++ : acc, acc = 0);
+            document.getElementById('totalPresences').textContent = acc;
+        }
+
+        function validateCode(index, value) {
+            const row = document.getElementById(`row-${index}`);
+            const status = document.getElementById(`status-${index}`);
+            
+            if (value === students[index].code) {
+                row.classList.add('valid');
+                row.classList.remove('invalid');
+                status.innerText = "Présent";
+            } else if (value.length >= 6) {
+                row.classList.add('invalid');
+                row.classList.remove('valid');
+                status.innerText = "Code erroné";
+            } else {
+                row.classList.remove('valid', 'invalid');
+                status.innerText = "Absent";
+            }
+            
+            updateTotal(); // Mise à jour du total après chaque modification
+        }
+
+        // Initialisation
+        renderList();
+        updateTotal();
+    </script>
+</body>
+</html>
+
+<!-- Ajouter cette section après le tableau -->
+<div style="margin: 20px 0; padding: 15px; background: #f5f5f5; border-radius: 5px;">
+    <h3>Statistiques en temps réel</h3>
+    <div style="display: flex; gap: 20px;">
+        <div style="padding: 10px; background: #d4edda; border-radius: 5px;">
+            Présents: <span id="totalPresent">0</span>
+        </div>
+        <div style="padding: 10px; background: #fff3cd; border-radius: 5px;">
+            Absents: <span id="totalAbsent">0</span>
+        </div>
+        <div style="padding: 10px; background: #f8d7da; border-radius: 5px;">
+            Frauduleux: <span id="totalFraude">0</span>
+        </div>
+    </div>
+</div>
+
+<script>
+// Ajouter ces fonctions dans le script existant
+function updateTotals() {
+    let present = 0, absent = 0, fraude = 0;
+    
+    students.forEach((_, index) => {
+        const status = document.getElementById(`status-${index}`).textContent;
+        if(status === "Présent") present++;
+        else if(status === "Code erroné") fraude++;
+        else absent++;
+    });
+
+    document.getElementById('totalPresent').textContent = present;
+    document.getElementById('totalAbsent').textContent = absent;
+    document.getElementById('totalFraude').textContent = fraude;
+}
+
+// Modifier la fonction validateCode existante
+function validateCode(index, value) {
+    const row = document.getElementById(`row-${index}`);
+    const status = document.getElementById(`status-${index}`);
+    
+    if (value === students[index].code) {
+        row.classList.add('valid');
+        row.classList.remove('invalid');
+        status.innerText = "Présent";
+    } else if (value.length >= 6) {
+        row.classList.add('invalid');
+        row.classList.remove('valid');
+        status.innerText = "Code erroné";
+    } else {
+        row.classList.remove('valid', 'invalid');
+        status.innerText = "Absent";
+    }
+    
+    updateTotals(); // Appel de la mise à jour
+}
+
+// Initialiser les totaux au chargement
+document.addEventListener('DOMContentLoaded', updateTotals);
+</script>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Système de Présences Sécurisé</title>
+    <style>
+        /* Overlay style */
+        #securityOverlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .security-box {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            width: 400px;
+            text-align: center;
+        }
+
+        .security-input {
+            width: 100%;
+            padding: 12px;
+            margin: 15px 0;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            font-size: 1.2em;
+            text-transform: uppercase;
+            text-align: center;
+            letter-spacing: 2px;
+        }
+
+        .security-btn {
+            background: #2196F3;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1em;
+        }
+    </style>
+</head>
+<body>
+    <!-- Overlay de sécurité -->
+    <div id="securityOverlay">
+        <div class="security-box">
+            <h2>VÉRIFICATION DE SÉCURITÉ</h2>
+            <p>Les six premiers chiffres de votre matricule :</p>
+            <input type="text" 
+                   id="securityAnswer" 
+                   class="security-input"
+                   placeholder="XX/XXXX" 
+                   maxlength="7"
+                   pattern="[A-Z0-9/]+"
+                   required>
+            <button class="security-btn" onclick="verifySecurity()">VALIDER</button>
+            <p id="securityError" style="color: red; display: none;">Réponse incorrecte !</p>
+        </div>
+    </div>
+
+    <!-- Contenu principal -->
+    <div id="mainContent" style="display: none;">
+        <!-- Votre contenu existant ici -->
+    </div>
+
+    <script>
+        // Réponse attendue
+        const EXPECTED_ANSWER = "24/0000";
+
+        function verifySecurity() {
+            const userInput = document.getElementById('securityAnswer').value.toUpperCase();
+            const errorElement = document.getElementById('securityError');
+
+            if(userInput === EXPECTED_ANSWER) {
+                document.getElementById('securityOverlay').style.display = 'none';
+                document.getElementById('mainContent').style.display = 'block';
+            } else {
+                errorElement.style.display = 'block';
+                document.getElementById('securityAnswer').value = '';
+                setTimeout(() => errorElement.style.display = 'none', 2000);
+            }
+        }
+
+        // Validation automatique du format
+        document.getElementById('securityAnswer').addEventListener('input', function(e) {
+            this.value = this.value.toUpperCase().replace(/[^A-Z0-9/]/g, '');
+            
+            // Ajout automatique du slash
+            if(this.value.length === 2 && !this.value.includes('/')) {
+                this.value += '/';
+            }
+        });
+    </script>
+</body>
+</html>
+
+<!-- Ajouter cette section après les statistiques -->
+<div style="margin: 20px 0; padding: 15px; background: #ffe6e6; border: 1px solid red; border-radius: 5px;">
+    <h3 style="color: #dc3545;">Liste des fraudeurs (Codes erronés)</h3>
+    <ul id="fraudeursList" style="list-style-type: none; padding-left: 0;">
+        <!-- La liste se remplira automatiquement -->
+    </ul>
+</div>
+
+<script>
+// Ajouter ces variables et fonctions dans le script existant
+const fraudeurs = new Set();
+
+function updateFraudeursList(index, value) {
+    const etudiant = students[index].name;
+    
+    if (value === students[index].code) {
+        // Si correction du code, retirer de la liste
+        if (fraudeurs.has(etudiant)) {
+            fraudeurs.delete(etudiant);
+        }
+    } else if (value.length >= 6 && value !== students[index].code) {
+        // Ajouter à la liste des fraudeurs
+        fraudeurs.add(etudiant);
+    }
+    
+    // Mettre à jour l'affichage
+    const liste = document.getElementById('fraudeursList');
+    liste.innerHTML = Array.from(fraudeurs).map(name => 
+        `<li style="padding: 5px; border-bottom: 1px dashed #ff9999;">
+            🚨 ${name} - Tentative à ${new Date().toLocaleTimeString()}
+         </li>`
+    ).join('');
+}
+
+// Modifier la fonction validateCode existante
+function validateCode(index, value) {
+    const row = document.getElementById(`row-${index}`);
+    const status = document.getElementById(`status-${index}`);
+    
+    if (value === students[index].code) {
+        row.classList.add('valid');
+        row.classList.remove('invalid');
+        status.innerText = "Présent";
+    } else if (value.length >= 6) {
+        row.classList.add('invalid');
+        row.classList.remove('valid');
+        status.innerText = "Code erroné";
+    } else {
+        row.classList.remove('valid', 'invalid');
+        status.innerText = "Absent";
+    }
+    
+    updateTotals();
+    updateFraudeursList(index, value); // Appel de la nouvelle fonction
+}
+</script>
+
+<style>
+#content {
+    position: relative;
+}
+
+#overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+        45deg,
+        rgba(0,0,0,0.1) 0%,
+        rgba(0,0,0,0.1) 10%,
+        transparent 10%,
+        transparent 20%
+    );
+    pointer-events: none;
+    animation: noise 0.2s infinite;
+}
+
+@keyframes noise {
+    0% { transform: translate(2px, -3px); }
+    50% { transform: translate(-1px, 2px); }
+    100% { transform: translate(3px, -1px); }
+}
+</style>
+
+<div id="content">
+    <div id="overlay"></div>
+    <!-- Votre contenu ici -->
+</div>
+
+
