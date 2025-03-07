@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Les premiers progrès de Hans en html</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f3f4f9;
+            color: #323;
+            margin: 0;
+            padding: 0;
+        }
+        .box {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 10px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .nav-menu {
+            display: flex;
+            justify-content: center;
+            background-color: #4CAF50;
+            padding: 10px;
+            border-radius: 5px; 
+        }
+        .nav-menu ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+        .nav-menu li {
+            display: inline;
+            margin: 0 10px;
+        }
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .nav-menu a:hover {
+            background-color: #45a049;
+        }
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: blue;
+            color: white;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        .scrollable-table {
+            max-height: 400px;
+            overflow-y: auto;
+            display: block;
+        }
+        .scrollable-table::-webkit-scrollbar {
+            width: 5px;
+        }
+        .scrollable-table::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        .scrollable-table::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 10px;
+        }
+        .scrollable-table::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+        .comment-section {
+            margin: 20px auto;
+            width: 80%;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .comment-section textarea {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+        }
+        .comment-section button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .comment-section button:hover {
+            background-color: #45a049;
+        }
+        .organigramme {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px auto;
+            width: 80%;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .organigramme .box {
+            margin: 10px 0;
+            padding: 15px;
+            background-color: #e0f7fa;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .organigramme .line {
+            width: 2px;
+            height: 20px;
+            background-color: #ccc;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+
+
+
+<h2 style="text-align: center; color: blue;">FAMILLE BAYA GÉNÉALOGIE</h2>
+
+<div class="scrollable-table">
+    <table>
+        <thead>
+            <tr>
+                <th colspan="5" style="text-align: center;">FAMILLE BAYA</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th colspan="5" style="text-align: center;">LUSAMBA JOSÉPHINE</th>
+            </tr>
+            <tr>
+                <th>NOM</th>
+                <th>PRÉNOM</th>
+                <th>ÂGE</th>
+                <th>DATE DE NAISSANCE</th>
+                <th>HÔPITAL DE NAISSANCE</th>
+            </tr>
+            <tr>
+                <td>MULUMBA</td>
+                <td>ÉLIE</td>
+                <td>30</td>
+                <td>LE 24-01-1994</td>
+                <td>BLAISE</td>
+            </tr>
+            <tr>
+                <td>BECKY</td>
+                <td>MUHEMBA</td>
+                <td>25</td>
+                <td>LE 15-12-1999</td>
+                <td>BONZOLA</td>
+            </tr>
+            <tr>
+                <td>NDAYA</td>
+                <td>MICHELLE</td>
+                <td>21</td>
+                <td>LE 30-10-2003</td>
+                <td>BLAISE</td>
+            </tr>
+            <tr >
+                <td >MBAYA</td>
+                <td>HANS</td>
+                <td>18</td>
+                <td>LE 05-09-2006</td>
+                <td>HVD DISASHI</td>
+            </tr>
+            <tr>
+                <th colspan="5" style="text-align: center;">MUKUNDI CHRISTINE</th>
+            </tr>
+            <tr>
+                <th>NOM</th>
+                <th>PRÉNOM</th>
+                <th>ÂGE</th>
+                <th>DATE DE NAISSANCE</th>
+                <th>HÔPITAL DE NAISSANCE</th>
+            </tr>
+            <tr>
+                <td>MUSUAMBA</td>
+                <td>SÉPHORA</td>
+                <td>21</td>
+                <td>LE 21-07-2003</td>
+                <td>BLAISE</td>
+            </tr>
+            <tr>
+                <td>KAZADI</td>
+                <td>VICTOR</td>
+                <td>19</td>
+                <td>LE 20-11-2005</td>
+                <td>BONZOLA</td>
+            </tr>
+            <tr>
+                <td>BINDILA</td>
+                <td>RUTH</td>
+                <td>15</td>
+                <td>LE 19-04-2009</td>
+                <td>DISANGA</td>
+            </tr>
+            <tr>
+                <td>TSHISABI</td>
+                <td>ASTRID</td>
+                <td>13</td>
+                <td>LE 16-09-2011</td>
+                <td>LA GRÂCE À DIEU</td>
+            </tr>
+            <tr>
+                <td>MBAALA</td>
+                <td>GRÉGOIRE</td>
+                <td>11</td>
+                <td>LE 24-06-2013</td>
+                <td>LA GRÂCE À DIEU</td>
+            </tr>
+            <tr>
+                <td>KABALAADI</td>
+                <td>DAOUDA</td>
+                <td>6</td>
+                <td>LE 18-03-2018</td>
+                <td>LA GRÂCE À DIEU</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<script>
+    // Ajouter des effets visuels au tableau
+    const rows = document.querySelectorAll('table tr');
+    rows.forEach(row => {
+        row.addEventListener('mouseover', () => {
+            row.style.backgroundColor = '#e0f7fa';
+        });
+        row.addEventListener('mouseout', () => {
+            row.style.backgroundColor = '';
+        });
+    });
+</script>
+
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil de Hans Hmb</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        .profile-header {
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            border-bottom: 5px solid #2575fc;
+        }
+        .profile-header h1 {
+            margin: 0;
+            font-size: 32px;
+            animation: fadeIn 2s;
+        }
+        .profile-header p {
+            margin: 5px 0;
+            font-size: 18px;
+            animation: fadeIn 3s;
+        }
+        .profile-stats {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+            animation: slideIn 1.5s;
+        }
+        .profile-stats div {
+            margin: 0 20px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .profile-content {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+            animation: slideIn 2s;
+        }
+        .profile-content a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: #555;
+            font-size: 18px;
+            transition: color 0.3s;
+        }
+        .profile-content a:hover {
+            color: #2575fc;
+        }
+        .profile-info {
+            text-align: center;
+            margin-top: 30px;
+            animation: fadeIn 4s;
+        }
+        .profile-info p {
+            margin: 10px 0;
+            font-size: 16px;
+        }
+        .profile-info a {
+            color: #2575fc;
+            text-decoration: none;
+            transition: text-decoration 0.3s;
+        }
+        .profile-info a:hover {
+            text-decoration: underline;
+        }
+        button {
+            background-color: #2575fc;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #6a11cb;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideIn {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .scrollable-content {
+            max-height: 300px;
+            overflow-y: auto;
+            margin: 20px;
+            padding: 10px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-header">
+        <h1>HMB-TECH</h1>
+        <div class="profile-stats">
+            <div>5,1 K followers</div>
+            <div>1,8K suivi(e)s</div>
+        </div>
+        <button>nous suivre sur Facebook</button>
+    </div>
+    <div class="profile-content">
+        <a href="#">Publications</a>
+        <a href="#">À propos</a>
+        <a href="#">Reels</a>
+        <a href="#">Photos</a>
+    </div>
+    <div class="scrollable-content">
+        <div class="profile-info">
+            <p>Profil</p>
+            <p>Musique/groupe</p>
+            <p><a href="https://tiktok.com/@hansmbayamuamba" target="_blank">tiktok.com/@hansmbayamuamba</a></p>
+            <p><a href="#">Modifier les informations publiques</a></p>
+        </div>
+    </div>
+    <script>
+        // Ajoutez des interactions JavaScript ici si nécessaire
+    </script>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Capture d'e-mail</title>
+    <style>
+        .email-container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 30px;
+            background-color: #f7f7f7;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        .email-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        input[type="email"], input[type="text"] {
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        input[type="submit"] {
+            background-color: blue;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        h2 {
+            color: black ;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body> 
+    <div class="email-container">
+        <h2>Inscrivez-vous à notre newsletter</h2>
+        <form class="email-form" action="mailto:mbayahans@gmail.com" method="post" enctype="text/plain">
+            <input type="text" name="name" placeholder="Votre nom" required>
+            <input type="email" name="email" placeholder="Votre adresse e-mail" required>
+            <input type="submit" value="S'inscrire">
+        </form>
+    </div>
+</body>
+</html>
+
+<script src="https://www.paypal.com/sdk/js?client-id=BAAx5VPXthAwolH171luRphTQU84Lb28_3ityHfKkGNEkiZzny8GUxTELQ-XtGK5_2qSWDdZNF9foY5xiw&components=hosted-buttons&disable-funding=venmo&currency=USD"></script>
+<div id="paypal-container-HBPV4WRU4P9DE"></div>
+<script>
+  paypal.HostedButtons({
+    hostedButtonId: "HBPV4WRU4P9DE",
+  }).render("#paypal-container-HBPV4WRU4P9DE")
+</script>
+
+<div id="paypal-container-HBPV4WRU4P9DE"></div>
+
+
+<script>
+  document.addEventListener("DOMContentLoaded", (event) => {
+    paypal.HostedButtons({
+      hostedButtonId: "HBPV4WRU4P9DE"
+    })
+    .render("#paypal-container-HBPV4WRU4P9DE")
+  })
+</script>
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page PayPal</title>
+    <style>
+        #paypal-container {
+            width: 100%;
+            height: auto;
+            position: relative;
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Contenu principal de la page ici -->
+
+    <div id="paypal-container">
+        <!-- Intégration du bouton PayPal dynamique -->
+        <script src="https://www.paypal.com/sdk/js?client-id=YOUR_PAYPAL_CLIENT_ID&currency=USD"></script>
+        <div id="paypal-button-container"></div>
+        <script>
+            paypal.Buttons({
+                createOrder: function(data, actions) {
+                    return actions.order.create({
+                        purchase_units: [{
+                            amount: {
+                                value: '1.00' // Remplace par le montant que tu veux
+                            }
+                        }]
+                    });
+                },
+                onApprove: function(data, actions) {
+                    return actions.order.capture().then(function(details) {
+                        alert('Merci, ' + details.payer.name.given_name + '! Votre don a bien été traité.');
+                    });
+                }
+            }).render('#paypal-button-container');
+        </script>
+    </div>
+
+</body>
+</html>
+
+
+
+
