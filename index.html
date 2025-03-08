@@ -2,44 +2,42 @@
 <html>
 <head>
 <style>
-body {
-    margin: 0;
-    background: #f0f8ff;
-    min-height: 100vh;
-}
-
+/* Section Entête Fixe */
 .tabs-container {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
+    height: 60px;
     background: linear-gradient(145deg, #87CEEB, #B0E2FF);
-    padding: 0;
     z-index: 1000;
-    box-shadow: 0 4px 15px rgba(135, 206, 235, 0.3);
     overflow-x: auto;
-    transition: background 0.5s ease;
-    animation: skyAnimation 15s ease infinite;
-    background-size: 200% 200%;
 }
 
+/* Section Contenu */
+.content-frame {
+    position: fixed;
+    top: 60px; /* Hauteur de l'entête */
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border: none;
+    width: 100%;
+    height: calc(100vh - 60px);
+}
+
+/* Styles des onglets */
 .tabs-list {
     list-style: none;
     margin: 0;
     padding: 0 20px;
-    display: inline-flex;
-    white-space: nowrap;
-    height: 60px;
+    display: flex;
+    height: 100%;
+    align-items: center;
 }
 
 .tab-item {
-    display: inline-block;
     margin-right: 25px;
-    transition: transform 0.3s ease;
-}
-
-.tab-item:hover {
-    transform: translateY(-2px);
 }
 
 .tab-link {
@@ -47,23 +45,16 @@ body {
     color: #2F4F4F;
     font-family: 'Segoe UI', Arial, sans-serif;
     font-weight: 600;
-    padding: 18px 0;
+    padding: 15px 20px;
     display: block;
     position: relative;
     transition: all 0.3s ease;
-    min-width: 120px;
-    text-align: center;
-    letter-spacing: 0.5px;
-}
-
-.tab-link:hover {
-    color: #0077B5;
-    background: rgba(255, 255, 255, 0.2);
+    border-radius: 5px;
 }
 
 .tab-link.active {
-    color: #FFFFFF;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    background: rgba(255, 255, 255, 0.3);
+    color: #0077B5;
 }
 
 .tab-link.active::after {
@@ -72,77 +63,14 @@ body {
     bottom: -1px;
     left: 0;
     right: 0;
-    height: 4px;
+    height: 3px;
     background: linear-gradient(to right, #0077B5, #FFD700, #CE1126);
-    border-radius: 3px 3px 0 0;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-@keyframes skyAnimation {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
 }
 </style>
 </head>
 <body>
 
-<div class="tabs-container">
-    <ul class="tabs-list">
-<!DOCTYPE html>
-<html>
-<head>
-<style>
-.tabs-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    background: linear-gradient(145deg, #87CEEB, #B0E2FF);
-    padding: 0 20px;
-    z-index: 1000;
-    overflow-x: auto;
-}
-
-.tabs-list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    height: 60px;
-}
-
-.tab-item {
-    margin-right: 15px;
-}
-
-.tab-link {
-    display: block;
-    padding: 15px 25px;
-    text-decoration: none;
-    color: #2F4F4F;
-    font-weight: bold;
-    border-radius: 5px;
-    transition: all 0.3s ease;
-    background: rgba(255, 255, 255, 0.3);
-    border: 2px solid transparent;
-}
-
-.tab-link:hover {
-    background: rgba(255, 255, 255, 0.5);
-    transform: translateY(-2px);
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-}
-
-.tab-link.active {
-    background: #0077B5;
-    color: white;
-    border-color: #FFD700;
-}
-</style>
-</head>
-<body>
-
+<!-- Section Entête -->
 <div class="tabs-container">
     <ul class="tabs-list">
         <li class="tab-item"><a href="https://HansHugoHMB.github.io/Power-family-/index.html" class="tab-link active">Accueil</a></li>
@@ -154,30 +82,31 @@ body {
     </ul>
 </div>
 
-<script>
-document.querySelectorAll('.tab-link').forEach(link => {
-    link.addEventListener('click', function(e) {
-        // Enlève la classe active de tous les onglets
-        document.querySelectorAll('.tab-link').forEach(l => l.classList.remove('active'));
-        // Ajoute la classe active à l'onglet cliqué
-        this.classList.add('active');
-        
-        // Redirection vers la page cible
-        window.location.href = this.getAttribute('href');
-    });
-});
-</script>
-
-</body>
-</html></div>
+<!-- Section Contenu Dynamique -->
+<iframe name="contentFrame" class="content-frame" src="index.html"></iframe>
 
 <script>
+// Gestion des onglets et chargement du contenu
 document.querySelectorAll('.tab-link').forEach(link => {
     link.addEventListener('click', function(e) {
         e.preventDefault();
+        
+        // Mise à jour de la classe active
         document.querySelectorAll('.tab-link').forEach(l => l.classList.remove('active'));
         this.classList.add('active');
+        
+        // Chargement du contenu dans l'iframe
+        const iframe = document.querySelector('.content-frame');
+        iframe.src = this.href;
     });
+});
+
+// Gestion de l'état actif au chargement
+const currentPage = window.location.pathname.split('/').pop();
+document.querySelectorAll('.tab-link').forEach(link => {
+    if(link.href.includes(currentPage)) {
+        link.classList.add('active');
+    }
 });
 </script>
 
