@@ -2,7 +2,7 @@
 <html>
 <head>
 <style>
-/* Section Entête Fixe */
+/* Styles de l'entête fixe */
 .tabs-container {
     position: fixed;
     top: 0;
@@ -14,19 +14,17 @@
     overflow-x: auto;
 }
 
-/* Section Contenu */
 .content-frame {
     position: fixed;
-    top: 60px; /* Hauteur de l'entête */
+    top: 60px;
     left: 0;
     right: 0;
     bottom: 0;
-    border: none;
     width: 100%;
     height: calc(100vh - 60px);
+    border: none;
 }
 
-/* Styles des onglets */
 .tabs-list {
     list-style: none;
     margin: 0;
@@ -70,43 +68,58 @@
 </head>
 <body>
 
-<!-- Section Entête -->
+<!-- Entête -->
 <div class="tabs-container">
     <ul class="tabs-list">
         <li class="tab-item"><a href="https://HansHugoHMB.github.io/Power-family-/index.html" class="tab-link active">Accueil</a></li>
-        <li class="tab-item"><a href="https://HansHugoHMB.github.io/Power-family-/index.html" class="tab-link">Actualités</a></li>
-        <li class="tab-item"><a href="https://HansHugoHMB.github.io/Power-family-/index.html" class="tab-link">Messages</a></li>
+        <li class="tab-item"><a href="https://hanshugohmb.github.io/Baya-s-Family-/index.html" class="tab-link">Actualités</a></li>
+        <li class="tab-item"><a href="https://hanshugohmb.github.io/Baya-s-Family-/index.html" class="tab-link">Messages</a></li>
         <li class="tab-item"><a href="https://hanshugohmb.github.io/Baya-s-Family-/index.html" class="tab-link">À propos</a></li>
-        <li class="tab-item"><a href="https://HansHugoHMB.github.io/Power-family-/index.html" class="tab-link">Galerie</a></li>
-        <li class="tab-item"><a href="https://HansHugoHMB.github.io/Power-family-/index.html" class="tab-link">Contact</a></li>
+        <li class="tab-item"><a href="https://mbayamuambahans.home.blog" class="tab-link">Galerie</a></li>
+        <li class="tab-item"><a href="https://hanshugohmb.github.io/Baya-s-Family-/index.html" class="tab-link">Contact</a></li>
     </ul>
 </div>
 
-<!-- Section Contenu Dynamique -->
-<iframe name="contentFrame" class="content-frame" src="index.html"></iframe>
+<!-- Contenu -->
+<iframe class="content-frame" src="accueil.html" name="contentFrame"></iframe>
 
 <script>
-// Gestion des onglets et chargement du contenu
-document.querySelectorAll('.tab-link').forEach(link => {
-    link.addEventListener('click', function(e) {
-        e.preventDefault();
-        
-        // Mise à jour de la classe active
-        document.querySelectorAll('.tab-link').forEach(l => l.classList.remove('active'));
-        this.classList.add('active');
-        
-        // Chargement du contenu dans l'iframe
-        const iframe = document.querySelector('.content-frame');
-        iframe.src = this.href;
-    });
-});
-
-// Gestion de l'état actif au chargement
-const currentPage = window.location.pathname.split('/').pop();
-document.querySelectorAll('.tab-link').forEach(link => {
-    if(link.href.includes(currentPage)) {
-        link.classList.add('active');
+document.addEventListener('DOMContentLoaded', function() {
+    const links = document.querySelectorAll('.tab-link');
+    const iframe = document.querySelector('.content-frame');
+    
+    // Activation automatique de l'accueil au premier chargement
+    if(!window.location.hash) {
+        links[0].classList.add('active');
+        iframe.src = links[0].href;
     }
+
+    // Gestion des clics
+    links.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Mise à jour des classes actives
+            links.forEach(l => l.classList.remove('active'));
+            this.classList.add('active');
+            
+            // Chargement du contenu
+            iframe.src = this.href;
+            
+            // Mise à jour de l'URL dans la barre d'adresse
+            window.history.pushState({}, '', this.href);
+        });
+    });
+
+    // Gestion du retour en arrière
+    window.onpopstate = function() {
+        const activeLink = document.querySelector(`.tab-link[href="${window.location.pathname}"]`);
+        if(activeLink) {
+            links.forEach(l => l.classList.remove('active'));
+            activeLink.classList.add('active');
+            iframe.src = activeLink.href;
+        }
+    };
 });
 </script>
 
@@ -197,62 +210,7 @@ document.querySelectorAll('.tab-link').forEach(link => {
         renderList();
         updateStats();
     </script>
-    <!DOCTYPE html>
-<html>
-<head>
-<style>
-.rdc-banner {
-    position: relative;
-    width: 100%;
-    height: 1cm;
-    overflow: hidden;
-    font-family: Arial, sans-serif;
-}
-
-.color-wave {
-    width: 300%;
-    height: 100%;
-    background: linear-gradient(
-        to right,
-        #0077B5,
-        #0077B5 33.33%,
-        #FFD700 33.33%,
-        #FFD700 66.66%,
-        #CE1126 66.66%,
-        #CE1126 100%
-    );
-    animation: slide 10s linear infinite;
-}
-
-.banner-text {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: white;
-    font-weight: bold;
-    font-size: 1.2em;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-    white-space: nowrap;
-    z-index: 2;
-    mix-blend-mode: multiply;
-}
-
-@keyframes slide {
-    0% { transform: translateX(-66.66%); }
-    100% { transform: translateX(0); }
-}
-</style>
-</head>
-<body>
-
-<div class="rdc-banner">
-    <div class="color-wave"></div>
-    <div class="banner-text">PRÉPA H POWER FAMILY 🎓</div>
-</div>
-
-</body>
-</html>
+    
 
 <!DOCTYPE html>
 <html>
