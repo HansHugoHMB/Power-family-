@@ -481,4 +481,55 @@ document.addEventListener('DOMContentLoaded', updateTotals);
         /* Overlay style */
         #securityOverlay {
             position: fixed;
-  
+
+            <script>
+// Ajouter ces variables et fonctions dans le script existant
+const fraudeurs = new Set();
+
+function updateFraudeursList(index, value) {
+    const etudiant = students[index].name;
+    
+    if (value === students[index].code) {
+        // Si correction du code, retirer de la liste
+        if (fraudeurs.has(etudiant)) {
+            fraudeurs.delete(etudiant);
+        }
+    } else if (value.length >= 6 && value !== students[index].code) {
+        // Ajouter à la liste des fraudeurs
+        fraudeurs.add(etudiant);
+    }
+    
+    // Mettre à jour l'affichage
+    const liste = document.getElementById('fraudeursList');
+    liste.innerHTML = Array.from(fraudeurs).map(name => 
+        `<li style="padding: 5px; border-bottom: 1px dashed #ff9999;">
+            🚨 ${name} - Tentative à ${new Date().toLocaleTimeString()}
+         </li>`
+    ).join('');
+}
+
+// Modifier la fonction validateCode existante
+function validateCode(index, value) {
+    const row = document.getElementById(`row-${index}`);
+    const status = document.getElementById(`status-${index}`);
+    
+    if (value === students[index].code) {
+        row.classList.add('valid');
+        row.classList.remove('invalid');
+        status.innerText = "Présent";
+    } else if (value.length >= 6) {
+        row.classList.add('invalid');
+        row.classList.remove('valid');
+        status.innerText = "Code erroné";
+    } else {
+        row.classList.remove('valid', 'invalid');
+        status.innerText = "Absent";
+    }
+    
+    updateTotals();
+    updateFraudeursList(index, value); // Appel de la nouvelle fonction
+}
+</script>
+
+
+            
