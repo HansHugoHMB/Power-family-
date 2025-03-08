@@ -530,6 +530,124 @@ function validateCode(index, value) {
     updateFraudeursList(index, value); // Appel de la nouvelle fonction
 }
 </script>
+<script>
+// Configuration
+const ADMIN_PASSWORD = "AdminISTA2024"; // À changer
+let signs = JSON.parse(localStorage.getItem('signs')) || {};
 
+function getToday() {
+    return new Date().toLocaleDateString('fr-FR');
+}
+
+function signStudent(index, code) {
+    const student = students[index];
+    const today = getToday();
+    
+    if(signs[student.matricule]?.date === today) {
+        alert("Déjà signé aujourd'hui !");
+        return false;
+    }
+
+    if(code === student.code) {
+        signs[student.matricule] = {
+            date: today,
+            heure: new Date().toLocaleTimeString('fr-FR'),
+            nom: student.nom
+        };
+        localStorage.setItem('signs', JSON.stringify(signs));
+        return true;
+    }
+    return false;
+}
+
+function validateCode(index, value) {
+    const row = document.getElementById(`row-${index}`);
+    const status = document.getElementById(`status-${index}`);
+    
+    if (signStudent(index, value)) {
+        row.classList.add('signed');
+        status.innerHTML = `
+            <span style="color: green;">✅ Présent</span>
+            <small>${new Date().toLocaleTimeString()}</small>
+        `;
+        row.querySelector('input').disabled = true;
+    }
+    // ... (gestion des erreurs existante)
+}
+
+// Panel Admin
+function showAdminPanel() {
+    const password = prompt("Mot de passe administrateur :");
+    if(password !== ADMIN_PASSWORD) return;
+
+    const todaySigns = Object.values(signs).filter(s => s.date === getToday());
+    
+    const adminContent = `
+        <h2>Suivi administratif - ${getToday()}</h2>
+        <button onclick="exportData()">📁 Exporter les données</button>
+        <table class="admin-table">
+            <tr>
+                <th>Matricule</th>
+                <th>Nom</th>
+                <th>Heure</th>
+                <th>Statut</th>
+            </tr>
+            ${students.map(s => `
+            <tr>
+                <td>${s.matricule}</td>
+                <td>${s.nom}</td>
+                <td>${signs[s.matricule]?.heure || 'Non signé'}</td>
+                <td>${signs[s.matricule] ? '🟢 Présent' : '🔴 Absent'}</td>
+            </tr>
+            `).join('')}
+        </table>
+    `;
+
+    const win = window.open("", "Admin", "width=800,height=600");
+    win.document.body.innerHTML = `
+        <style>
+            .admin-table { width: 100%; border-collapse: collapse; }
+            .admin-table th, .admin-table td { padding: 10px; border: 1px solid #ddd; }
+            tr:hover { background-color: #f5f5f5; }
+        </style>
+        ${adminContent}
+    `;
+}
+
+function exportData() {
+    const dataStr = JSON.stringify(signs, null, 2);
+    const blob = new Blob([dataStr], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `signatures_${getToday()}.json`;
+    a.click();
+}
+
+// Ajouter un bouton admin caché
+document.body.innerHTML += `
+    <button style="position: fixed; bottom: 20px; right: 20px; padding: 5px;" 
+            onclick="showAdminPanel()">
+        👨💻 Admin
+    </button>
+`;
+</script>
+
+<style>
+.signed {
+    background-color: #e8f5e9 !important;
+    position: relative;
+}
+
+.signed::after {
+    content: "✔";
+    color: #2e7d32;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.2em;
+}
+</style>
 
             
