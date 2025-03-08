@@ -1,4 +1,117 @@
 <!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+    margin: 0;
+    background: #f0f8ff;
+    min-height: 100vh;
+}
+
+.tabs-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(145deg, #87CEEB, #B0E2FF);
+    padding: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 15px rgba(135, 206, 235, 0.3);
+    overflow-x: auto;
+    transition: background 0.5s ease;
+    animation: skyAnimation 15s ease infinite;
+    background-size: 200% 200%;
+}
+
+.tabs-list {
+    list-style: none;
+    margin: 0;
+    padding: 0 20px;
+    display: inline-flex;
+    white-space: nowrap;
+    height: 60px;
+}
+
+.tab-item {
+    display: inline-block;
+    margin-right: 25px;
+    transition: transform 0.3s ease;
+}
+
+.tab-item:hover {
+    transform: translateY(-2px);
+}
+
+.tab-link {
+    text-decoration: none;
+    color: #2F4F4F;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    font-weight: 600;
+    padding: 18px 0;
+    display: block;
+    position: relative;
+    transition: all 0.3s ease;
+    min-width: 120px;
+    text-align: center;
+    letter-spacing: 0.5px;
+}
+
+.tab-link:hover {
+    color: #0077B5;
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.tab-link.active {
+    color: #FFFFFF;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.tab-link.active::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(to right, #0077B5, #FFD700, #CE1126);
+    border-radius: 3px 3px 0 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+@keyframes skyAnimation {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+</style>
+</head>
+<body>
+
+<div class="tabs-container">
+    <ul class="tabs-list">
+        <li class="tab-item"><a href="#accueil" class="tab-link active">Accueil</a></li>
+        <li class="tab-item"><a href="#actualites" class="tab-link">Actualités</a></li>
+        <li class="tab-item"><a href="#messages" class="tab-link">Messages</a></li>
+        <li class="tab-item"><a href="#À propos.html" class="tab-link">À propos</a></li>
+        <li class="tab-item"><a href="#galerie" class="tab-link">Galerie</a></li>
+        <li class="tab-item"><a href="#contact" class="tab-link">Contact</a></li>
+    </ul>
+</div>
+
+<script>
+document.querySelectorAll('.tab-link').forEach(link => {
+    link.addEventListener('click', function(e) {
+        e.preventDefault();
+        document.querySelectorAll('.tab-link').forEach(l => l.classList.remove('active'));
+        this.classList.add('active');
+    });
+});
+</script>
+
+</body>
+</html>
+
+<!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
