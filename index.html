@@ -2,129 +2,43 @@
 <html>
 <head>
 <style>
-/* Styles de l'entête fixe */
-.tabs-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 60px;
-    background: linear-gradient(145deg, #87CEEB, #B0E2FF);
-    z-index: 1000;
-    overflow-x: auto;
-}
-
-.content-frame {
-    position: fixed;
-    top: 60px;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    width: 100%;
-    height: calc(100vh - 60px);
-    border: none;
-}
-
-.tabs-list {
-    list-style: none;
-    margin: 0;
-    padding: 0 20px;
-    display: flex;
-    height: 100%;
-    align-items: center;
-}
-
-.tab-item {
-    margin-right: 25px;
-}
-
-.tab-link {
-    text-decoration: none;
-    color: #2F4F4F;
-    font-family: 'Segoe UI', Arial, sans-serif;
-    font-weight: 600;
-    padding: 15px 20px;
-    display: block;
+.rdc-banner {
     position: relative;
-    transition: all 0.3s ease;
-    border-radius: 5px;
+    width: 100%;
+    height: 1cm;
+    overflow: hidden;
 }
 
-.tab-link.active {
-    background: rgba(255, 255, 255, 0.3);
-    color: #0077B5;
+.color-wave {
+    width: 300%;
+    height: 100%;
+    background: linear-gradient(
+        to right,
+        #0077B5,
+        #0077B5 33.33%,
+        #FFD700 33.33%,
+        #FFD700 66.66%,
+        #CE1126 66.66%,
+        #CE1126 100%
+    );
+    animation: slide 10s linear infinite;
 }
 
-.tab-link.active::after {
-    content: '';
-    position: absolute;
-    bottom: -1px;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background: linear-gradient(to right, #0077B5, #FFD700, #CE1126);
+@keyframes slide {
+    0% { transform: translateX(-66.66%); }
+    100% { transform: translateX(0); }
 }
 </style>
 </head>
 <body>
 
-<!-- Entête -->
-<div class="tabs-container">
-    <ul class="tabs-list">
-        <li class="tab-item"><a href="https://HansHugoHMB.github.io/Power-family-/index.html" class="tab-link active">Accueil</a></li>
-        <li class="tab-item"><a href="https://hanshugohmb.github.io/Baya-s-Family-/index.html" class="tab-link">Actualités</a></li>
-        <li class="tab-item"><a href="https://hanshugohmb.github.io/Baya-s-Family-/index.html" class="tab-link">Messages</a></li>
-        <li class="tab-item"><a href="https://hanshugohmb.github.io/Baya-s-Family-/index.html" class="tab-link">À propos</a></li>
-        <li class="tab-item"><a href="https://mbayamuambahans.home.blog" class="tab-link">Galerie</a></li>
-        <li class="tab-item"><a href="https://hanshugohmb.github.io/Baya-s-Family-/index.html" class="tab-link">Contact</a></li>
-    </ul>
+<div class="rdc-banner">
+    <div class="color-wave"></div>
 </div>
-
-<!-- Contenu -->
-<iframe class="content-frame" src="accueil.html" name="contentFrame"></iframe>
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const links = document.querySelectorAll('.tab-link');
-    const iframe = document.querySelector('.content-frame');
-    
-    // Activation automatique de l'accueil au premier chargement
-    if(!window.location.hash) {
-        links[0].classList.add('active');
-        iframe.src = links[0].href;
-    }
-
-    // Gestion des clics
-    links.forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            // Mise à jour des classes actives
-            links.forEach(l => l.classList.remove('active'));
-            this.classList.add('active');
-            
-            // Chargement du contenu
-            iframe.src = this.href;
-            
-            // Mise à jour de l'URL dans la barre d'adresse
-            window.history.pushState({}, '', this.href);
-        });
-    });
-
-    // Gestion du retour en arrière
-    window.onpopstate = function() {
-        const activeLink = document.querySelector(`.tab-link[href="${window.location.pathname}"]`);
-        if(activeLink) {
-            links.forEach(l => l.classList.remove('active'));
-            activeLink.classList.add('active');
-            iframe.src = activeLink.href;
-        }
-    };
-});
-</script>
 
 </body>
 </html>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
