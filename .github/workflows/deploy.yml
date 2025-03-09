@@ -1,0 +1,28 @@
+name: Deploy with Print Support
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install Python & Tools
+        run: |
+          sudo apt-get install -y python3-weasyprint
+
+      - name: Generate PDF Backup
+        run: |
+          echo '<html><body><h1>Contenu de secours</h1></body></html>' > backup.html
+          weasyprint backup.html backup.pdf
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./
+          keep_files: true
