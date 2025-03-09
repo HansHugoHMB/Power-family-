@@ -1,18 +1,18 @@
-#printButton {
+#printBtn {
     position: fixed;
     bottom: 20px;
     right: 20px;
-    padding: 10px 25px;
-    background: #007bff;
+    padding: 15px;
+    background: #4CAF50;
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 50%;
     cursor: pointer;
-    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
 }
 
 @media print {
-    #printButton {
+    #printBtn {
         display: none;
     }
 }
