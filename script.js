@@ -40,10 +40,12 @@ function genererPDF() {
   doc.save("mon_document.pdf");
 }
 
+import config from './config/token.js';
+
 const GITHUB_USER = "HansHugoHMB";
 const REPO_NAME = "Power-family-";
 const FILE_PATH = "data/presences.json";
-const TOKEN = "";
+const TOKEN = config.GITHUB_TOKEN;
 
 // Fonction pour récupérer les présences depuis GitHub
 async function fetchPresences() {
