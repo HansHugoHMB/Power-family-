@@ -1,3 +1,23 @@
+function validateCode(index, value) {
+    const row = document.getElementById(`row-${index}`);
+    const status = document.getElementById(`status-${index}`);
+    const input = row.querySelector('.code-input');
+    
+    if (value === students[index].code) {
+        row.classList.add('valid');
+        row.classList.remove('invalid');
+        status.innerText = "Présent";
+        input.style.display = 'none'; // Cacher le champ de saisie
+    } else if (value.length >= 6) {
+        row.classList.add('invalid');
+        row.classList.remove('valid');
+        status.innerText = "Code erroné";
+    } else {
+        row.classList.remove('valid', 'invalid');
+        status.innerText = "Absent";
+        input.style.display = ''; // Réafficher le champ si nécessaire
+    }
+}
 document.getElementById('printBtn').addEventListener('click', () => {
     // Solution hybride intelligente
     if (navigator.userAgent.includes('Android')) {
