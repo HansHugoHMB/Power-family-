@@ -1,3 +1,7 @@
+# Ignorer le dossier config
+config/
+
+# Ignorer les fichiers de configuration
 .config
 .env
 .token
