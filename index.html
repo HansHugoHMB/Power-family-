@@ -1,44 +1,6 @@
-<!DOCTYPE html>
-<html>
-<head>
-<style>
-.rdc-banner {
-    position: relative;
-    width: 100%;
-    height: 1cm;
-    overflow: hidden;
-}
-
-.color-wave {
-    width: 300%;
-    height: 100%;
-    background: linear-gradient(
-        to right,
-        #0077B5,
-        #0077B5 33.33%,
-        #FFD700 33.33%,
-        #FFD700 66.66%,
-        #CE1126 66.66%,
-        #CE1126 100%
-    );
-    animation: slide 10s linear infinite;
-}
-
-@keyframes slide {
-    0% { transform: translateX(-66.66%); }
-    100% { transform: translateX(0); }
-}
-</style>
-</head>
-<body>
-
-<div class="rdc-banner">
-    <div class="color-wave"></div>
-</div>
 
 </body>
 </html>
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -49,82 +11,92 @@
         table { border-collapse: collapse; margin-bottom: 20px; width: 100%; }
         th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
         .code-input { width: 100px; text-align: center; }
-        
+
         /* Couleurs des lignes */
-        tr:nth-child(3n+1) { background-color: #ffffcc; } /* Jaune */
-        tr:nth-child(3n+2) { background-color: #ffcccc; } /* Rouge */
-        tr:nth-child(3n+3) { background-color: #cce5ff; } /* Bleu */
-       
-        .valid { background-color: #cce5ff !important; } /* Validation bleue */
-        .invalid { background-color: #ffcccc !important; } /* Code erroné */
+        tr:nth-child(3n+1) { background-color: #ffffcc; }
+        tr:nth-child(3n+2) { background-color: #ffcccc; }
+        tr:nth-child(3n+3) { background-color: #cce5ff; }
+
+        .valid { background-color: #cce5ff !important; }
+        .invalid { background-color: #ffcccc !important; }
+
+        /* Style du bouton */
+        #printBtn {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+
+        #totalSection {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+        }
     </style>
 </head>
+
+
+    <!DOCTYPE html>
+<html>
+<head>
+<style>
+.rdc-banner {
+    position: relative;
+    width: 100%;
+    height: 1cm;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+}
+
+.color-wave {
+    width: 300%;
+    height: 100%;
+    background: linear-gradient(
+        to right,
+        #0077B5,
+        #0077B5 33.33%,
+        #FFD700 33.33%,
+        #FFD700 66.66%,
+        #CE1126 66.66%,
+        #CE1126 100%
+    );
+    animation: slide 10s linear infinite;
+}
+
+.banner-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-weight: bold;
+    font-size: 1.2em;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    white-space: nowrap;
+    z-index: 2;
+    mix-blend-mode: multiply;
+}
+
+@keyframes slide {
+    0% { transform: translateX(-66.66%); }
+    100% { transform: translateX(0); }
+}
+</style>
+</head>
 <body>
-<script>,
-            fraude: 0
-        };
 
-        function renderList() {
-            const tbody = document.getElementById('studentList');
-            tbody.innerHTML = students.map((student, index) => `
-                <tr>
-                    <td>${index + 1}</td>
-                    <td>${student.name}</td>
-                    <td>
-                        <input class="code-input" type="password" 
-                            oninput="validateCode(${index}, this.value)">
-                    </td>
-                    <td id="status-${index}">Absent</td>
-                </tr>
-            `).join('');
-        }
+<div class="rdc-banner">
+    <div class="color-wave"></div>
+    <div class="banner-text"></div>
+</div>
 
-        function validateCode(index, value) {
-            const statusElement = document.getElementById(`status-${index}`);
-            const student = students[index];
-            
-            if (value === student.code) {
-                statusElement.className = 'present';
-                statusElement.textContent = 'Présent';
-                updateStats('present');
-            } else if (value.length >= 6) {
-                statusElement.className = 'fraude';
-                statusElement.textContent = 'Fraude';
-                updateStats('fraude');
-            } else {
-                statusElement.className = 'absent';
-                statusElement.textContent = 'Absent';
-                updateStats('absent');
-            }
-        }
-
-        function updateStats(type) {
-            // Réinitialiser les compteurs
-            stats = {
-                present: 0,
-                fraude: 0,
-                absent: 0
-            };
-
-            // Compter les statuts actuels
-            students.forEach((_, index) => {
-                const status = document.getElementById(`status-${index}`).textContent;
-                if (status === 'Présent') stats.present++;
-                else if (status === 'Fraude') stats.fraude++;
-                else stats.absent++;
-            });
-
-            // Mettre à jour l'affichage
-            document.querySelector('#totalPresent span').textContent = stats.present;
-            document.querySelector('#totalAbsent span').textContent = stats.absent;
-            document.querySelector('#totalFraude span').textContent = stats.fraude;
-        }
-
-        // Initialisation
-        renderList();
-        updateStats();
-    </script>
-    
+</body>
+</html>
 
 <!DOCTYPE html>
 <html>
@@ -167,7 +139,7 @@
 </body>
 </html>
 
-    
+
     <h1>Liste des présences Prépa H Power Family 🎓</h1>
 
     <table>
@@ -180,9 +152,30 @@
             </tr>
         </thead>
         <tbody id="studentList">
-            <!-- Généré par JavaScript -->
-        </tbody>
+            </tbody>
     </table>
+
+    <div style="margin: 20px 0; padding: 15px; background: #f5f5f5; border-radius: 5px;">
+        <h3>Statistiques en temps réel</h3>
+        <div style="display: flex; gap: 20px;">
+            <div style="padding: 10px; background: #d4edda; border-radius: 5px;">
+                Présents: <span id="totalPresent">0</span>
+            </div>
+            <div style="padding: 10px; background: #fff3cd; border-radius: 5px;">
+                Absents: <span id="totalAbsent">0</span>
+            </div>
+            <div style="padding: 10px; background: #f8d7da; border-radius: 5px;">
+                Frauduleux: <span id="totalFraude">0</span>
+            </div>
+        </div>
+    </div>
+
+    <div style="margin-top: 30px; padding: 15px; background: #ffe0b2; border-radius: 5px;">
+        <h3>Étudiants avec code erroné</h3>
+        <ul id="fraudeStudentList">
+            </ul>
+    </div>
+
 
     <script>
         // Liste complète des élèves avec codes AAA000+
@@ -288,6 +281,8 @@
             { name: "NOYO – MUKENDI", code: "AAA098" }
         ];
 
+        let fraudeStudents = []; // Tableau pour stocker les étudiants frauduleux
+
         function renderList() {
             const tbody = document.getElementById('studentList');
             tbody.innerHTML = students.map((student, index) => `
@@ -295,238 +290,93 @@
                     <td>${index + 1}</td>
                     <td>${student.name}</td>
                     <td>
-                        <input class="code-input" type="password" 
+                        <input class="code-input" type="password"
                                oninput="validateCode(${index}, this.value)">
+                        <span id="status-${index}" style="display:none;">Présent</span>
                     </td>
-                    <td id="status-${index}">Absent</td>
+                    <td id="textStatus-${index}">Absent</td>
                 </tr>
             `).join('');
         }
 
+        function updateTotals() {
+            let present = 0, absent = 0, fraude = 0;
+
+            students.forEach((_, index) => {
+                const status = document.getElementById(`textStatus-${index}`).textContent;
+                if(status === "Présent") present++;
+                else if(status === "Code erroné") fraude++;
+                else absent++;
+            });
+
+            document.getElementById('totalPresent').textContent = present;
+            document.getElementById('totalAbsent').textContent = absent;
+            document.getElementById('totalFraude').textContent = fraude;
+        }
+
+        function updateFraudeListDisplay() {
+            const fraudeListElement = document.getElementById('fraudeStudentList');
+            fraudeListElement.innerHTML = ''; // Effacer la liste précédente
+
+            fraudeStudents.forEach(studentName => {
+                const li = document.createElement('li');
+                li.textContent = studentName;
+                fraudeListElement.appendChild(li);
+            });
+        }
+
+
         function validateCode(index, value) {
             const row = document.getElementById(`row-${index}`);
-            const status = document.getElementById(`status-${index}`);
-            
+            const statusTextElement = document.getElementById(`textStatus-${index}`);
+            const statusSpanElement = document.getElementById(`status-${index}`);
+            const codeInputElement = row.querySelector('.code-input');
+            const studentName = students[index].name;
+
+
             if (value === students[index].code) {
                 row.classList.add('valid');
                 row.classList.remove('invalid');
-                status.innerText = "Présent";
+                statusTextElement.innerText = "Présent";
+                codeInputElement.style.display = 'none';
+                statusSpanElement.style.display = 'inline';
+
+                // Retirer de la liste fraude, si présent
+                fraudeStudents = fraudeStudents.filter(name => name !== studentName);
+
+
             } else if (value.length >= 6) {
                 row.classList.add('invalid');
                 row.classList.remove('valid');
-                status.innerText = "Code erroné";
+                statusTextElement.innerText = "Code erroné";
+                codeInputElement.style.display = 'inline';
+                statusSpanElement.style.display = 'none';
+
+                // Ajouter à la liste fraude, si non présent
+                if (!fraudeStudents.includes(studentName)) {
+                    fraudeStudents.push(studentName);
+                }
             } else {
                 row.classList.remove('valid', 'invalid');
-                status.innerText = "Absent";
+                statusTextElement.innerText = "Absent";
+                codeInputElement.style.display = 'inline';
+                statusSpanElement.style.display = 'none';
+
+                // Retirer de la liste fraude, si présent
+                fraudeStudents = fraudeStudents.filter(name => name !== studentName);
             }
+
+            updateTotals();
+            updateFraudeListDisplay(); // Mettre à jour la liste des frauduleux
         }
 
+
+        // Initialiser le tableau, les totaux et la liste des frauduleux
         renderList();
+        updateTotals();
+        updateFraudeListDisplay();
+
     </script>
 </body>
 </html>
 
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>Power Family Présences</title>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 20px; }
-        table { border-collapse: collapse; margin-bottom: 20px; width: 100%; }
-        th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
-        .code-input { width: 100px; text-align: center; }
-        
-        /* Couleurs des lignes */
-        tr:nth-child(3n+1) { background-color: #ffffcc; }
-        tr:nth-child(3n+2) { background-color: #ffcccc; }
-        tr:nth-child(3n+3) { background-color: #cce5ff; }
-        
-        .valid { background-color: #cce5ff !important; }
-        .invalid { background-color: #ffcccc !important; }
-        
-        /* Style du bouton */
-        #printBtn {
-            padding: 10px 20px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-bottom: 20px;
-        }
-        
-        #totalSection {
-            margin: 20px 0;
-            padding: 15px;
-            background-color: #f0f0f0;
-            border-radius: 5px;
-        }
-    </style>
-</head>
-<body>
-
-    
-    <button id="printBtn" onclick="window.print()">Imprimer la liste</button>
-    
-    <div id="totalSection">
-        <strong>Total des présents : </strong>
-        <span id="totalPresences">0</span>
-    </div>
-
-    <table>
-        <!-- Le tableau reste identique au précédent -->
-        <!-- ... -->
-    </table>
-
-    <script>
-        // ... (liste des étudiants inchangée) ...
-
-        function updateTotal() {
-            const presentCount = document.querySelectorAll('[id^="status-"]')
-                .forEach(el => el.innerText === "Présent" ? acc++ : acc, acc = 0);
-            document.getElementById('totalPresences').textContent = acc;
-        }
-
-        function validateCode(index, value) {
-            const row = document.getElementById(`row-${index}`);
-            const status = document.getElementById(`status-${index}`);
-            
-            if (value === students[index].code) {
-                row.classList.add('valid');
-                row.classList.remove('invalid');
-                status.innerText = "Présent";
-            } else if (value.length >= 6) {
-                row.classList.add('invalid');
-                row.classList.remove('valid');
-                status.innerText = "Code erroné";
-            } else {
-                row.classList.remove('valid', 'invalid');
-                status.innerText = "Absent";
-            }
-            
-            updateTotal(); // Mise à jour du total après chaque modification
-        }
-
-        // Initialisation
-        renderList();
-        updateTotal();
-    </script>
-</body>
-</html>
-
-<!-- Ajouter cette section après le tableau -->
-<div style="margin: 20px 0; padding: 15px; background: #f5f5f5; border-radius: 5px;">
-    <h3>Statistiques en temps réel</h3>
-    <div style="display: flex; gap: 20px;">
-        <div style="padding: 10px; background: #d4edda; border-radius: 5px;">
-            Présents: <span id="totalPresent">0</span>
-        </div>
-        <div style="padding: 10px; background: #fff3cd; border-radius: 5px;">
-            Absents: <span id="totalAbsent">0</span>
-        </div>
-        <div style="padding: 10px; background: #f8d7da; border-radius: 5px;">
-            Frauduleux: <span id="totalFraude">0</span>
-        </div>
-    </div>
-</div>
-
-<script>
-// Ajouter ces fonctions dans le script existant
-function updateTotals() {
-    let present = 0, absent = 0, fraude = 0;
-    
-    students.forEach((_, index) => {
-        const status = document.getElementById(`status-${index}`).textContent;
-        if(status === "Présent") present++;
-        else if(status === "Code erroné") fraude++;
-        else absent++;
-    });
-
-    document.getElementById('totalPresent').textContent = present;
-    document.getElementById('totalAbsent').textContent = absent;
-    document.getElementById('totalFraude').textContent = fraude;
-}
-
-// Modifier la fonction validateCode existante
-function validateCode(index, value) {
-    const row = document.getElementById(`row-${index}`);
-    const status = document.getElementById(`status-${index}`);
-    
-    if (value === students[index].code) {
-        row.classList.add('valid');
-        row.classList.remove('invalid');
-        status.innerText = "Présent";
-    } else if (value.length >= 6) {
-        row.classList.add('invalid');
-        row.classList.remove('valid');
-        status.innerText = "Code erroné";
-    } else {
-        row.classList.remove('valid', 'invalid');
-        status.innerText = "Absent";
-    }
-    
-    updateTotals(); // Appel de la mise à jour
-}
-
-// Initialiser les totaux au chargement
-document.addEventListener('DOMContentLoaded', updateTotals);
-</script>
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>Système de Présences Sécurisé</title>
-    <style>
-        /* Overlay style */
-        #securityOverlay {
-            position: fixed;
-
-            <script>
-// Ajouter ces variables et fonctions dans le script existant
-const fraudeurs = new Set();
-
-function updateFraudeursList(index, value) {
-    const etudiant = students[index].name;
-    
-    if (value === students[index].code) {
-        // Si correction du code, retirer de la liste
-        if (fraudeurs.has(etudiant)) {
-            fraudeurs.delete(etudiant);
-        }
-    } else if (value.length >= 6 && value !== students[index].code) {
-        // Ajouter à la liste des fraudeurs
-        fraudeurs.add(etudiant);
-    }
-    
-    // Mettre à jour l'affichage
-    const liste = document.getElementById('fraudeursList');
-    liste.innerHTML = Array.from(fraudeurs).map(name => 
-        `<li style="padding: 5px; border-bottom: 1px dashed #ff9999;">
-            🚨 ${name} - Tentative à ${new Date().toLocaleTimeString()}
-         </li>`
-    ).join('');
-}
-
-// Modifier la fonction validateCode existante
-function validateCode(index, value) {
-    const row = document.getElementById(`row-${index}`);
-    const status = document.getElementById(`status-${index}`);
-    
-    if (value === students[index].code) {
-        row.classList.add('valid');
-        row.classList.remove('invalid');
-        status.innerText = "Présent";
-    } else if (value.length >= 6) {
-        row.classList.add('invalid');
-        row.classList.remove('valid');
-        status.innerText = "Code erroné";
-    } else {
-        row.classList.remove('valid', 'invalid');
-        status.innerText = "Absent";
-    }
-    
-    updateTotals();
-    updateFraudeursList(index, value); // Appel de la nouvelle fonction
-}
-</script>
