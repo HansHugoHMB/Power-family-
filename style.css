@@ -1,25 +1,20 @@
+/* ... (Vos styles CSS existants) ... */
 
-#printBtn {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    padding: 15px 30px;
-    background: #2196F3;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 18px;
-    cursor: pointer;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    transition: transform 0.2s;
-}
+        /* Style du bouton d'impression */
+        #printBtn {
+            padding: 12px 24px;
+            background-color: #4CAF50; /* Vert, couleur souvent associée à l'impression */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 20px; /* Ajouter un peu d'espace en dessous */
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            transition: background-color 0.3s ease; /* Animation de transition au survol */
+            font-size: 1em; /* Taille de la police */
+            font-weight: bold; /* Texte en gras */
+        }
 
-#printBtn:hover {
-    transform: scale(1.05);
-    background: #1976D2;
-}
-
-@media print {
-    #printBtn { display: none; }
-    body { margin: 2cm; }
-}
+        #printBtn:hover {
+            background-color: #45a049; /* Vert légèrement plus foncé au survol */
+        }
