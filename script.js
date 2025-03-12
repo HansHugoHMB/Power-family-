@@ -162,3 +162,5 @@ document.addEventListener('DOMContentLoaded', async () => {
     renderList();
     await loadPresence();
 });
+
+console.log("Données enregistrées :", localStorage.getItem("presences"));
