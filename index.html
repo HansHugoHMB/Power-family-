@@ -321,7 +321,7 @@
                 else absent++;
             });
 
-            document.getElementById('totalPresent').textContent = 💡;
+            document.getElementById('totalPresent').textContent = présent;
             document.getElementById('totalAbsent').textContent = absent;
             document.getElementById('totalFraude').textContent = fraude;
         }
@@ -349,7 +349,7 @@
             if (value === students[index].code) {
                 row.classList.add('valid');
                 row.classList.remove('invalid');
-                statusTextElement.innerText = "Présent";
+                statusTextElement.innerText = "💡✔️";
                 codeInputElement.style.display = 'none';
                 statusSpanElement.style.display = 'inline';
 
