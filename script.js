@@ -31,3 +31,11 @@ function showAndroidInstruction() {
     `;
     document.body.appendChild(msg);
 }
+
+function genererPDF() {
+  var doc = new jsPDF();
+  doc.fromHTML(document.body, 15, 15, {
+    width: 170,
+  });
+  doc.save("mon_document.pdf");
+}
