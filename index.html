@@ -316,12 +316,12 @@
 
             students.forEach((_, index) => {
                 const status = document.getElementById(`textStatus-${index}`).textContent;
-                if(status === "Présent") 💡++;
+                if(status === "Présent") présent++;
                 else if(status === "Code erroné") fraude++;
                 else absent++;
             });
 
-            document.getElementById('totalPresent').textContent = present;
+            document.getElementById('totalPresent').textContent = 💡;
             document.getElementById('totalAbsent').textContent = absent;
             document.getElementById('totalFraude').textContent = fraude;
         }
