@@ -304,7 +304,7 @@
                     <td>
                         <input class="code-input" type="password"
                                oninput="validateCode(${index}, this.value)">
-                        <span id="status-${index}" style="display:none;">Présent</span>
+                        <span id="status-${index}" style="display:none;"></span>
                     </td>
                     <td id="textStatus-${index}">Absent</td>
                 </tr>
@@ -349,7 +349,7 @@
             if (value === students[index].code) {
                 row.classList.add('valid');
                 row.classList.remove('invalid');
-                statusTextElement.innerText = "💡✔️";
+                statusTextElement.innerText = "Présent";
                 codeInputElement.style.display = 'none';
                 statusSpanElement.style.display = 'inline';
 
