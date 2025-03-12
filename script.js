@@ -45,7 +45,7 @@ import config from './config/token.js';
 const GITHUB_USER = "HansHugoHMB";
 const REPO_NAME = "Power-family-";
 const FILE_PATH = "data/presences.json";
-const TOKEN = config.GITHUB_TOKEN;
+const TOKEN = "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";
 
 // Fonction pour récupérer les présences depuis GitHub
 async function fetchPresences() {
