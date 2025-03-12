@@ -700,3 +700,140 @@ function validateCode(index, value) {
     <script src="script.js"></script>
 </body>
 </html>
+
+
+<script>
+// 🔹 Remplace ces valeurs par tes informations GitHub
+const GITHUB_USER = "HansHugoHMB"; // Ex: "MbayaHans"
+const REPO_NAME = "Power-family"; // Ex: "power-family-presence"
+const FILE_PATH = "data/presences.json"; // Emplacement du fichier
+const TOKEN = "ghp_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"; // ⚠️ Ton token GitHub personnel
+
+// 🔹 Fonction pour récupérer les présences depuis GitHub
+async function fetchPresences() {
+    const url = `https://api.github.com/repos/${GITHUB_USER}/${REPO_NAME}/contents/${FILE_PATH}`;
+    
+    try {
+        const response = await fetch(url, { headers: { "Accept": "application/vnd.github.v3+json" } });
+        const data = await response.json();
+        
+        if (data.content) {
+            let decodedData = atob(data.content);
+            return JSON.parse(decodedData);
+        }
+    } catch (error) {
+        console.error("Erreur lors du chargement des présences :", error);
+    }
+    return {};
+}
+
+// 🔹 Fonction pour sauvegarder automatiquement les présences
+async function savePresences(presences) {
+    const url = `https://api.github.com/repos/${GITHUB_USER}/${REPO_NAME}/contents/${FILE_PATH}`;
+
+    let existingData = await fetchPresences(); // Récupérer les anciennes présences
+    let newData = { ...existingData, ...presences }; // Fusionner avec les nouvelles
+    let contentEncoded = btoa(JSON.stringify(newData, null, 2)); // Convertir en base64
+
+    let sha = "";
+    try {
+        const res = await fetch(url, { headers: { "Accept": "application/vnd.github.v3+json" } });
+        const data = await res.json();
+        sha = data.sha;
+    } catch (e) {
+        console.log("Fichier non trouvé, création d'un nouveau fichier.");
+    }
+
+    const body = {
+        message: "Mise à jour automatique des présences",
+        content: contentEncoded,
+        sha: sha
+    };
+
+    const response = await fetch(url, {
+        method: "PUT",
+        headers: {
+            "Authorization": `token ${TOKEN}`,
+            "Accept": "application/vnd.github.v3+json",
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(body)
+    });
+
+    if (!response.ok) {
+        console.error("❌ Erreur lors de l'enregistrement sur GitHub !");
+    } else {
+        console.log("✅ Présences enregistrées avec succès !");
+    }
+}
+
+// 🔹 Fonction qui s'exécute à chaque validation de code
+function validateCode(index, value) {
+    let row = document.getElementById(`row-${index}`);
+    let status = document.getElementById(`status-${index}`);
+    let inputField = document.querySelectorAll('.code-input')[index];
+
+    if (value === students[index].code) {
+        row.classList.add('valid');
+        row.classList.remove('invalid');
+        status.innerText = "Présent";
+        inputField.style.display = "none"; // Masquer le champ
+    } else if (value.length >= 6) {
+        row.classList.add('invalid');
+        row.classList.remove('valid');
+        status.innerText = "Code erroné";
+    } else {
+        row.classList.remove('valid', 'invalid');
+        status.innerText = "Absent";
+    }
+
+    // 🔥 Dès qu'un code est entré, on enregistre automatiquement !
+    let presences = {};
+    students.forEach((student, index) => {
+        presences[student.name] = document.getElementById(`status-${index}`).textContent;
+    });
+    savePresences(presences);
+}
+
+// 🔹 Charger les présences depuis GitHub au démarrage
+async function loadPresence() {
+    let savedData = await fetchPresences();
+    if (savedData) {
+        students.forEach((student, index) => {
+            let statusElement = document.getElementById(`status-${index}`);
+            let inputField = document.querySelectorAll('.code-input')[index];
+
+            if (savedData[student.name]) {
+                statusElement.textContent = savedData[student.name];
+                if (savedData[student.name] === "Présent") {
+                    statusElement.className = "present";
+                    inputField.style.display = "none"; // Masquer si déjà validé
+                } else if (savedData[student.name] === "Code erroné") {
+                    statusElement.className = "fraude";
+                } else {
+                    statusElement.className = "absent";
+                }
+            }
+        });
+    }
+}
+
+// 🔹 Générer le tableau des étudiants
+function renderList() {
+    const tbody = document.getElementById('studentList');
+    tbody.innerHTML = students.map((student, index) => `
+        <tr id="row-${index}">
+            <td>${index + 1}</td>
+            <td>${student.name}</td>
+            <td><input class="code-input" type="password" oninput="validateCode(${index}, this.value)"></td>
+            <td id="status-${index}">Absent</td>
+        </tr>
+    `).join('');
+}
+
+// 🔥 Initialisation de la page
+document.addEventListener('DOMContentLoaded', async () => {
+    renderList();
+    await loadPresence();
+});
+</script>
