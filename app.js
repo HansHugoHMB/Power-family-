@@ -56,17 +56,3 @@
         updateFraudeListDisplay();
 
 
-
-// ... (Votre code JavaScript existant - configuration Firebase, tableaux, fonctions renderList, validateCode, etc.) ...
-
-        // ... (Les fonctions updateTotals, updateFraudeListDisplay, validateCode, renderList, saveAttendanceData, loadAttendanceData) ...
-
-        //  Code pour le bouton d'impression
-        document.getElementById('printBtn').addEventListener('click', function() {
-            window.print();
-        });
-
-        // Initialisation (appel des fonctions au chargement de la page)
-        renderList();
-        updateTotals();
-        updateFraudeListDisplay();
