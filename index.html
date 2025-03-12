@@ -13,6 +13,7 @@
 </body>
 </html>
 
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -304,7 +305,7 @@
                     <td>
                         <input class="code-input" type="password"
                                oninput="validateCode(${index}, this.value)">
-                        <span id="status-${index}" style="display:none;"></span>
+                        <span id="status-${index}" style="display:none;">Présent</span>
                     </td>
                     <td id="textStatus-${index}">Absent</td>
                 </tr>
@@ -316,12 +317,12 @@
 
             students.forEach((_, index) => {
                 const status = document.getElementById(`textStatus-${index}`).textContent;
-                if(status === "Présent") présent++;
+                if(status === "Présent") present++;
                 else if(status === "Code erroné") fraude++;
                 else absent++;
             });
 
-            document.getElementById('totalPresent').textContent = présent;
+            document.getElementById('totalPresent').textContent = present;
             document.getElementById('totalAbsent').textContent = absent;
             document.getElementById('totalFraude').textContent = fraude;
         }
@@ -391,3 +392,4 @@
     </script>
 </body>
 </html>
+
