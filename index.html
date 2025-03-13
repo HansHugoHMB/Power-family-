@@ -393,3 +393,121 @@
 </body>
 </html>
 
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Capturer la page en image</title>
+  
+  <!-- Inclusion de la bibliothèque html2canvas -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      text-align: center;
+      background-color: #f4f4f4;
+    }
+
+    h1 {
+      font-size: 24px;
+      color: #333;
+    }
+
+    p {
+      font-size: 16px;
+      color: #555;
+    }
+
+    /* Style du bouton animé */
+    .capture-btn {
+      background: linear-gradient(45deg, #ff7b00, #ff006a, #ffbe00);
+      border: none;
+      color: white;
+      padding: 12px 20px;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 30px;
+      transition: all 0.3s ease;
+      box-shadow: 0px 5px 15px rgba(255, 0, 106, 0.3);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .capture-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0px 8px 20px rgba(255, 0, 106, 0.5);
+    }
+
+    .capture-btn:active {
+      transform: scale(0.95);
+      box-shadow: 0px 3px 10px rgba(255, 0, 106, 0.2);
+    }
+
+    /* Icône de l'appareil photo 📸 */
+    .capture-btn::before {
+      content: "📸";
+      font-size: 20px;
+    }
+
+    /* Lien de téléchargement */
+    #download-link {
+      display: none;
+      margin-top: 20px;
+      font-size: 18px;
+      text-decoration: none;
+      color: white;
+      background: #333;
+      padding: 10px 15px;
+      border-radius: 5px;
+      transition: 0.3s;
+    }
+
+    #download-link:hover {
+      background: black;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Capturer la page en image</h1>
+  <p>Clique sur le bouton ci-dessous pour capturer toute la page et générer une image.</p>
+  
+  <!-- Bouton animé -->
+  <button id="capture-btn" class="capture-btn">Capturer la page</button>
+  <br>
+  <a id="download-link" download="capture.png">📥 Télécharger l'image capturée</a>
+
+  <script>
+    document.getElementById("capture-btn").addEventListener("click", function() {
+      let btn = document.getElementById("capture-btn");
+      btn.innerHTML = "⏳ Capture en cours..."; // Animation du texte
+      
+      html2canvas(document.body).then(function(canvas) {
+        var imageData = canvas.toDataURL("image/png");
+
+        var downloadLink = document.getElementById("download-link");
+        downloadLink.href = imageData;
+        downloadLink.style.display = "inline-block";
+
+        btn.innerHTML = "✅ Capture réussie !"; // Changement du texte après capture
+
+        setTimeout(() => {
+          btn.innerHTML = "📸 Capturer la page"; // Réinitialisation après 3s
+        }, 3000);
+      }).catch(function(error) {
+        console.error("Erreur lors de la capture de la page :", error);
+        btn.innerHTML = "❌ Erreur !";
+      });
+    });
+  </script>
+
+</body>
+</html>
+
