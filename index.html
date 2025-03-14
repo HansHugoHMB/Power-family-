@@ -511,7 +511,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bouton PDF flottant (image 3cm max au centre)</title>
+    <title>Bouton PDF flottant (image 3cm max)</title>
     <style>
         .floating-image-button {
             position: fixed;
@@ -530,30 +530,23 @@
         .floating-image-button:hover {
             opacity: 0.9;
         }
+
+        /* Ajoutez ici les styles CSS de votre site */
     </style>
 </head>
 <body>
-
-    <div>
-        <h1>Contenu à exporter en PDF</h1>
-        <p>Ceci est un exemple de contenu qui sera inclus dans le fichier PDF.</p>
-        <ul>
-            <li>Élément de liste 1</li>
-            <li>Élément de liste 2</li>
-            <li>Élément de liste 3</li>
-        </ul>
-        <img src="https://via.placeholder.com/150" alt="Image dans le contenu">
-    </div>
+<img src="https://via.placeholder.com/300" alt="Image dans la page">
+        </div>
 
     <img src="https://raw.githubusercontent.com/HansHugoHMB/Images/main/Digi.png" alt="Bouton PDF" class="floating-image-button" onclick="generatePDF()">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <script>
         function generatePDF() {
-            const element = document.body;
+            const element = document.body; // Cible tout le corps de la page
             const opt = {
                 margin:       10,
-                filename:     'page.pdf',
+                filename:     'page_complete.pdf',
                 image:        { type: 'jpeg', quality: 0.98 },
                 html2canvas:  { scale: 2 },
                 jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
