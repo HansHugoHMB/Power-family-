@@ -1,0 +1,795 @@
+[
+    {
+        "name": "IBEMBA – NTEMBI",
+        "code": "AAA000"
+    },
+    {
+        "name": "KITAMBWE - MUDIMBI",
+        "code": "AAA001"
+    },
+    {
+        "name": "MBALA - LUBAKI",
+        "code": "AAA002"
+    },
+    {
+        "name": "MBALA - MBIMBA",
+        "code": "AAA003"
+    },
+    {
+        "name": "MBAMBINA - WAZANGBA",
+        "code": "AAA004"
+    },
+    {
+        "name": "MBANDJO – IYELE",
+        "code": "AAA005"
+    },
+    {
+        "name": "MBATU - KIMWANGA",
+        "code": "AAA006"
+    },
+    {
+        "name": "MBAYA – BAYA",
+        "code": "AAA007"
+    },
+    {
+        "name": "MBAYA – FAUSTIN",
+        "code": "AAA008"
+    },
+    {
+        "name": "MBAYO – BONONGE",
+        "code": "AAA009"
+    },
+    {
+        "name": "MBEKU – ELEKWA",
+        "code": "AAA010"
+    },
+    {
+        "name": "MBELE – KALUSUTI",
+        "code": "AAA011"
+    },
+    {
+        "name": "MBELENGA-MBOMBAWANDE",
+        "code": "AAA012"
+    },
+    {
+        "name": "MBEMA – ZONGO",
+        "code": "AAA013"
+    },
+    {
+        "name": "MBEMBA – KUKU",
+        "code": "AAA014"
+    },
+    {
+        "name": "MBENGI – MBO",
+        "code": "AAA015"
+    },
+    {
+        "name": "MBIMBA - MUFUNGIZI",
+        "code": "AAA016"
+    },
+    {
+        "name": "MBIRIZE - IMANI",
+        "code": "AAA017"
+    },
+    {
+        "name": "MBO – MFUMU",
+        "code": "AAA018"
+    },
+    {
+        "name": "MBO – WEMBA",
+        "code": "AAA019"
+    },
+    {
+        "name": "MBOBO – LUPOMBO",
+        "code": "AAA020"
+    },
+    {
+        "name": "MBOKO –NTOKO",
+        "code": "AAA021"
+    },
+    {
+        "name": "MBOLOLO – MWIMPE",
+        "code": "AAA022"
+    },
+    {
+        "name": "MBOMA – KALAMBA",
+        "code": "AAA023"
+    },
+    {
+        "name": "MBOMA – NDOSALA",
+        "code": "AAA024"
+    },
+    {
+        "name": "MBOMA – TAUBALA",
+        "code": "AAA025"
+    },
+    {
+        "name": "MBOSO – MAWETE",
+        "code": "AAA026"
+    },
+    {
+        "name": "MBUAKI - MIEZI",
+        "code": "AAA027"
+    },
+    {
+        "name": "MBUBA - NDONGALA",
+        "code": "AAA028"
+    },
+    {
+        "name": "MBUEZO – LUNGENY",
+        "code": "AAA029"
+    },
+    {
+        "name": "MBUKA - MATUVANG",
+        "code": "AAA030"
+    },
+    {
+        "name": "MBUKU – KISALU",
+        "code": "AAA031"
+    },
+    {
+        "name": "MBULA – MBANZA",
+        "code": "AAA032"
+    },
+    {
+        "name": "MBULAYI - TSHIBANGU",
+        "code": "AAA033"
+    },
+    {
+        "name": "MBUMBA – NDEMBE",
+        "code": "AAA034"
+    },
+    {
+        "name": "MBUYA - MUJANI",
+        "code": "AAA035"
+    },
+    {
+        "name": "MBUYAMBA - TSHISWAKA",
+        "code": "AAA036"
+    },
+    {
+        "name": "MBUYI – KOLE",
+        "code": "AAA037"
+    },
+    {
+        "name": "MBUYI – NDAYE",
+        "code": "AAA038"
+    },
+    {
+        "name": "MBWELIMA - TANGA",
+        "code": "AAA039"
+    },
+    {
+        "name": "MBWITI - KUYAKANA",
+        "code": "AAA040"
+    },
+    {
+        "name": "MEKANDA – IWOKO",
+        "code": "AAA041"
+    },
+    {
+        "name": "MENEMENE – NKOSI",
+        "code": "AAA042"
+    },
+    {
+        "name": "MENGA - MABALA",
+        "code": "AAA043"
+    },
+    {
+        "name": "MESA – MUSALU",
+        "code": "AAA044"
+    },
+    {
+        "name": "MFULUNGANI -NFULAMESO",
+        "code": "AAA045"
+    },
+    {
+        "name": "MIANTISE – NDOOLE",
+        "code": "AAA046"
+    },
+    {
+        "name": "MIBO – MPEWA",
+        "code": "AAA047"
+    },
+    {
+        "name": "MIKADI – MIKADI",
+        "code": "AAA048"
+    },
+    {
+        "name": "MIKOBI – BELAPIO",
+        "code": "AAA049"
+    },
+    {
+        "name": "MIKUBA – ALFANI",
+        "code": "AAA050"
+    },
+    {
+        "name": "MILONGA - MUDIMBANYA",
+        "code": "AAA051"
+    },
+    {
+        "name": "MILUMBU – KABUYA",
+        "code": "AAA052"
+    },
+    {
+        "name": "MINGA – KWETE",
+        "code": "AAA053"
+    },
+    {
+        "name": "MINGA – MBATSHI",
+        "code": "AAA054"
+    },
+    {
+        "name": "MINGA – PONGO",
+        "code": "AAA055"
+    },
+    {
+        "name": "MIOMA – KINGOMBE",
+        "code": "AAA056"
+    },
+    {
+        "name": "MIOMO – MAKANDA",
+        "code": "AAA057"
+    },
+    {
+        "name": "MISENGABU - TEGRA",
+        "code": "AAA058"
+    },
+    {
+        "name": "MISIONO – MVUNGU",
+        "code": "AAA059"
+    },
+    {
+        "name": "MITSHIABU - ILUNGA",
+        "code": "AAA060"
+    },
+    {
+        "name": "MITUNGA - MUBIANGAT",
+        "code": "AAA061"
+    },
+    {
+        "name": "MITUNGINI – LUZOLO",
+        "code": "AAA062"
+    },
+    {
+        "name": "MOBAO – MOPIA",
+        "code": "AAA063"
+    },
+    {
+        "name": "MOBONDA - BOYELE",
+        "code": "AAA064"
+    },
+    {
+        "name": "MODJA – ETOTI",
+        "code": "AAA065"
+    },
+    {
+        "name": "MOGBOKULA-NDOLE",
+        "code": "AAA066"
+    },
+    {
+        "name": "MOHELE – MATUKA",
+        "code": "AAA067"
+    },
+    {
+        "name": "MOKIE - INKINI",
+        "code": "AAA068"
+    },
+    {
+        "name": "MOKILI - KATSHULU",
+        "code": "AAA069"
+    },
+    {
+        "name": "MOKOSI – KETA",
+        "code": "AAA070"
+    },
+    {
+        "name": "MOKOYO-BOKIANGA",
+        "code": "AAA071"
+    },
+    {
+        "name": "MOKUBA – BAPELE",
+        "code": "AAA072"
+    },
+    {
+        "name": "MOKUTU – GOLO",
+        "code": "AAA073"
+    },
+    {
+        "name": "MOLITHIO – NDOPO",
+        "code": "AAA074"
+    },
+    {
+        "name": "MOMELE – BOKILA",
+        "code": "AAA075"
+    },
+    {
+        "name": "MONGA - MOKESA",
+        "code": "AAA076"
+    },
+    {
+        "name": "MONGBANI – AKOSU",
+        "code": "AAA077"
+    },
+    {
+        "name": "MONSENGO-MAFISANGO",
+        "code": "AAA078"
+    },
+    {
+        "name": "MONSENGO - NTWABOY",
+        "code": "AAA079"
+    },
+    {
+        "name": "MOONGO - BOMPUSA",
+        "code": "AAA080"
+    },
+    {
+        "name": "MOPAYI – BOKUNGU",
+        "code": "AAA081"
+    },
+    {
+        "name": "MOPIA - BENIE",
+        "code": "AAA082"
+    },
+    {
+        "name": "MOPINI – NGOBILA",
+        "code": "AAA083"
+    },
+    {
+        "name": "MOPOLO – LENGO",
+        "code": "AAA084"
+    },
+    {
+        "name": "MOTOKWA - DIDO",
+        "code": "AAA085"
+    },
+    {
+        "name": "MOUTSIEKOU - PANDI",
+        "code": "AAA086"
+    },
+    {
+        "name": "MOWENI – BOPOPI",
+        "code": "AAA087"
+    },
+    {
+        "name": "MPAMALEO - BOSONTIA",
+        "code": "AAA088"
+    },
+    {
+        "name": "MPANA - NGAMBIELI",
+        "code": "AAA089"
+    },
+    {
+        "name": "MPATA - LITUMBE",
+        "code": "AAA090"
+    },
+    {
+        "name": "MPAY – NKE",
+        "code": "AAA091"
+    },
+    {
+        "name": "MPELA – BAWESI",
+        "code": "AAA092"
+    },
+    {
+        "name": "MPEMBE – BASSA",
+        "code": "AAA093"
+    },
+    {
+        "name": "MPENGELE – PONGO",
+        "code": "AAA094"
+    },
+    {
+        "name": "MPETSHI - BANGONGO",
+        "code": "AAA095"
+    },
+    {
+        "name": "MPEYA – LINGONGO",
+        "code": "AAA096"
+    },
+    {
+        "name": "MWANGANI - KATIMUKA",
+        "code": "AAA097"
+    },
+    {
+        "name": "NOYO – MUKENDI",
+        "code": "AAA098"
+    }
+][
+    {
+        "name": "IBEMBA – NTEMBI",
+        "code": "AAA000"
+    },
+    {
+        "name": "KITAMBWE - MUDIMBI",
+        "code": "AAA001"
+    },
+    {
+        "name": "MBALA - LUBAKI",
+        "code": "AAA002"
+    },
+    {
+        "name": "MBALA - MBIMBA",
+        "code": "AAA003"
+    },
+    {
+        "name": "MBAMBINA - WAZANGBA",
+        "code": "AAA004"
+    },
+    {
+        "name": "MBANDJO – IYELE",
+        "code": "AAA005"
+    },
+    {
+        "name": "MBATU - KIMWANGA",
+        "code": "AAA006"
+    },
+    {
+        "name": "MBAYA – BAYA",
+        "code": "AAA007"
+    },
+    {
+        "name": "MBAYA – FAUSTIN",
+        "code": "AAA008"
+    },
+    {
+        "name": "MBAYO – BONONGE",
+        "code": "AAA009"
+    },
+    {
+        "name": "MBEKU – ELEKWA",
+        "code": "AAA010"
+    },
+    {
+        "name": "MBELE – KALUSUTI",
+        "code": "AAA011"
+    },
+    {
+        "name": "MBELENGA-MBOMBAWANDE",
+        "code": "AAA012"
+    },
+    {
+        "name": "MBEMA – ZONGO",
+        "code": "AAA013"
+    },
+    {
+        "name": "MBEMBA – KUKU",
+        "code": "AAA014"
+    },
+    {
+        "name": "MBENGI – MBO",
+        "code": "AAA015"
+    },
+    {
+        "name": "MBIMBA - MUFUNGIZI",
+        "code": "AAA016"
+    },
+    {
+        "name": "MBIRIZE - IMANI",
+        "code": "AAA017"
+    },
+    {
+        "name": "MBO – MFUMU",
+        "code": "AAA018"
+    },
+    {
+        "name": "MBO – WEMBA",
+        "code": "AAA019"
+    },
+    {
+        "name": "MBOBO – LUPOMBO",
+        "code": "AAA020"
+    },
+    {
+        "name": "MBOKO –NTOKO",
+        "code": "AAA021"
+    },
+    {
+        "name": "MBOLOLO – MWIMPE",
+        "code": "AAA022"
+    },
+    {
+        "name": "MBOMA – KALAMBA",
+        "code": "AAA023"
+    },
+    {
+        "name": "MBOMA – NDOSALA",
+        "code": "AAA024"
+    },
+    {
+        "name": "MBOMA – TAUBALA",
+        "code": "AAA025"
+    },
+    {
+        "name": "MBOSO – MAWETE",
+        "code": "AAA026"
+    },
+    {
+        "name": "MBUAKI - MIEZI",
+        "code": "AAA027"
+    },
+    {
+        "name": "MBUBA - NDONGALA",
+        "code": "AAA028"
+    },
+    {
+        "name": "MBUEZO – LUNGENY",
+        "code": "AAA029"
+    },
+    {
+        "name": "MBUKA - MATUVANG",
+        "code": "AAA030"
+    },
+    {
+        "name": "MBUKU – KISALU",
+        "code": "AAA031"
+    },
+    {
+        "name": "MBULA – MBANZA",
+        "code": "AAA032"
+    },
+    {
+        "name": "MBULAYI - TSHIBANGU",
+        "code": "AAA033"
+    },
+    {
+        "name": "MBUMBA – NDEMBE",
+        "code": "AAA034"
+    },
+    {
+        "name": "MBUYA - MUJANI",
+        "code": "AAA035"
+    },
+    {
+        "name": "MBUYAMBA - TSHISWAKA",
+        "code": "AAA036"
+    },
+    {
+        "name": "MBUYI – KOLE",
+        "code": "AAA037"
+    },
+    {
+        "name": "MBUYI – NDAYE",
+        "code": "AAA038"
+    },
+    {
+        "name": "MBWELIMA - TANGA",
+        "code": "AAA039"
+    },
+    {
+        "name": "MBWITI - KUYAKANA",
+        "code": "AAA040"
+    },
+    {
+        "name": "MEKANDA – IWOKO",
+        "code": "AAA041"
+    },
+    {
+        "name": "MENEMENE – NKOSI",
+        "code": "AAA042"
+    },
+    {
+        "name": "MENGA - MABALA",
+        "code": "AAA043"
+    },
+    {
+        "name": "MESA – MUSALU",
+        "code": "AAA044"
+    },
+    {
+        "name": "MFULUNGANI -NFULAMESO",
+        "code": "AAA045"
+    },
+    {
+        "name": "MIANTISE – NDOOLE",
+        "code": "AAA046"
+    },
+    {
+        "name": "MIBO – MPEWA",
+        "code": "AAA047"
+    },
+    {
+        "name": "MIKADI – MIKADI",
+        "code": "AAA048"
+    },
+    {
+        "name": "MIKOBI – BELAPIO",
+        "code": "AAA049"
+    },
+    {
+        "name": "MIKUBA – ALFANI",
+        "code": "AAA050"
+    },
+    {
+        "name": "MILONGA - MUDIMBANYA",
+        "code": "AAA051"
+    },
+    {
+        "name": "MILUMBU – KABUYA",
+        "code": "AAA052"
+    },
+    {
+        "name": "MINGA – KWETE",
+        "code": "AAA053"
+    },
+    {
+        "name": "MINGA – MBATSHI",
+        "code": "AAA054"
+    },
+    {
+        "name": "MINGA – PONGO",
+        "code": "AAA055"
+    },
+    {
+        "name": "MIOMA – KINGOMBE",
+        "code": "AAA056"
+    },
+    {
+        "name": "MIOMO – MAKANDA",
+        "code": "AAA057"
+    },
+    {
+        "name": "MISENGABU - TEGRA",
+        "code": "AAA058"
+    },
+    {
+        "name": "MISIONO – MVUNGU",
+        "code": "AAA059"
+    },
+    {
+        "name": "MITSHIABU - ILUNGA",
+        "code": "AAA060"
+    },
+    {
+        "name": "MITUNGA - MUBIANGAT",
+        "code": "AAA061"
+    },
+    {
+        "name": "MITUNGINI – LUZOLO",
+        "code": "AAA062"
+    },
+    {
+        "name": "MOBAO – MOPIA",
+        "code": "AAA063"
+    },
+    {
+        "name": "MOBONDA - BOYELE",
+        "code": "AAA064"
+    },
+    {
+        "name": "MODJA – ETOTI",
+        "code": "AAA065"
+    },
+    {
+        "name": "MOGBOKULA-NDOLE",
+        "code": "AAA066"
+    },
+    {
+        "name": "MOHELE – MATUKA",
+        "code": "AAA067"
+    },
+    {
+        "name": "MOKIE - INKINI",
+        "code": "AAA068"
+    },
+    {
+        "name": "MOKILI - KATSHULU",
+        "code": "AAA069"
+    },
+    {
+        "name": "MOKOSI – KETA",
+        "code": "AAA070"
+    },
+    {
+        "name": "MOKOYO-BOKIANGA",
+        "code": "AAA071"
+    },
+    {
+        "name": "MOKUBA – BAPELE",
+        "code": "AAA072"
+    },
+    {
+        "name": "MOKUTU – GOLO",
+        "code": "AAA073"
+    },
+    {
+        "name": "MOLITHIO – NDOPO",
+        "code": "AAA074"
+    },
+    {
+        "name": "MOMELE – BOKILA",
+        "code": "AAA075"
+    },
+    {
+        "name": "MONGA - MOKESA",
+        "code": "AAA076"
+    },
+    {
+        "name": "MONGBANI – AKOSU",
+        "code": "AAA077"
+    },
+    {
+        "name": "MONSENGO-MAFISANGO",
+        "code": "AAA078"
+    },
+    {
+        "name": "MONSENGO - NTWABOY",
+        "code": "AAA079"
+    },
+    {
+        "name": "MOONGO - BOMPUSA",
+        "code": "AAA080"
+    },
+    {
+        "name": "MOPAYI – BOKUNGU",
+        "code": "AAA081"
+    },
+    {
+        "name": "MOPIA - BENIE",
+        "code": "AAA082"
+    },
+    {
+        "name": "MOPINI – NGOBILA",
+        "code": "AAA083"
+    },
+    {
+        "name": "MOPOLO – LENGO",
+        "code": "AAA084"
+    },
+    {
+        "name": "MOTOKWA - DIDO",
+        "code": "AAA085"
+    },
+    {
+        "name": "MOUTSIEKOU - PANDI",
+        "code": "AAA086"
+    },
+    {
+        "name": "MOWENI – BOPOPI",
+        "code": "AAA087"
+    },
+    {
+        "name": "MPAMALEO - BOSONTIA",
+        "code": "AAA088"
+    },
+    {
+        "name": "MPANA - NGAMBIELI",
+        "code": "AAA089"
+    },
+    {
+        "name": "MPATA - LITUMBE",
+        "code": "AAA090"
+    },
+    {
+        "name": "MPAY – NKE",
+        "code": "AAA091"
+    },
+    {
+        "name": "MPELA – BAWESI",
+        "code": "AAA092"
+    },
+    {
+        "name": "MPEMBE – BASSA",
+        "code": "AAA093"
+    },
+    {
+        "name": "MPENGELE – PONGO",
+        "code": "AAA094"
+    },
+    {
+        "name": "MPETSHI - BANGONGO",
+        "code": "AAA095"
+    },
+    {
+        "name": "MPEYA – LINGONGO",
+        "code": "AAA096"
+    },
+    {
+        "name": "MWANGANI - KATIMUKA",
+        "code": "AAA097"
+    },
+    {
+        "name": "NOYO – MUKENDI",
+        "code": "AAA098"
+    }
+]
