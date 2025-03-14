@@ -592,9 +592,16 @@
 <html>
 <head>
     <title>Scrolling Image Bar</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-        body {
+        html, body {
             margin: 0;
+            padding: 0;
+            width: 100%; /* Assure que html et body prennent toute la largeur */
+            overflow-x: hidden; /* Empêche le défilement horizontal du body */
+        }
+
+        body {
             display: flex;
             flex-direction: column;
             align-items: center; /* Centre le copyright en dessous */
@@ -602,7 +609,7 @@
 
         .scrolling-bar {
             height: 5cm;
-            width: 100%;
+            width: 100%; /* Assure que la barre prend toute la largeur du parent (body) */
             position: fixed;
             bottom: 0;
             left: 0;
@@ -613,6 +620,7 @@
             position: relative; /* Pour positionner l'image absolument à l'intérieur */
             border: 1mm solid transparent;
             border-image: linear-gradient(to right, blue, yellow, red) 1;
+            box-sizing: border-box; /* Inclut la bordure dans le calcul de la largeur */
         }
 
         .scrolling-image {
