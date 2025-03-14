@@ -505,3 +505,50 @@
 
         setInterval(moveImage, 20); // Ajuster l'intervalle pour une animation plus fluide
     </script>
+
+ <!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bouton de capture d'écran flottant (image 3cm max)</title>
+    <style>
+        .floating-image-button {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            cursor: pointer;
+            z-index: 1000;
+            user-select: none;
+            max-width: 3cm; /* Dimension maximale en largeur */
+            max-height: 3cm; /* Dimension maximale en hauteur */
+            width: auto; /* Conserve la proportion */
+            height: auto; /* Conserve la proportion */
+        }
+
+        .floating-image-button:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+
+    <img src="https://raw.githubusercontent.com/HansHugoHMB/Images/main/Digi.png" alt="Bouton de capture" class="floating-image-button" onclick="capturePage()">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script>
+        function capturePage() {
+            html2canvas(document.body).then(canvas => {
+                const link = document.createElement('a');
+                link.download = 'capture_ecran.png';
+                link.href = canvas.toDataURL();
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            });
+        }
+    </script>
+
+</body>
+</html>   
