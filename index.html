@@ -511,7 +511,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bouton PDF flottant (image 3cm max)</title>
+    <title>Bouton de capture d'écran flottant (image 3cm max)</title>
     <style>
         .floating-image-button {
             position: fixed;
@@ -530,30 +530,25 @@
         .floating-image-button:hover {
             opacity: 0.9;
         }
-
-        /* Ajoutez ici les styles CSS de votre site */
     </style>
 </head>
 <body>
-<img src="https://via.placeholder.com/300" alt="Image dans la page">
-        </div>
 
-    <img src="https://raw.githubusercontent.com/HansHugoHMB/Images/main/Digi.png" alt="Bouton PDF" class="floating-image-button" onclick="generatePDF()">
+    <img src="https://raw.githubusercontent.com/HansHugoHMB/Images/main/Digi.png" alt="Bouton de capture" class="floating-image-button" onclick="capturePage()">
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script>
-        function generatePDF() {
-            const element = document.body; // Cible tout le corps de la page
-            const opt = {
-                margin:       10,
-                filename:     'page_complete.pdf',
-                image:        { type: 'jpeg', quality: 0.98 },
-                html2canvas:  { scale: 2 },
-                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
-            };
-            html2pdf().set(opt).from(element).save();
+        function capturePage() {
+            html2canvas(document.body).then(canvas => {
+                const link = document.createElement('a');
+                link.download = 'capture_ecran.png';
+                link.href = canvas.toDataURL();
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            });
         }
     </script>
 
 </body>
-</html>
+</html>   
