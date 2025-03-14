@@ -506,12 +506,12 @@
         setInterval(moveImage, 20); // Ajuster l'intervalle pour une animation plus fluide
     </script>
 
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bouton de capture d'écran flottant (image 3cm max)</title>
+    <title>Bouton PDF flottant (image 3cm max au centre)</title>
     <style>
         .floating-image-button {
             position: fixed;
@@ -534,21 +534,33 @@
 </head>
 <body>
 
-    <img src="https://raw.githubusercontent.com/HansHugoHMB/Images/main/Digi.png" alt="Bouton de capture" class="floating-image-button" onclick="capturePage()">
+    <div>
+        <h1>Contenu à exporter en PDF</h1>
+        <p>Ceci est un exemple de contenu qui sera inclus dans le fichier PDF.</p>
+        <ul>
+            <li>Élément de liste 1</li>
+            <li>Élément de liste 2</li>
+            <li>Élément de liste 3</li>
+        </ul>
+        <img src="https://via.placeholder.com/150" alt="Image dans le contenu">
+    </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <img src="https://raw.githubusercontent.com/HansHugoHMB/Images/main/Digi.png" alt="Bouton PDF" class="floating-image-button" onclick="generatePDF()">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <script>
-        function capturePage() {
-            html2canvas(document.body).then(canvas => {
-                const link = document.createElement('a');
-                link.download = 'capture_ecran.png';
-                link.href = canvas.toDataURL();
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-            });
+        function generatePDF() {
+            const element = document.body;
+            const opt = {
+                margin:       10,
+                filename:     'page.pdf',
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2 },
+                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+            html2pdf().set(opt).from(element).save();
         }
     </script>
 
 </body>
-</html>   
+</html>
