@@ -476,117 +476,60 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Capturer la page en image</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bouton de capture d'écran flottant (centré et immobile)</title>
+    <style>
+        .floating-capture-button {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 1000;
+            user-select: none; /* Empêche la sélection au clic/drag */
+        }
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 20px;
-      text-align: center;
-      background-color: #f4f4f4;
-    }
-
-    h1 {
-      font-size: 24px;
-      color: #333;
-    }
-
-    p {
-      font-size: 16px;
-      color: #555;
-    }
-
-    /* Style du bouton animé */
-    .capture-btn {
-      background: linear-gradient(45deg, #ff7b00, #ff006a, #ffbe00);
-      border: none;
-      color: white;
-      padding: 12px 20px;
-      font-size: 18px;
-      font-weight: bold;
-      cursor: pointer;
-      border-radius: 30px;
-      transition: all 0.3s ease;
-      box-shadow: 0px 5px 15px rgba(255, 0, 106, 0.3);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-    }
-
-    .capture-btn:hover {
-      transform: scale(1.05);
-      box-shadow: 0px 8px 20px rgba(255, 0, 106, 0.5);
-    }
-
-    .capture-btn:active {
-      transform: scale(0.95);
-      box-shadow: 0px 3px 10px rgba(255, 0, 106, 0.2);
-    }
-
-    /* Icône de l'appareil photo 📸 */
-    .capture-btn::before {
-      content: "📸";
-      font-size: 20px;
-    }
-
-    /* Lien de téléchargement */
-    #download-link {
-      display: none;
-      margin-top: 20px;
-      font-size: 18px;
-      text-decoration: none;
-      color: white;
-      background: #333;
-      padding: 10px 15px;
-      border-radius: 5px;
-      transition: 0.3s;
-    }
-
-    #download-link:hover {
-      background: black;
-    }
-  </style>
+        .floating-capture-button:hover {
+            opacity: 0.9;
+        }
+    </style>
 </head>
 <body>
+    <div class="floating-capture-button" onclick="capturePage()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-camera-fill" viewBox="0 0 16 16">
+            <path d="M10.5 8.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+            <path d="M2 4a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1H2zm12-1a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h12z"/>
+        </svg>
+    </div>
 
-  <h1>Capturer la page en image</h1>
-  <p>Clique sur le bouton ci-dessous pour capturer toute la page et générer une image.</p>
-
-  <button id="capture-btn" class="capture-btn">Capturer la page</button>
-  <br>
-  <a id="download-link" download="capture.png">📥 Télécharger l'image capturée</a>
-
-  <script>
-    document.getElementById("capture-btn").addEventListener("click", function() {
-      let btn = document.getElementById("capture-btn");
-      btn.innerHTML = "⏳ Capture en cours..."; // Animation du texte
-
-      html2canvas(document.body).then(function(canvas) {
-        var imageData = canvas.toDataURL("image/png");
-
-        var downloadLink = document.getElementById("download-link");
-        downloadLink.href = imageData;
-        downloadLink.style.display = "inline-block";
-
-        btn.innerHTML = "✅ Capture réussie !"; // Changement du texte après capture
-
-        setTimeout(() => {
-          btn.innerHTML = "📸 Capturer la page"; // Réinitialisation après 3s
-        }, 3000);
-      }).catch(function(error) {
-        console.error("Erreur lors de la capture de la page :", error);
-        btn.innerHTML = "❌ Erreur !";
-      });
-    });
-  </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script>
+        function capturePage() {
+            html2canvas(document.body).then(canvas => {
+                const link = document.createElement('a');
+                link.download = 'capture_ecran.png';
+                link.href = canvas.toDataURL();
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            });
+        }
+    </script>
 
 </body>
 </html>
+            
 
 <!DOCTYPE html>
 <html>
@@ -677,59 +620,6 @@
         }
 
         setInterval(moveImage, 20); // Ajuster l'intervalle pour une animation plus fluide
-    </script>
-
-</body>
-</html>
-
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bouton d'impression flottant</title>
-    <style>
-        .floating-print-button {
-            position: fixed;
-            bottom: 20px; /* Ajustez la position depuis le bas */
-            right: 20px; /* Ajustez la position depuis la droite */
-            width: 56px; /* Taille approximative du bouton Instagram */
-            height: 56px;
-            border-radius: 50%;
-            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); /* Gradient Instagram */
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            font-size: 24px; /* Taille de l'icône */
-            cursor: pointer;
-            z-index: 1000; /* Assure qu'il est au-dessus des autres éléments */
-        }
-
-        .floating-print-button:hover {
-            opacity: 0.9;
-        }
-    </style>
-</head>
-<body>
-
-    <div>
-        <h1>Contenu de l'application</h1>
-        <p>Ceci est un exemple de contenu pour votre application Go Native.</p>
-        <p>Vous pouvez ajouter plus de contenu ici...</p>
-    </div>
-
-    <div class="floating-print-button" onclick="window.print()">
-        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-printer-fill" viewBox="0 0 16 16">
-            <path d="M5 1a2 2 0 0 0-2 2v1h10V3a2 2 0 0 0-2-2H5zm6 8H5a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1z"/>
-            <path d="M0 7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-3z"/>
-        </svg>
-    </div>
-
-    <script>
-        // Le script pour l'impression est déjà inclus dans le onclick du bouton
-        // Vous pouvez ajouter d'autres scripts ici si nécessaire
     </script>
 
 </body>
