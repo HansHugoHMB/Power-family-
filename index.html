@@ -587,51 +587,89 @@
 
 </body>
 </html>
+
 <!DOCTYPE html>
 <html>
 <head>
-    <title>copyright</title>
+    <title>Scrolling Image Bar</title>
     <style>
         body {
             margin: 0;
             display: flex;
             flex-direction: column;
-            min-height: 100vh;
+            align-items: center; /* Centre le copyright en dessous */
         }
 
-        .content {
-            flex-grow: 1;
-        }
-
-        .footer {
+        .scrolling-bar {
+            height: 5cm;
             width: 100%;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            overflow-x: hidden;
+            display: flex;
+            align-items: center; /* Centre l'image verticalement */
+            background-color: rgba(173, 216, 230, 0.3); /* Bleu clair transparent */
+            position: relative; /* Pour positionner l'image absolument à l'intérieur */
+            border: 1mm solid transparent;
+            border-image: linear-gradient(to right, blue, yellow, red) 1;
+        }
+
+        .scrolling-image {
+            height: 80%; /* Ajuster la hauteur de l'image dans la barre */
+            position: absolute;
+            left: 0; /* Initial position */
+        }
+
+        .copyright-notice {
             text-align: center;
-            padding: 20px 0; /* Ajoute un peu d'espace au-dessus et en dessous du footer */
-        }
-
-        .footer-image {
-            width: 100%;
-            height: auto;
-            display: block;
-            border: 2mm solid; /* Ajoute une bordure de 2mm */
-            border-image: linear-gradient(to right, rgb(0, 153, 255), yellow, red) 1; /* Définis la couleur de la bordure */
-        }
-
-        .copyright {
-            padding: 10px;
+            padding: 10px 0;
+            font-size: 0.9em;
+            margin-top: 1mm; /* Place le copyright 1mm après la hauteur de la barre */
         }
     </style>
 </head>
 <body>
 
-    <footer class="footer">
-        <img src="https://github.com/HansHugoHMB/Images/blob/main/LPH.png?raw=true" alt="" class="footer-image">
-        <div class="copyright">
-            &copy; 2025 HMB-TECH –– TOUT DROITS RÉSERVÉS 
-        </div>
-    </footer>
+    <div class="scrolling-bar" id="scrollingBar">
+        <img src="https://github.com/HansHugoHMB/Images/blob/main/LPH.png?raw=true" alt="Image Défilante" class="scrolling-image" id="scrollingImage">
+    </div>
+
+    <div class="copyright-notice">
+        &copy; 2025 HMB-TECH –– TOUT DROITS RÉSERVÉS
+    </div>
+
+    <script>
+        const scrollingBar = document.getElementById('scrollingBar');
+        const scrollingImage = document.getElementById('scrollingImage');
+
+        let imagePosition = 0;
+        const speed = 2; // Ajuster pour la vitesse de défilement
+        let direction = 1; // 1 pour droite, -1 pour gauche
+
+        function moveImage() {
+            const barWidth = scrollingBar.offsetWidth;
+            const imageWidth = scrollingImage.offsetWidth;
+
+            imagePosition += speed * direction;
+
+            // Vérifier si l'image atteint le bord droit
+            if (imagePosition > barWidth - imageWidth) {
+                imagePosition = barWidth - imageWidth;
+                direction = -1;
+            }
+
+            // Vérifier si l'image atteint le bord gauche
+            if (imagePosition < 0) {
+                imagePosition = 0;
+                direction = 1;
+            }
+
+            scrollingImage.style.left = imagePosition + 'px';
+        }
+
+        setInterval(moveImage, 20); // Ajuster l'intervalle pour une animation plus fluide
+    </script>
 
 </body>
 </html>
-            
-            
