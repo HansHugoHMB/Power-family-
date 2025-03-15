@@ -309,7 +309,7 @@
                     present++;
                     presentStudents.push(student.name); // Ajouter à la liste des présents
                 }
-                else if(status === "Code erroné") fraude++;
+                else if(status === "Fraudeur") fraude++;
                 else {
                     absent++;
                     absentStudents.push(student.name); // Ajouter à la liste des absents
@@ -380,7 +380,7 @@
             } else if (value.length >= 6) {
                 row.classList.add('invalid');
                 row.classList.remove('valid');
-                statusTextElement.innerText = "Code erroné";
+                statusTextElement.innerText = "Fraudeur";
                 codeInputElement.style.display = 'inline';
                 statusSpanElement.style.display = 'none';
 
