@@ -583,8 +583,7 @@ function generatePresencePDF() {
         const status = cells[3].textContent; // Colonne Statut
         const rowData = [
             index + 1,
-            cells[1].textContent, // Nom
-            cells[2].querySelector('input')?.value || 'N/A', // Code saisi
+            cells[1].textContent, // Nom        cells[2].querySelector('code-input')?.value || 'N/A', // Code saisi
             status
         ];
         rows.push(rowData);
@@ -607,7 +606,7 @@ function generatePresencePDF() {
             // Pied de page
             const pageCount = doc.internal.getNumberOfPages();
             doc.setFontSize(8);
-            doc.text(`Page ${data.pageNumber}/${pageCount} - © 2025 HMB-TECH –·– TOUT DROITS RÉSERVÉS${new Date().getFullYear()}`, 
+            doc.text(`Page ${data.pageNumber}/${pageCount} - © HMB-TECH ${new Date().getFullYear()}`, 
                      data.settings.margin.left, doc.internal.pageSize.height - 5);
         }
     });
