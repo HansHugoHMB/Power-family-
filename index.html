@@ -552,3 +552,47 @@
 
 </body>
 </html>   
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Power Family Présences</title>
+    <style>
+        /* ... votre style CSS existant ... */
+        .android-print-button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .android-print-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+     <div class="table-container">
+            <tbody id="studentList">
+            </tbody>
+        </table>
+    </div>
+
+    <button class="android-print-button" onclick="imprimerPage()">Imprimer cette page</button>
+
+    <script>
+        // ... votre code JavaScript existant pour la gestion des présences ...
+
+        function imprimerPage() {
+            if (window.Android && window.Android.imprimerPage) {
+                window.Android.imprimerPage();
+            } else {
+                alert("L'impression n'est pas disponible.");
+            }
+        }
+    </script>
+</body>
+</html>
