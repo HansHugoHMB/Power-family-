@@ -607,7 +607,7 @@ function generatePresencePDF() {
             // Pied de page
             const pageCount = doc.internal.getNumberOfPages();
             doc.setFontSize(8);
-            doc.text(`Page ${data.pageNumber}/${pageCount} - © HMB-TECH ${new Date().getFullYear()}`, 
+            doc.text(`Page ${data.pageNumber}/${pageCount} - © 2025 HMB-TECH –·– TOUT DROITS RÉSERVÉS${new Date().getFullYear()}`, 
                      data.settings.margin.left, doc.internal.pageSize.height - 5);
         }
     });
