@@ -584,7 +584,7 @@ function generatePresencePDF() {
         const rowData = [
             index + 1,
             cells[1].textContent, // Nom
-            cells[2].querySelector('input')?.value || 'N/A', // Code saisi
+            cells[2].querySelector('')?.value || 'N/A', // Code saisi
             status
         ];
         rows.push(rowData);
