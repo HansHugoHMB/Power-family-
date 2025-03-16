@@ -565,13 +565,13 @@
 <script>
 function generatePresencePDF() {
     const doc = new jspdf.jsPDF({
-        orientation: 'landscape',
+        orientation: 'PORTRAIT',
         unit: 'mm',
         format: 'a4'
     });
 
     // Configuration du PDF
-    const title = "Rapport des Présences - " + new Date().toLocaleDateString();
+    const title = "RAPPORT DES PRÉSENCES PRÉPA H-25 - " + new Date().toLocaleDateString();
     const headers = [["N°", "Nom", "Code", "Statut"]];
     const rows = [];
 
@@ -595,7 +595,7 @@ function generatePresencePDF() {
         head: headers,
         body: rows,
         theme: 'grid',
-        styles: { fontSize: 8 },
+        styles: { fontSize: 10 },
         headerStyles: { fillColor: [33, 150, 243] },
         alternateRowStyles: { fillColor: [240, 240, 240] },
         margin: { top: 20 },
