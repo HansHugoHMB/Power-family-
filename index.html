@@ -583,7 +583,7 @@ function generatePresencePDF() {
         const status = cells[3].textContent; // Colonne Statut
         const rowData = [
             index + 1,
-            cells[1].textContent, // Nom        cells[2].querySelector('code-input')?.value || 'N/A', // Code saisi
+            cells[1].textContent, // Nom        cells[2].querySelector('code-input')?.value
             status
         ];
         rows.push(rowData);
