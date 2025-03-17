@@ -1,66 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-
-<script src="https://unpkg.com/@supabase/supabase-js@2"></script>
-<script>
-  // Configuration
-  const SUPABASE_URL = 'https://ivqsnindenbnzaveggwu.supabase.co';
-  const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml2cXNuaW5kZW5ibnphdmVnZ3d1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDIxNjc1NzAsImV4cCI6MjA1Nzc0MzU3MH0.5ML81g-UMVMiBPZoErbeLf26jMxvz962gcfH00yyitY';
-  const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-
-  // Fonction de validation modifiée
-  async function validateCode(index, value) {
-    const student = students[index];
-    
-    // Enregistrer la tentative
-    const { error } = await supabase
-      .from('presences')
-      .upsert({
-        student_code: student.code,
-        student_name: student.name,
-        submitted_code: value,
-        status: value === student.code ? 'present' : 'fraude'
-      });
-
-    if(!error) updateUI();
-  }
-
-  // Charger les données initiales
-  async function loadPresences() {
-    const { data } = await supabase
-      .from('presences')
-      .select('*');
-    
-    data.forEach(presence => {
-      const index = students.findIndex(s => s.code === presence.student_code);
-      if(index !== -1) {
-        document.querySelector(`#row-${index} .code-input`).value = presence.submitted_code;
-        updateRowStatus(index, presence.submitted_code);
-      }
-    });
-  }
-
-  // Réinitialisation sécurisée
-  async function resetData() {
-    if(confirm('Confirmer la réinitialisation ?')) {
-      await supabase
-        .from('presences')
-        .delete()
-        .neq('student_code', '');
-      
-      location.reload();
-    }
-  }
-
-  window.onload = loadPresences;
-</script>
-
-<!-- Ajouter un bouton de réinitialisation -->
-<button onclick="resetData()" style="background: #ff4444; color: white; padding: 10px;">
-  🔄 Réinitialiser toutes les données
-</button>
-    
     <meta charset="UTF-8">
     <title>Power Family Présences</title>
     <style>
