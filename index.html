@@ -650,89 +650,63 @@ function generatePresencePDF() {
 }
 </script>
 
-<!-- Ajoutez ce bouton dans votre HTML -->
-<button onclick="generateStatsPDF()" 
+<!-- Bouton rond pour télécharger le PDF des statistiques -->
+<button onclick="genererStatsPDF()" 
         style="position: fixed; 
-               bottom: 240px; 
                right: 20px; 
-               padding: 10px 20px;
-               background: #4CAF50;
+               bottom: 20px; 
+               width: 50px; 
+               height: 50px;
+               background: #0077B5;
                color: white;
                border: none;
-               border-radius: 5px;
-               cursor: pointer;">
-    📊 STATS
+               border-radius: 50%;
+               cursor: pointer;
+               font-size: 16px;">
+    ⎙
 </button>
 
+<!-- Inclusion de jsPDF -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+
 <script>
-function generateStatsPDF() {
-    const doc = new jspdf.jsPDF({
-        orientation: 'portrait',
-        unit: 'mm',
-        format: 'a4'
-    });
+function genererStatsPDF() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
 
-    // Configuration
-    const title = "STATISTIQUES DES PRÉSENCES - " + new Date().toLocaleDateString();
-    const totals = {
-        present: document.getElementById('totalPresent').textContent,
-        absent: document.getElementById('totalAbsent').textContent,
-        fraude: document.getElementById('totalFraude').textContent
-    };
+    // Titre du document
+    doc.setFontSize(14);
+    doc.text("Statistiques de Présence", 14, 10);
 
-    // Contenu du PDF
-    doc.setFontSize(12);
-    doc.text(title, 15, 20);
-    
-    // Tableau des totaux
+    // Récupération des listes d'étudiants
+    const presents = Array.from(document.getElementById('presentStudentList').children).map(li => [li.textContent]);
+    const absents = Array.from(document.getElementById('absentStudentList').children).map(li => [li.textContent]);
+    const fraudes = Array.from(document.getElementById('fraudeStudentList').children).map(li => [li.textContent]);
+
+    // Déterminer le nombre maximum de lignes
+    const maxRows = Math.max(presents.length, absents.length, fraudes.length);
+    const rows = [];
+
+    for (let i = 0; i < maxRows; i++) {
+        rows.push([
+            absents[i] ? absents[i][0] : '',
+            presents[i] ? presents[i][0] : '',
+            fraudes[i] ? fraudes[i][0] : ''
+        ]);
+    }
+
+    // Génération du tableau PDF
     doc.autoTable({
-        startY: 30,
-        head: [['Type', 'Nombre']],
-        body: [
-            ['Présents', totals.present],
-            ['Absents', totals.absent],
-            ['Frauduleux', totals.fraude]
-        ],
+        head: [["Absents", "Présents", "Fraudes"]],
+        body: rows,
+        startY: 20,
         theme: 'grid',
         styles: { fontSize: 10 },
-        headerStyles: { fillColor: [76, 175, 80] }
+        columnStyles: { 0: { cellWidth: 60 }, 1: { cellWidth: 60 }, 2: { cellWidth: 60 } }
     });
 
-    // Liste détaillée
-    const addList = (title, list, startY) => {
-        doc.setFontSize(14);
-        doc.text(title, 15, startY);
-        
-        doc.autoTable({
-            startY: startY + 5,
-            body: list.map(item => [item]),
-            theme: 'plain',
-            styles: { fontSize: 10 },
-            margin: { left: 15 }
-        });
-    };
-
-    // Récupération des listes
-    const presentList = Array.from(document.querySelectorAll('#presentStudentList li')).map(li => li.textContent);
-    const absentList = Array.from(document.querySelectorAll('#absentStudentList li')).map(li => li.textContent);
-    const fraudeList = Array.from(document.querySelectorAll('#fraudeStudentList li')).map(li => li.textContent);
-
-    // Positionnement dynamique
-    let yPos = doc.autoTable.previous.finalY + 15;
-    
-    if(presentList.length > 0) addList('Liste des présents:', presentList, yPos);
-    yPos = doc.autoTable.previous.finalY + 10;
-    
-    if(absentList.length > 0) addList('Liste des absents:', absentList, yPos);
-    yPos = doc.autoTable.previous.finalY + 10;
-    
-    if(fraudeList.length > 0) addList('Liste des frauduleux:', fraudeList, yPos);
-
-    // Pied de page
-    doc.setFontSize(10);
-    doc.text(`© HMB-TECH ${new Date().getFullYear()} - Données actualisées à ${new Date().toLocaleTimeString()}`, 
-             15, doc.internal.pageSize.height - 10);
-
-    doc.save(`statistiques-presences-${new Date().toISOString().slice(0,10)}.pdf`);
+    // Enregistrement du fichier PDF
+    doc.save("statistiques_presences.pdf");
 }
 </script>
