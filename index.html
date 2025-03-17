@@ -681,7 +681,7 @@ function generateStatsPDF() {
     };
 
     // Contenu du PDF
-    doc.setFontSize(16);
+    doc.setFontSize(12);
     doc.text(title, 15, 20);
     
     // Tableau des totaux
@@ -694,7 +694,7 @@ function generateStatsPDF() {
             ['Frauduleux', totals.fraude]
         ],
         theme: 'grid',
-        styles: { fontSize: 12 },
+        styles: { fontSize: 10 },
         headerStyles: { fillColor: [76, 175, 80] }
     });
 
