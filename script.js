@@ -184,3 +184,77 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 
 console.log("Données enregistrées :", localStorage.getItem("presences"));
+
+
+function loadAttendance() {
+    getDocs(attendanceCollection).then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+            const data = doc.data();
+            const studentId = doc.id; // L'ID du document est maintenant une string
+            const index = parseInt(studentId); // Convertir en nombre pour l'index du tableau students
+            if (students[index]) {
+                const row = document.getElementById(`row-${index}`);
+                const statusTextElement = document.getElementById(`textStatus-${index}`);
+                const statusSpanElement = document.getElementById(`status-${index}`);
+                const codeInputElement = document.getElementById(`code-input-${index}`);
+
+                if (data.status === "Présent") {
+                    row.classList.add('valid');
+                    row.classList.remove('invalid');
+                    statusTextElement.innerText = "Présent";
+                    codeInputElement.style.display = 'none';
+                    statusSpanElement.style.display = 'inline';
+                    codeInputElement.value = data.code;
+                } else if (data.status === "Fraudeur") {
+                    row.classList.add('invalid');
+                    row.classList.remove('valid');
+                    statusTextElement.innerText = "Fraudeur";
+                    codeInputElement.style.display = 'inline';
+                    statusSpanElement.style.display = 'none';
+                    codeInputElement.value = data.code;
+                    if (!fraudeStudents.includes(students[index].name)) {
+                        fraudeStudents.push(students[index].name);
+                    }
+                } else {
+                    row.classList.remove('valid', 'invalid');
+                    statusTextElement.innerText = "Absent";
+                    codeInputElement.style.display = 'inline';
+                    statusSpanElement.style.display = 'none';
+                    codeInputElement.value = "";
+                }
+            }
+        });
+        updateTotals();
+        updateFraudeListDisplay();
+        updatePresentListDisplay();
+        updateAbsentListDisplay();
+    }).catch((error) => {
+        console.error("Error loading attendance from Firebase: ", error);
+    });
+}
+
+function resetAttendance() {
+    if (confirm("Êtes-vous sûr de vouloir réinitialiser toutes les présences ?")) {
+        getDocs(attendanceCollection).then(querySnapshot => {
+            const batch = writeBatch(db);
+            querySnapshot.forEach(doc => {
+                const docRef = doc(attendanceCollection, doc.id);
+                batch.delete(docRef);
+            });
+            return batch.commit();
+        }).then(() => {
+            console.log("Attendance data reset successfully.");
+            // Reset local UI
+            fraudeStudents =;
+            presentStudents =;
+            absentStudents =;
+            renderList();
+            updateTotals();
+            updateFraudeListDisplay();
+            updatePresentListDisplay();
+            updateAbsentListDisplay();
+        }).catch(error => {
+            console.error("Error resetting attendance data: ", error);
+        });
+    }
+}
