@@ -649,3 +649,90 @@ function generatePresencePDF() {
     doc.save(`presences-${Date.now()}.pdf`);
 }
 </script>
+
+<!-- Ajoutez ce bouton dans votre HTML -->
+<button onclick="generateStatsPDF()" 
+        style="position: fixed; 
+               bottom: 240px; 
+               right: 20px; 
+               padding: 10px 20px;
+               background: #4CAF50;
+               color: white;
+               border: none;
+               border-radius: 5px;
+               cursor: pointer;">
+    📊 STATS
+</button>
+
+<script>
+function generateStatsPDF() {
+    const doc = new jspdf.jsPDF({
+        orientation: 'portrait',
+        unit: 'mm',
+        format: 'a4'
+    });
+
+    // Configuration
+    const title = "STATISTIQUES DES PRÉSENCES - " + new Date().toLocaleDateString();
+    const totals = {
+        present: document.getElementById('totalPresent').textContent,
+        absent: document.getElementById('totalAbsent').textContent,
+        fraude: document.getElementById('totalFraude').textContent
+    };
+
+    // Contenu du PDF
+    doc.setFontSize(16);
+    doc.text(title, 15, 20);
+    
+    // Tableau des totaux
+    doc.autoTable({
+        startY: 30,
+        head: [['Type', 'Nombre']],
+        body: [
+            ['Présents', totals.present],
+            ['Absents', totals.absent],
+            ['Frauduleux', totals.fraude]
+        ],
+        theme: 'grid',
+        styles: { fontSize: 12 },
+        headerStyles: { fillColor: [76, 175, 80] }
+    });
+
+    // Liste détaillée
+    const addList = (title, list, startY) => {
+        doc.setFontSize(14);
+        doc.text(title, 15, startY);
+        
+        doc.autoTable({
+            startY: startY + 5,
+            body: list.map(item => [item]),
+            theme: 'plain',
+            styles: { fontSize: 10 },
+            margin: { left: 15 }
+        });
+    };
+
+    // Récupération des listes
+    const presentList = Array.from(document.querySelectorAll('#presentStudentList li')).map(li => li.textContent);
+    const absentList = Array.from(document.querySelectorAll('#absentStudentList li')).map(li => li.textContent);
+    const fraudeList = Array.from(document.querySelectorAll('#fraudeStudentList li')).map(li => li.textContent);
+
+    // Positionnement dynamique
+    let yPos = doc.autoTable.previous.finalY + 15;
+    
+    if(presentList.length > 0) addList('Liste des présents:', presentList, yPos);
+    yPos = doc.autoTable.previous.finalY + 10;
+    
+    if(absentList.length > 0) addList('Liste des absents:', absentList, yPos);
+    yPos = doc.autoTable.previous.finalY + 10;
+    
+    if(fraudeList.length > 0) addList('Liste des frauduleux:', fraudeList, yPos);
+
+    // Pied de page
+    doc.setFontSize(10);
+    doc.text(`© HMB-TECH ${new Date().getFullYear()} - Données actualisées à ${new Date().toLocaleTimeString()}`, 
+             15, doc.internal.pageSize.height - 10);
+
+    doc.save(`statistiques-presences-${new Date().toISOString().slice(0,10)}.pdf`);
+}
+</script>
