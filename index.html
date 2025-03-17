@@ -451,314 +451,6 @@
 </html>
 
 <!DOCTYPE html>
-<html>
-<head>
-    <title>Inscription à la Newsletter HMB-TECH</title>
-    <style>
-        body {
-            font-family: sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            margin: 0;
-            position: relative; /* Needed for pseudo-element positioning */
-        }
-
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 123, 255, 0.5); /* Bleu semi-transparent */
-            filter: blur(10px); /* Ajustez la valeur du flou selon vos préférences */
-            z-index: -1; /* Placer en arrière-plan */
-        }
-
-        #newsletterContainer {
-            background-color: #1E293B; /* Couleur de fond sombre du newsletter */
-            color: #fff; /* Texte blanc */
-            padding: 30px;
-            border-radius: 8px;
-            text-align: left; /* Aligner le texte à gauche */
-            z-index: 0; /* S'assurer que le newsletter est au-dessus du fond flou */
-        }
-        .newsletter-title {
-            font-size: 0.8em;
-            color: #818CF8; /* Couleur violet clair */
-            margin-bottom: 10px;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-        }
-        .newsletter-subtitle {
-            font-size: 1.5em;
-            font-weight: bold;
-            margin-bottom: 20px;
-        }
-        .checkbox-group {
-            margin-bottom: 15px;
-        }
-        .checkbox-group label {
-            display: block;
-            margin-bottom: 8px;
-            color: #E2E8F0; /* Couleur de texte plus claire */
-            font-size: 0.9em;
-        }
-        .checkbox-group input[type="checkbox"] {
-            margin-right: 10px;
-        }
-        #newsletterForm div {
-            margin-bottom: 15px;
-        }
-        label[for="email"] {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: bold;
-            color: #E2E8F0;
-            font-size: 0.9em;
-        }
-        input[type="email"] {
-            width: calc(100% - 22px);
-            padding: 12px;
-            border: 1px solid #4A5568; /* Bordure grise foncée */
-            border-radius: 8px;
-            box-sizing: border-box;
-            font-size: 1em;
-            background-color: #334155; /* Fond de l'input plus foncé */
-            color: #CBD5E0; /* Couleur du texte dans l'input */
-        }
-        button[type="submit"] {
-            background-color: #A78BFA; /* Couleur violette du bouton */
-            color: white;
-            padding: 14px 20px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 1.1em;
-            font-weight: bold;
-            width: 100%;
-        }
-        button[type="submit"]:hover {
-            background-color: #8B5CF6; /* Nuance de violet au survol */
-        }
-        #errorMessage {
-            display: none;
-            color: #C00000; /* Rouge pour le message d'erreur */
-            margin-top: 10px;
-            text-align: center;
-        }
-        #overlayConfirmation {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: rgba(0, 0, 0, 0.5); /* Fond semi-transparent pour l'overlay */
-            color: white;
-            z-index: 1000;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease-in-out;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 80%; /* Largeur du tableau central */
-            max-width: 400px; /* Largeur maximale */
-            padding: 30px;
-            border-radius: 8px;
-            background-color: #fff; /* Fond blanc pour le tableau */
-            color: #333; /* Couleur du texte dans le tableau */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            text-align: center;
-        }
-        #overlayConfirmation.show {
-            opacity: 1;
-            visibility: visible;
-        }
-        #overlayMessage {
-            font-size: 1.2em;
-            font-weight: bold;
-        }
-    </style>
-</head>
-<body>
-    <div id="newsletterContainer">
-        <div class="newsletter-title">VOTRE NEWSLETTER PERSONNALISÉE</div>
-        <div class="newsletter-subtitle">Recevez le meilleur de l'actu</div>
-        <div class="checkbox-group">
-            <label>
-                <input type="checkbox" name="frequency" value="daily" checked> Tous les jours
-            </label>
-            <label>
-                <input type="checkbox" name="frequency" value="weekly" checked> Hebdo
-            </label>
-            <label>
-                <input type="checkbox" name="frequency" value="special"> Spéciale bons plans
-            </label>
-        </div>
-        <form id="newsletterForm">
-            <div>
-                <label for="email">Votre adresse e-mail</label>
-                <input type="email" id="email" name="email" required>
-            </div>
-            <button type="submit">Envoyer</button>
-            <div id="errorMessage">Une erreur s'est produite. Veuillez réessayer.</div>
-        </form>
-    </div>
-
-    <div id="overlayConfirmation">
-        <div id="overlayMessage"></div>
-    </div>
-
-    <script type="text/javascript"
-        src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-    <script type="text/javascript">
-       (function(){
-          emailjs.init("2U-zyFgLydFeBZ3pD"); // API Public
-       })();
-
-       document.addEventListener('DOMContentLoaded', function() {
-           const form = document.getElementById('newsletterForm');
-           const overlayConfirmation = document.getElementById('overlayConfirmation');
-           const overlayMessage = document.getElementById('overlayMessage');
-           const errorMessage = document.getElementById('errorMessage');
-           const newsletterContainer = document.getElementById('newsletterContainer');
-           const emailInput = document.getElementById('email'); // Récupérer l'élément input de l'e-mail
-
-           // Initially hide messages
-           errorMessage.style.display = 'none';
-
-           form.addEventListener('submit', function(event) {
-               event.preventDefault(); // Empêche la soumission par défaut du formulaire
-
-               const email = emailInput.value; // Récupérer la valeur de l'e-mail ici
-
-               const serviceID = "service_i4ab3qv"; // Service ID
-               const templateIDForAdmin = "template_8xgvkg9"; // Template ID
-
-               const paramsToAdmin = {
-                   email: email
-               };
-
-               emailjs.send(serviceID, templateIDForAdmin, paramsToAdmin)
-                   .then(function(response) {
-                       console.log('SUCCESS!', response.status, response.text);
-                       errorMessage.style.display = 'none';
-                       overlayMessage.textContent = "Votre abonnement à HMB-TECH a réussi !";
-                       overlayConfirmation.classList.add('show'); // Affiche l'overlay
-
-                       // Optionnel : Masquer l'overlay après quelques secondes
-                       setTimeout(function() {
-                           overlayConfirmation.classList.remove('show');
-                       }, 3000); // 3000 millisecondes = 3 secondes
-
-                       // NE PAS effacer le champ e-mail ici
-                       // form.reset();
-                   }, function(error) {
-                       console.error('FAILED...', error);
-                       errorMessage.style.display = 'block';
-                       overlayConfirmation.classList.remove('show');
-                   });
-           });
-       });
-    </script>
-</body>
-</html>
-
-  <!DOCTYPE html>
-<html>
-<head>
-    <title>Scrolling Image Bar</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        html, body {
-            margin: 0;
-            padding: 0;
-            width: 100%; /* Assure que html et body prennent toute la largeur */
-            overflow-x: hidden; /* Empêche le défilement horizontal du body */
-        }
-
-        body {
-            display: flex;
-            flex-direction: column;
-            align-items: center; /* Centre le copyright en dessous */
-        }
-
-        .scrolling-bar {
-            height: 5cm;
-            width: 100%; /* Assure que la barre prend toute la largeur du parent (body) */
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            overflow-x: hidden;
-            display: flex;
-            align-items: center; /* Centre l'image verticalement */
-            background-color: rgba(173, 216, 230, 0.3); /* Bleu clair transparent */
-            position: relative; /* Pour positionner l'image absolument à l'intérieur */
-            border: 1mm solid transparent;
-            border-image: linear-gradient(to right, blue, yellow, red) 1;
-            box-sizing: border-box; /* Inclut la bordure dans le calcul de la largeur */
-        }
-
-        .scrolling-image {
-            height: 80%; /* Ajuster la hauteur de l'image dans la barre */
-            position: absolute;
-            left: 0; /* Initial position */
-        }
-
-        .copyright-notice {
-            text-align: center;
-            padding: 10px 0;
-            font-size: 0.9em;
-            margin-top: 1mm; /* Place le copyright 1mm après la hauteur de la barre */
-        }
-    </style>
-</head>
-<body>
-
-    <div class="scrolling-bar" id="scrollingBar">
-        <img src="https://github.com/HansHugoHMB/Images/blob/main/LPH.png?raw=true" alt="Image Défilante" class="scrolling-image" id="scrollingImage">
-    </div>
-
-    <div class="copyright-notice">
-        &copy; 2025 HMB-TECH –– TOUT DROITS RÉSERVÉS
-    </div>
-
-    <script>
-        const scrollingBar = document.getElementById('scrollingBar');
-        const scrollingImage = document.getElementById('scrollingImage');
-
-        let imagePosition = 0;
-        const speed = 2; // Ajuster pour la vitesse de défilement
-        let direction = 1; // 1 pour droite, -1 pour gauche
-
-        function moveImage() {
-            const barWidth = scrollingBar.offsetWidth;
-            const imageWidth = scrollingImage.offsetWidth;
-
-            imagePosition += speed * direction;
-
-            // Vérifier si l'image atteint le bord droit
-            if (imagePosition > barWidth - imageWidth) {
-                imagePosition = barWidth - imageWidth;
-                direction = -1;
-            }
-
-            // Vérifier si l'image atteint le bord gauche
-            if (imagePosition < 0) {
-                imagePosition = 0;
-                direction = 1;
-            }
-
-            scrollingImage.style.left = imagePosition + 'px';
-        }
-
-        setInterval(moveImage, 20); // Ajuster l'intervalle pour une animation plus fluide
-    </script>
-
-<!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
@@ -927,4 +619,218 @@ function genererStatsPDF() {
     doc.save("statistiques_presences.pdf");
 }
 </script>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Inscription à la Newsletter HMB-TECH</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #0A1929; /* Couleur de fond sombre (similaire à la capture d'écran) */
+            position: relative; /* Needed for overlay positioning */
+        }
+
+        #newsletterContainer {
+            background-color: #0A1929; /* Couleur de fond sombre du newsletter */
+            color: #fff; /* Texte blanc */
+            padding: 30px;
+            border-radius: 8px;
+            text-align: left; /* Aligner le texte à gauche */
+            z-index: 0; /* S'assurer que le newsletter est au-dessus du fond flou (si activé) */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Ajouter une légère ombre */
+        }
+        .newsletter-title {
+            font-size: 0.8em;
+            color: #818CF8; /* Couleur violet clair */
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        .newsletter-subtitle {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .checkbox-group {
+            margin-bottom: 15px;
+        }
+        .checkbox-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #E2E8F0; /* Couleur de texte plus claire */
+            font-size: 0.9em;
+        }
+        .checkbox-group input[type="checkbox"] {
+            margin-right: 10px;
+        }
+        #newsletterForm div {
+            margin-bottom: 15px;
+        }
+        label[for="email"] {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #E2E8F0;
+            font-size: 0.9em;
+        }
+        input[type="email"] {
+            width: calc(100% - 22px);
+            padding: 12px;
+            border: 1px solid #1E293B; /* Bordure assortie au fond */
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 1em;
+            background-color: #1E293B; /* Fond de l'input assorti au fond */
+            color: #CBD5E0; /* Couleur du texte dans l'input */
+        }
+        button[type="submit"] {
+            background-color: #A78BFA; /* Couleur violette du bouton */
+            color: white;
+            padding: 14px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: bold;
+            width: 100%;
+        }
+        button[type="submit"]:hover {
+            background-color: #8B5CF6; /* Nuance de violet au survol */
+        }
+        #errorMessage {
+            display: none;
+            color: #C00000; /* Rouge pour le message d'erreur */
+            margin-top: 10px;
+            text-align: center;
+        }
+        #overlayConfirmation {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.5); /* Fond semi-transparent pour l'overlay */
+            color: white;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease-in-out;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 80%; /* Largeur du tableau central */
+            max-width: 400px; /* Largeur maximale */
+            padding: 30px;
+            border-radius: 8px;
+            background-color: #fff; /* Fond blanc pour le tableau */
+            color: #333; /* Couleur du texte dans le tableau */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+        #overlayConfirmation.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        #overlayMessage {
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+        .copyright {
+            font-size: 0.7em;
+            color: #64748B; /* Couleur grise claire pour le copyright */
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="newsletterContainer">
+        <div class="newsletter-title">VOTRE NEWSLETTER PERSONNALISÉE</div>
+        <div class="newsletter-subtitle">Recevez le meilleur de l'actu</div>
+        <div class="checkbox-group">
+            <label>
+                <input type="checkbox" name="frequency" value="daily" checked> Tous les jours
+            </label>
+            <label>
+                <input type="checkbox" name="frequency" value="weekly" checked> Hebdo
+            </label>
+            <label>
+                <input type="checkbox" name="frequency" value="special"> Spéciale bons plans
+            </label>
+        </div>
+        <form id="newsletterForm">
+            <div>
+                <label for="email">Votre adresse e-mail</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <button type="submit">Envoyer</button>
+            <div id="errorMessage">Une erreur s'est produite. Veuillez réessayer.</div>
+        </form>
+        <div class="copyright">© HMB-TECH –·– TOUT DROIT RÉSERVÉS</div>
+    </div>
+
+    <div id="overlayConfirmation">
+        <div id="overlayMessage"></div>
+    </div>
+
+    <script type="text/javascript"
+        src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+       (function(){
+          emailjs.init("2U-zyFgLydFeBZ3pD"); // API Public
+       })();
+
+       document.addEventListener('DOMContentLoaded', function() {
+           const form = document.getElementById('newsletterForm');
+           const overlayConfirmation = document.getElementById('overlayConfirmation');
+           const overlayMessage = document.getElementById('overlayMessage');
+           const errorMessage = document.getElementById('errorMessage');
+           const newsletterContainer = document.getElementById('newsletterContainer');
+           const emailInput = document.getElementById('email'); // Récupérer l'élément input de l'e-mail
+
+           // Initially hide messages
+           errorMessage.style.display = 'none';
+
+           form.addEventListener('submit', function(event) {
+               event.preventDefault(); // Empêche la soumission par défaut du formulaire
+
+               const email = emailInput.value; // Récupérer la valeur de l'e-mail ici
+
+               const serviceID = "service_i4ab3qv"; // Service ID
+               const templateIDForAdmin = "template_8xgvkg9"; // Template ID
+
+               const paramsToAdmin = {
+                   email: email
+               };
+
+               emailjs.send(serviceID, templateIDForAdmin, paramsToAdmin)
+                   .then(function(response) {
+                       console.log('SUCCESS!', response.status, response.text);
+                       errorMessage.style.display = 'none';
+                       overlayMessage.textContent = "Votre abonnement à HMB-TECH a réussi !";
+                       overlayConfirmation.classList.add('show'); // Affiche l'overlay
+
+                       // Optionnel : Masquer l'overlay après quelques secondes
+                       setTimeout(function() {
+                           overlayConfirmation.classList.remove('show');
+                       }, 3000); // 3000 millisecondes = 3 secondes
+
+                       // NE PAS effacer le champ e-mail ici
+                       // form.reset();
+                   }, function(error) {
+                       console.error('FAILED...', error);
+                       errorMessage.style.display = 'block';
+                       overlayConfirmation.classList.remove('show');
+                   });
+           });
+       });
+    </script>
+</body>
+</html>
 
