@@ -873,3 +873,51 @@ function genererStatsPDF() {
 </body>
 </html>
 
+
+
+<!-- Inclusion de jsPDF -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+
+<script>
+function genererStatsPDF() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+
+    // Titre du document
+    doc.setFontSize(14);
+    doc.text("Statistiques de Présence", 14, 10);
+
+    // Récupération des listes d'étudiants
+    const presents = Array.from(document.getElementById('presentStudentList').children).map(li => [li.textContent]);
+    const absents = Array.from(document.getElementById('absentStudentList').children).map(li => [li.textContent]);
+    const fraudes = Array.from(document.getElementById('fraudeStudentList').children).map(li => [li.textContent]);
+
+    // Déterminer le nombre maximum de lignes
+    const maxRows = Math.max(presents.length, absents.length, fraudes.length);
+    const rows = [];
+
+    for (let i = 0; i < maxRows; i++) {
+        rows.push([
+            absents[i] ? absents[i][0] : '',
+            presents[i] ? presents[i][0] : '',
+            fraudes[i] ? fraudes[i][0] : ''
+        ]);
+    }
+
+    // Génération du tableau PDF
+    doc.autoTable({
+        head: [["Absents", "Présents", "Fraudes"]],
+        body: rows,
+        startY: 20,
+        theme: 'grid',
+        styles: { fontSize: 10 },
+        columnStyles: { 0: { cellWidth: 60 }, 1: { cellWidth: 60 }, 2: { cellWidth: 60 } }
+    });
+
+    // Enregistrement du fichier PDF
+    doc.save("statistiques_presences.pdf");
+}
+</script>
+
+
