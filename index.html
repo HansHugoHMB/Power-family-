@@ -116,6 +116,48 @@
     0% { transform: translateX(-66.66%); }
     100% { transform: translateX(0); }
 }
+</style>
+</head>
+<body>
+
+<div class="rdc-banner">
+    <div class="color-wave"></div>
+</div>
+
+</body>
+</html>
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+.rdc-banner {
+    position: relative;
+    width: 100%;
+    height: 1cm;
+    overflow: hidden;
+}
+
+.color-wave {
+    width: 300%;
+    height: 100%;
+    background: linear-gradient(
+        to right,
+        #0077B5,
+        #0077B5 33.33%,
+        #FFD700 33.33%,
+        #FFD700 66.66%,
+        #CE1126 66.66%,
+        #CE1126 100%
+    );
+    animation: slide 10s linear infinite;
+}
+
+@keyframes slide {
+    0% { transform: translateX(-66.66%); }
+    100% { transform: translateX(0); }
+}
 
 /* --- Styles à ajouter pour le tableau avec espacement de 1cm --- */
 .table-container table {
