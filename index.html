@@ -11,31 +11,6 @@
     </style>
     </head>
 <body>
-    <script type="module">
-      // Import the functions you need from the SDKs you need
-      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
-      import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-analytics.js";
-      // TODO: Add SDKs for Firebase products that you want to use
-      // https://firebase.google.com/docs/web/setup#available-libraries
-
-      // Your web app's Firebase configuration
-      // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-      const firebaseConfig = {
-        apiKey: "AIzaSyDpQ0w3azdx8Gl6K5GDVACzZi2eBm63wVw",
-        authDomain: "presences-hmb-tech.firebaseapp.com",
-        projectId: "presences-hmb-tech",
-        storageBucket: "presences-hmb-tech.firebasestorage.app",
-        messagingSenderId: "106820587993",
-        appId: "1:106820587993:web:b5adf2e81bb5c8359a09c8",
-        measurementId: "G-Z28D2R4FQC"
-      };
-
-      // Initialize Firebase
-      const app = initializeApp(firebaseConfig);
-      const analytics = getAnalytics(app);
-    </script>
-</body>
-</html>
     <meta charset="UTF-8">
     <title>Power Family Présences</title>
     <style>
@@ -173,68 +148,6 @@ function generatePresencePDF() {
     doc.save(`presences-${Date.now()}.pdf`);
 }
 </script>
-
-<!-- Bouton rond pour télécharger le PDF des statistiques -->
-<button onclick="genererStatsPDF()" 
-        style="position: fixed; 
-               right: 20px; 
-               bottom: 20px; 
-               width: 50px; 
-               height: 50px;
-               background: #0077B5;
-               color: white;
-               border: none;
-               border-radius: 50%;
-               cursor: pointer;
-               font-size: 16px;">
-    ⎙
-</button>
-
-<!-- Inclusion de jsPDF -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
-
-<script>
-function genererStatsPDF() {
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF();
-
-    // Titre du document
-    doc.setFontSize(14);
-    doc.text("Statistiques de Présence", 14, 10);
-
-    // Récupération des listes d'étudiants
-    const presents = Array.from(document.getElementById('presentStudentList').children).map(li => [li.textContent]);
-    const absents = Array.from(document.getElementById('absentStudentList').children).map(li => [li.textContent]);
-    const fraudes = Array.from(document.getElementById('fraudeStudentList').children).map(li => [li.textContent]);
-
-    // Déterminer le nombre maximum de lignes
-    const maxRows = Math.max(presents.length, absents.length, fraudes.length);
-    const rows = [];
-
-    for (let i = 0; i < maxRows; i++) {
-        rows.push([
-            absents[i] ? absents[i][0] : '',
-            presents[i] ? presents[i][0] : '',
-            fraudes[i] ? fraudes[i][0] : ''
-        ]);
-    }
-
-    // Génération du tableau PDF
-    doc.autoTable({
-        head: [["Absents", "Présents", "Fraudes"]],
-        body: rows,
-        startY: 20,
-        theme: 'grid',
-        styles: { fontSize: 10 },
-        columnStyles: { 0: { cellWidth: 60 }, 1: { cellWidth: 60 }, 2: { cellWidth: 60 } }
-    });
-
-    // Enregistrement du fichier PDF
-    doc.save("statistiques_presences.pdf");
-}
-    </style>
-</head>
 
 <!DOCTYPE html>
 <html>
@@ -869,10 +782,22 @@ function genererStatsPDF() {
            });
        });
     </script>
-</body>
-</html>
 
-
+<!-- Bouton rond pour télécharger le PDF des statistiques -->
+<button onclick="genererStatsPDF()" 
+        style="position: fixed; 
+               right: 20px; 
+               bottom: 20px; 
+               width: 50px; 
+               height: 50px;
+               background: #0077B5;
+               color: white;
+               border: none;
+               border-radius: 50%;
+               cursor: pointer;
+               font-size: 16px;">
+    ⎙
+</button>
 
 <!-- Inclusion de jsPDF -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -917,7 +842,8 @@ function genererStatsPDF() {
     // Enregistrement du fichier PDF
     doc.save("statistiques_presences.pdf");
 }
-</script>
+    </style>
+</head>
+
 </body>
 </html>
-
