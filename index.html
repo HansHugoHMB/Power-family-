@@ -86,69 +86,6 @@
          .fraude-students-section h3 {
             margin-top: 0;
         } 
-<!-- Ajoutez ce bouton dans votre HTML -->
-<button onclick="generatePresencePDF()" 
-        style="position: fixed; bottom: 200px; right: 20px; padding: 10px; background: #B0E2FF; color: B0E2FF;">
-    ⎙
-</button>
-
-<!-- Ajoutez ces scripts en bas de body -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
-
-<script>
-function generatePresencePDF() {
-    const doc = new jspdf.jsPDF({
-        orientation: 'PORTRAIT',
-        unit: 'mm',
-        format: 'a4'
-    });
-
-    // Configuration du PDF
-    const title = "RAPPORT DES PRÉSENCES PRÉPA H-25 - " + new Date().toLocaleDateString();
-    const headers = [["N°", "Nom", "Statut"]];
-    const rows = [];
-
-    // Récupération des données du tableau
-    const tableRows = document.querySelectorAll('#studentList tr');
-    
-    tableRows.forEach((row, index) => {
-        const cells = row.querySelectorAll('td');
-        const status = cells[3].textContent; // Colonne Statut
-        const rowData = [
-            index + 1,
-            cells[1].textContent, // Nom        cells[2].querySelector('code-input')?.value  || 'N/A', // Code saisi
-            status
-        ];
-        rows.push(rowData);
-    });
-
-    // Génération du tableau PDF
-    doc.autoTable({
-        head: headers,
-        body: rows,
-        theme: 'grid',
-        styles: { fontSize: 10 },
-        headerStyles: { fillColor: [33, 150, 243] },
-        alternateRowStyles: { fillColor: [240, 240, 240] },
-        margin: { top: 20 },
-        didDrawPage: function(data) {
-            // En-tête avec date
-            doc.setFontSize(12);
-            doc.text(title, 14, 10);
-            
-            // Pied de page
-            const pageCount = doc.internal.getNumberOfPages();
-            doc.setFontSize(8);
-            doc.text(`Page ${data.pageNumber}/${pageCount} - © HMB-TECH ${new Date().getFullYear()}`, 
-                     data.settings.margin.left, doc.internal.pageSize.height - 5);
-        }
-    });
-
-    doc.save(`presences-${Date.now()}.pdf`);
-}
-</script>
-
 <!DOCTYPE html>
 <html>
 <head>
