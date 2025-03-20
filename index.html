@@ -919,4 +919,239 @@ function genererStatsPDF() {
 }
 </script>
 
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rapport de Présences</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin-bottom: 250px; /* Adjust margin to accommodate fixed buttons */
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        #presentStudentList, #absentStudentList, #fraudeStudentList {
+            margin-top: 20px;
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+
+        #presentStudentList h2, #absentStudentList h2, #fraudeStudentList h2 {
+            margin-top: 0;
+        }
+
+        #presentStudentList li, #absentStudentList li, #fraudeStudentList li {
+            list-style-type: none;
+            padding: 5px 0;
+            border-bottom: 1px dotted #eee;
+        }
+
+        #presentStudentList li:last-child, #absentStudentList li:last-child, #fraudeStudentList li:last-child {
+            border-bottom: none;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Liste des Étudiants</h1>
+
+    <table id="studentList">
+        <thead>
+            <tr>
+                <th>N°</th>
+                <th>Nom</th>
+                <th>Code</th>
+                <th>Statut</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>John Doe</td>
+                <td>JD123</td>
+                <td>Présent</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Jane Smith</td>
+                <td>JS456</td>
+                <td>Absent</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Peter Jones</td>
+                <td>PJ789</td>
+                <td>Présent</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>Alice Brown</td>
+                <td>AB012</td>
+                <td>Fraude</td>
+            </tr>
+            </tbody>
+    </table>
+
+    <h2>Listes pour les statistiques (pour démonstration)</h2>
+    <div id="presentStudentList">
+        <h2>Présents</h2>
+        <ul>
+            <li>John Doe</li>
+            <li>Peter Jones</li>
+            </ul>
+    </div>
+
+    <div id="absentStudentList">
+        <h2>Absents</h2>
+        <ul>
+            <li>Jane Smith</li>
+            </ul>
+    </div>
+
+    <div id="fraudeStudentList">
+        <h2>Fraudes</h2>
+        <ul>
+            <li>Alice Brown</li>
+            </ul>
+    </div>
+
+    <button onclick="generatePresencePDF()"
+            style="position: fixed; bottom: 200px; right: 20px; padding: 10px; background: #B0E2FF; color: white; border: none; border-radius: 5px; cursor: pointer;">
+        ⎙ Rapport de Présences
+    </button>
+
+    <button onclick="genererStatsPDF()"
+            style="position: fixed;
+                   right: 20px;
+                   bottom: 20px;
+                   width: 50px;
+                   height: 50px;
+                   background: #0077B5;
+                   color: white;
+                   border: none;
+                   border-radius: 50%;
+                   cursor: pointer;
+                   font-size: 16px;">
+        📊
+    </button>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+
+    <script>
+        function generatePresencePDF() {
+            const doc = new jspdf.jsPDF({
+                orientation: 'PORTRAIT',
+                unit: 'mm',
+                format: 'a4'
+            });
+
+            // Configuration du PDF
+            const title = "RAPPORT DES PRÉSENCES PRÉPA H-25 - " + new Date().toLocaleDateString();
+            const headers = [["N°", "Nom", "Statut"]];
+            const rows =;
+
+            // Récupération des données du tableau
+            const tableRows = document.querySelectorAll('#studentList tr');
+
+            tableRows.forEach((row, index) => {
+                if (index === 0) return; // Skip header row
+                const cells = row.querySelectorAll('td');
+                if (cells.length >= 4) {
+                    const status = cells[3].textContent; // Colonne Statut
+                    const rowData = [
+                        index,
+                        cells[1].textContent, // Nom
+                        status
+                    ];
+                    rows.push(rowData);
+                }
+            });
+
+            // Génération du tableau PDF
+            doc.autoTable({
+                head: headers,
+                body: rows,
+                theme: 'grid',
+                styles: { fontSize: 10 },
+                headerStyles: { fillColor: [33, 150, 243] },
+                alternateRowStyles: { fillColor: [240, 240, 240] },
+                margin: { top: 20 },
+                didDrawPage: function(data) {
+                    // En-tête avec date
+                    doc.setFontSize(12);
+                    doc.text(title, 14, 10);
+
+                    // Pied de page
+                    const pageCount = doc.internal.getNumberOfPages();
+                    doc.setFontSize(8);
+                    doc.text(`Page ${data.pageNumber}/${pageCount} - © HMB-TECH ${new Date().getFullYear()}`,
+                             data.settings.margin.left, doc.internal.pageSize.height - 5);
+                }
+            });
+
+            doc.save(`presences-${Date.now()}.pdf`);
+        }
+    </script>
+
+    <script>
+        function genererStatsPDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            // Titre du document
+            doc.setFontSize(14);
+            doc.text("Statistiques de Présence", 14, 10);
+
+            // Récupération des listes d'étudiants
+            const presents = Array.from(document.getElementById('presentStudentList').children).map(li => [li.textContent]);
+            const absents = Array.from(document.getElementById('absentStudentList').children).map(li => [li.textContent]);
+            const fraudes = Array.from(document.getElementById('fraudeStudentList').children).map(li => [li.textContent]);
+
+            // Déterminer le nombre maximum de lignes
+            const maxRows = Math.max(presents.length, absents.length, fraudes.length);
+            const rows =;
+
+            for (let i = 0; i < maxRows; i++) {
+                rows.push([
+                    absents[i] ? absents[i][0] : '',
+                    presents[i] ? presents[i][0] : '',
+                    fraudes[i] ? fraudes[i][0] : ''
+                ]);
+            }
+
+            // Génération du tableau PDF
+            doc.autoTable({
+                head: [["Absents", "Présents", "Fraudes"]],
+                body: rows,
+                startY: 20,
+                theme: 'grid',
+                styles: { fontSize: 10 },
+                columnStyles: { 0: { cellWidth: 60 }, 1: { cellWidth: 60 }, 2: { cellWidth: 60 } }
+            });
+
+            // Enregistrement du fichier PDF
+            doc.save("statistiques_presences.pdf");
+        }
+    </script>
+
+</body>
+</html>
 
