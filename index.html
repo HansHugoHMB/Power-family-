@@ -196,144 +196,66 @@
         </table>
     </div>
 
-
-   <!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="description" content="Statistiques en temps réel avec bordure en zigzag">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="importance" content="high">
-    <style>
-        /* Styles pour la div principale avec bordure et coins en zigzag */
-        .statistiques-container {
-            margin: 20px 0;
-            padding: 15px;
-            background: #0D1C40; /* Couleur de fond du conteneur */
-            position: relative;
-            z-index: 1;
-            display: inline-block;
-            overflow: hidden;
-            background-clip: padding-box;
-            border: 3px solid transparent; /* Bordure transparente initiale */
-            border-image: linear-gradient(
-                to right, 
-                #d4edda,  /* Couleur pour Présents */
-                #fff3cd,  /* Couleur pour Absents */
-                #f8d7da   /* Couleur pour Frauduleux */
-            ) 1;
-            border-radius: 20px; /* Bordures arrondies classiques pour l'effet général */
-        }
-
-        /* Coins en zigzag créés avec les pseudo-éléments */
-        .statistiques-container::before, 
-        .statistiques-container::after {
-            content: "";
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            background-color: #0D1C40; /* Couleur de fond pour masquer les bords */
-            z-index: -1;
-        }
-
-        /* Coins supérieurs gauche et droit */
-        .statistiques-container::before {
-            top: -10px;
-            left: -10px;
-            border-top-left-radius: 50%;
-            border-bottom-right-radius: 50%;
-            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-        }
-
-        .statistiques-container::after {
-            top: -10px;
-            right: -10px;
-            border-top-right-radius: 50%;
-            border-bottom-left-radius: 50%;
-            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-        }
-
-        /* Coin inférieur gauche et droit */
-        .statistiques-container .zigzag-bottom-left, 
-        .statistiques-container .zigzag-bottom-right {
-            content: "";
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            background-color: #0D1C40; /* Couleur de fond pour masquer les bords */
-            z-index: -1;
-        }
-
-        .zigzag-bottom-left {
-            bottom: -10px;
-            left: -10px;
-            border-bottom-left-radius: 50%;
-            border-top-right-radius: 50%;
-            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-        }
-
-        .zigzag-bottom-right {
-            bottom: -10px;
-            right: -10px;
-            border-bottom-right-radius: 50%;
-            border-top-left-radius: 50%;
-            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-        }
-
-        /* Contenu interne des divs */
-        .statistiques-container h3 {
-            font-weight: bold;
-            font-size: 1.5rem;
-            color: white;
-            text-align: center;
-        }
-
-        .statistiques-container .stat {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            margin-top: 10px;
-        }
-
-        .statistiques-container .stat div {
-            padding: 10px;
-            border-radius: 5px;
-            color: #333;
-        }
-
-        .statistiques-container .stat .present {
-            background: #d4edda;
-        }
-
-        .statistiques-container .stat .absent {
-            background: #fff3cd;
-        }
-
-        .statistiques-container .stat .frauduleux {
-            background: #f8d7da;
-        }
-    </style>
-</head>
-<body>
-
-    <!-- Conteneur des statistiques avec bordure aux couleurs similaires des autres divs -->
-    <div class="statistiques-container">
-        <h3>Statistiques en temps réel</h3>
-        <div class="stat">
-            <div class="present">
-                Présents: <span id="totalPresent">0</span>
-            </div>
-            <div class="absent">
-                Absents: <span id="totalAbsent">0</span>
-            </div>
-            <div class="frauduleux">
-                Frauduleux: <span id="totalFraude">0</span>
-            </div>
+<div class="statistiques-container">
+    <h3>Statistiques en temps réel</h3>
+    <div class="stat">
+        <div class="present">
+            Présents: <span id="totalPresent">0</span>
+        </div>
+        <div class="absent">
+            Absents: <span id="totalAbsent">0</span>
+        </div>
+        <div class="frauduleux">
+            Frauduleux: <span id="totalFraude">0</span>
         </div>
     </div>
+</div>
 
-</body>
-</html>
+<style>
+    /* Conteneur principal avec couleur et bordure */
+    .statistiques-container {
+        margin: 20px 0;
+        padding: 15px;
+        background: #0D1C40; /* Même couleur que les autres divs */
+        color: white;
+        text-align: center;
+        border-radius: 15px;
+        border: 5px solid transparent;
+        border-image: linear-gradient(
+            90deg, 
+            #1E90FF, /* Bleu */
+            #FFD700, /* Jaune */
+            #CE1126  /* Rouge */
+        ) 1;
+    }
+
+    /* Contenu des statistiques */
+    .statistiques-container h3 {
+        font-size: 16px; /* Taille réduite */
+        font-weight: bold;
+        font-style: italic;
+        text-transform: uppercase;
+    }
+
+    .statistiques-container .stat {
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+        margin-top: 10px;
+    }
+
+    .statistiques-container .stat div {
+        padding: 10px;
+        border-radius: 5px;
+        font-weight: bold;
+    }
+
+    .present { background: #000000; color: #FFFFFF; }
+    .absent { background: #000000; color: #FFFFFF; }
+    .frauduleux { background: #000000; color: #FFFFFF; }
+
+</style>
+   
 
 <div class="fraude-students-section" style="background-color: #0D1C40; color: white; padding: 10px; border-radius: 8px; width: 80%; margin: 0 auto; margin-bottom: 5mm;">
     <h3 style="font-weight: bold; font-style: italic; text-align: center; font-size: 12px;">Étudiants avec code erroné</h3>
@@ -427,7 +349,7 @@
             { name: "MOGBOKULA-NDOLE", code: "AAA066" },
             { name: "MOHELE – MATUKA", code: "AAA067" },
             { name: "MOKIE - INKINI", code: "AAA068" },
-            { name: "MOKILI - KATSHULU", code: "AAA069" },
+            { name: "MOKILI - KATSHULU - JERDAM", code: "AAA069" },
             { name: "MOKOSI – KETA", code: "AAA070" },
             { name: "MOKOYO-BOKIANGA", code: "AAA071" },
             { name: "MOKUBA – BAPELE", code: "AAA072" },
