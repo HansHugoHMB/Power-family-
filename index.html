@@ -703,7 +703,7 @@
             <div class="form-group">
                 <input type="email" class="form-control" id="email" name="_replyto" placeholder="Votre adresse e-mail" required readonly style="cursor: pointer;">
             </div>
-            <button type="submit" class="btn btn-primary">Envoyer</button>
+            <button type="submit" class="btn btn-primary" id="submit-button">Envoyer</button>
         </form>
     </div>
 
@@ -727,6 +727,10 @@
         const emailOverlayInput = document.getElementById('email-overlay-input');
         const confirmEmailButton = document.getElementById('confirm-email-button');
         const overlayConfirmation = document.getElementById('overlay-confirmation');
+        const submitButton = document.getElementById('submit-button');
+
+        let emailConfirmed = false;
+        let autoSubmitTimeout;
 
         emailInput.addEventListener('focus', function() {
             emailOverlay.style.display = 'block';
@@ -737,6 +741,14 @@
             const email = emailOverlayInput.value;
             emailInput.value = email;
             emailOverlay.style.display = 'none';
+            emailConfirmed = true;
+
+            // Démarrer le timer pour la soumission automatique
+            autoSubmitTimeout = setTimeout(() => {
+                if (emailConfirmed) {
+                    newsletterForm.dispatchEvent(new Event('submit'));
+                }
+            }, 3000);
         });
 
         // Permettre la confirmation de l'email avec la touche Entrée dans l'overlay
@@ -748,6 +760,10 @@
 
         newsletterForm.addEventListener('submit', function(event) {
             event.preventDefault(); // Empêcher la redirection
+
+            // Empêcher la soumission automatique si l'utilisateur clique sur "Envoyer"
+            clearTimeout(autoSubmitTimeout);
+            emailConfirmed = false; // Réinitialiser pour une prochaine interaction
 
             let formData = new FormData(this);
 
@@ -778,15 +794,24 @@
 
         // Permettre la soumission finale avec la touche Entrée (si l'email a été confirmé)
         newsletterForm.addEventListener('keypress', function(event) {
-            if (event.key === 'Enter' && emailInput.value) {
+            if (event.key === 'Enter' && emailInput.value && !autoSubmitTimeout) {
+                // Empêcher la double soumission si le timer est actif
                 this.dispatchEvent(new Event('submit'));
+            }
+        });
+
+        // Empêcher la soumission par défaut du formulaire si l'email n'est pas confirmé
+        submitButton.addEventListener('click', function(event) {
+            if (!emailConfirmed) {
+                event.preventDefault();
+                emailOverlay.style.display = 'block';
+                emailOverlayInput.focus();
             }
         });
     </script>
 
 </body>
 </html>
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
