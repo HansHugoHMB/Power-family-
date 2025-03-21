@@ -668,9 +668,10 @@
 
 </body>
 </html>
+
 <!-- Bouton de téléchargement -->
 <button onclick="generateStatsPDF()" 
-        style="position: fixed; bottom: 20px; right: 20px;
+        style="position: fixed; bottom: 20px; left: 20px;
                width: 50px; height: 50px; border-radius: 50%;
                background: #0D1C40; color: white; border: none;
                cursor: pointer; font-size: 24px; display: flex;
@@ -711,7 +712,7 @@ function generateStatsPDF() {
         ]);
     }
 
-    // Génération
+    // Génération du PDF
     doc.autoTable({
         head: headers,
         body: body,
@@ -739,9 +740,8 @@ function generateStatsPDF() {
     // En-tête
     doc.setFontSize(16);
     doc.setTextColor(13, 28, 64);
-    doc.text;
-    
-    
+    doc.text('Rapport Statistique', 10, 20);
+
     // Pied de page
     const pages = doc.internal.getNumberOfPages();
     for (let i = 1; i <= pages; i++) {
@@ -754,7 +754,26 @@ function generateStatsPDF() {
         );
     }
 
-    doc.save(`STATS_H25_${Date.now()}.pdf`);
+    // Créer un lien de téléchargement
+    const pdfOutput = doc.output('bloburl');
+    
+    // Afficher le bouton de téléchargement
+    const downloadButton = document.createElement('a');
+    downloadButton.href = pdfOutput;
+    downloadButton.download = `STATS_H25_${Date.now()}.pdf`;
+    downloadButton.innerHTML = 'Télécharger le PDF';
+    
+    // Style du bouton
+    downloadButton.style.position = 'fixed';
+    downloadButton.style.bottom = '20px';
+    downloadButton.style.left = '100px';
+    downloadButton.style.backgroundColor = '#0D1C40';
+    downloadButton.style.color = 'white';
+    downloadButton.style.padding = '10px 20px';
+    downloadButton.style.borderRadius = '5px';
+    downloadButton.style.textDecoration = 'none';
+    
+    // Ajouter le bouton à la page
+    document.body.appendChild(downloadButton);
 }
 </script>
-</html>
