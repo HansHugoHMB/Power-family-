@@ -851,20 +851,21 @@ function generateStatsPDF() {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Site avec image de fond</title>
+    <title>Site avec image et couleur de fond</title>
     <style>
         body {
             margin: 0;
             height: 100vh;
-            background-image: url('https://github.com/HansHugoHMB/Images/raw/main/ISTA_1.png');
+            background-color: #0C1A76; /* Troisième plan : Couleur de fond */
+            background-image: url('https://github.com/HansHugoHMB/Images/raw/main/ISTA_2.png'); /* Deuxième plan : Image */
             background-size: cover;
             background-position: center;
-            background-attachment: fixed; /* L'image reste fixe */
+            background-attachment: fixed;
         }
 
         .content {
             position: relative;
-            z-index: 1;
+            z-index: 1; /* Premier plan : Le contenu du site */
             padding: 20px;
             color: white;
             font-family: Arial, sans-serif;
@@ -875,6 +876,4 @@ function generateStatsPDF() {
         }
     </style>
 </head>
-<body>
-</body>
 </html>
