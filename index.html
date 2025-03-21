@@ -789,3 +789,62 @@ function generateStatsPDF() {
     document.body.appendChild(downloadButton);
 }
 </script>
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Bannière animée avec les couleurs de la RDC">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="importance" content="high">
+    <style>
+        /* Bannière qui reste fixée en haut de la page */
+        .rdc-banner {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 1cm;
+            overflow: hidden;
+            z-index: 1000; /* S'assure que la bannière est au-dessus des autres éléments */
+        }
+
+        /* Vagues de couleurs de la RDC : bleu, jaune et rouge */
+        .color-wave {
+            width: 300%;
+            height: 100%;
+            background: linear-gradient(
+                to right,
+                #1E90FF, /* Bleu de la RDC */
+                #1E90FF 33.33%, 
+                #FFD700 33.33%, /* Jaune de la RDC */
+                #FFD700 66.66%, 
+                #CE1126 66.66%, /* Rouge de la RDC */
+                #CE1126 100%
+            );
+            animation: slide 10s linear infinite;
+        }
+
+        /* Animation de défilement des couleurs */
+        @keyframes slide {
+            0% { transform: translateX(-66.66%); }
+            100% { transform: translateX(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Bannière fixe en haut avec l'animation des couleurs de la RDC -->
+    <div class="rdc-banner">
+        <div class="color-wave"></div>
+    </div>
+
+    <!-- Contenu supplémentaire de la page -->
+    <div style="margin-top: 2cm; padding: 20px;">
+        <h1>Bienvenue sur le site de la RDC!</h1>
+        <p>Explorez des informations intéressantes sur la République Démocratique du Congo.</p>
+        <!-- Ajoutez ici d'autres informations ou sections de la page -->
+    </div>
+
+</body>
+</html>
