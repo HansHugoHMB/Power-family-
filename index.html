@@ -520,217 +520,154 @@
 </script>
 
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
-    <title>Inscription à la Newsletter HMB-TECH</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Newsletter HMB-TECH</title>
+
+    <!-- Bootstrap via CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+    <!-- Style personnalisé -->
     <style>
         body {
-            font-family: sans-serif;
+            background-color: #121212; /* Fond sombre */
+            color: white;
+            font-family: Arial, sans-serif;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            justify-content: center;
             min-height: 100vh;
-            margin: 0;
-            background-color: #21618c; /* Couleur de fond sombre (similaire à la capture d'écran) */
-            position: relative; /* Needed for overlay positioning */
         }
-
-        #newsletterContainer {
-            background-color: #0A1929; /* Couleur de fond sombre du newsletter */
-            color: #fff; /* Texte blanc */
-            padding: 30px;
-            border-radius: 8px;
-            text-align: left; /* Aligner le texte à gauche */
-            z-index: 0; /* S'assurer que le newsletter est au-dessus du fond flou (si activé) */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Ajouter une légère ombre */
+        .newsletter-container {
+            background: linear-gradient(135deg, #2a2a72, #009ffd);
+            padding: 20px;
+            border-radius: 10px;
+            width: 90vw; /* 90% de la largeur de la fenêtre */
+            margin: 50px auto; /* Centré */
         }
-        .newsletter-title {
-            font-size: 0.8em;
-            color: #818CF8; /* Couleur violet clair */
-            margin-bottom: 10px;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-        }
-        .newsletter-subtitle {
-            font-size: 1.5em;
+        .newsletter-container h1 {
+            font-size: 20px;
             font-weight: bold;
-            margin-bottom: 20px;
+            text-align: center;
         }
-        .checkbox-group {
-            margin-bottom: 15px;
-        }
-        .checkbox-group label {
+        .form-group label {
             display: block;
-            margin-bottom: 8px;
-            color: #E2E8F0; /* Couleur de texte plus claire */
-            font-size: 0.9em;
+            text-align: left;
         }
-        .checkbox-group input[type="checkbox"] {
+        .form-check label {
+            display: flex;
+            align-items: center;
+        }
+        .form-check input {
             margin-right: 10px;
         }
-        #newsletterForm div {
-            margin-bottom: 15px;
-        }
-        label[for="email"] {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: bold;
-            color: #E2E8F0;
-            font-size: 0.9em;
-        }
-        input[type="email"] {
-            width: calc(100% - 22px);
-            padding: 12px;
-            border: 1px solid #1E293B; /* Bordure assortie au fond */
-            border-radius: 8px;
-            box-sizing: border-box;
-            font-size: 1em;
-            background-color: #1E293B; /* Fond de l'input assorti au fond */
-            color: #CBD5E0; /* Couleur du texte dans l'input */
-        }
-        button[type="submit"] {
-            background-color: #A78BFA; /* Couleur violette du bouton */
-            color: white;
-            padding: 14px 20px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 1.1em;
-            font-weight: bold;
+        .newsletter-container input, .newsletter-container button {
             width: 100%;
+            border-radius: 5px;
         }
-        button[type="submit"]:hover {
-            background-color: #8B5CF6; /* Nuance de violet au survol */
+        .btn-primary {
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            border: none;
         }
-        #errorMessage {
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #5a0ebb, #1a65eb);
+        }
+
+        /* Overlay de confirmation */
+        .overlay {
             display: none;
-            color: #C00000; /* Rouge pour le message d'erreur */
-            margin-top: 10px;
-            text-align: center;
-        }
-        #overlayConfirmation {
             position: fixed;
-            top: 50%;
+            top: 20%;
             left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: rgba(0, 0, 0, 0.5); /* Fond semi-transparent pour l'overlay */
+            transform: translateX(-50%);
+            width: 80vw; /* 80% de la largeur de la fenêtre */
+            background: rgba(10, 10, 50, 0.95); /* Bleu foncé inspiré de l'image */
             color: white;
-            z-index: 1000;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease-in-out;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 80%; /* Largeur du tableau central */
-            max-width: 400px; /* Largeur maximale */
-            padding: 30px;
-            border-radius: 8px;
-            background-color: #fff; /* Fond blanc pour le tableau */
-            color: #333; /* Couleur du texte dans le tableau */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            border-radius: 10px;
             text-align: center;
-        }
-        #overlayConfirmation.show {
-            opacity: 1;
-            visibility: visible;
-        }
-        #overlayMessage {
-            font-size: 1.2em;
+            font-size: 20px;
             font-weight: bold;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
         }
+
+        /* Copyright */
         .copyright {
-            font-size: 0.7em;
-            color: #64748B; /* Couleur grise claire pour le copyright */
-            margin-top: 20px;
+            background: rgba(10, 10, 50, 0.95); /* Même couleur que l'overlay */
             text-align: center;
+            padding: 10px;
+            font-size: 14px;
+            font-weight: bold;
+            margin-top: auto; /* Pour que ça colle en bas */
         }
     </style>
 </head>
 <body>
-    <div id="newsletterContainer">
-        <div class="newsletter-title">VOTRE NEWSLETTER PERSONNALISÉE</div>
-        <div class="newsletter-subtitle">Recevez le meilleur de l'actu</div>
-        <div class="checkbox-group">
-            <label>
-                <input type="checkbox" name="frequency" value="daily" checked> Tous les jours
-            </label>
-            <label>
-                <input type="checkbox" name="frequency" value="weekly" checked> Hebdo
-            </label>
-            <label>
-                <input type="checkbox" name="frequency" value="special"> Spéciale bons plans
-            </label>
-        </div>
-        <form id="newsletterForm">
-            <div>
-                <label for="email">Votre adresse e-mail</label>
-                <input type="email" id="email" name="email" required>
+
+    <div class="newsletter-container">
+        <h1>Recevez le meilleur de l'actu</h1>
+        <form id="newsletter-form">
+            <div class="form-group form-check">
+                <input type="checkbox" class="form-check-input" id="daily" name="subscription" value="Tous les jours" checked>
+                <label for="daily">✅ Tous les jours</label>
             </div>
-            <button type="submit">Envoyer</button>
-            <div id="errorMessage">Une erreur s'est produite. Veuillez réessayer.</div>
+            <div class="form-group form-check">
+                <input type="checkbox" class="form-check-input" id="weekly" name="subscription" value="Hebdo" checked>
+                <label for="weekly">✅ Hebdo</label>
+            </div>
+            <div class="form-group">
+                <input type="email" class="form-control" id="email" name="_replyto" placeholder="Votre adresse e-mail" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Envoyer</button>
         </form>
-        <div class="copyright">© HMB-TECH –·– TOUT DROIT RÉSERVÉS</div>
     </div>
 
-    <div id="overlayConfirmation">
-        <div id="overlayMessage"></div>
+    <!-- Overlay de confirmation -->
+    <div class="overlay" id="overlay">
+        🎉 FÉLICITATIONS ! VOUS ÊTES DÉSORMAIS ABONNÉ À HMB-TECH 🎉
     </div>
 
-    <script type="text/javascript"
-        src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-    <script type="text/javascript">
-       (function(){
-          emailjs.init("2U-zyFgLydFeBZ3pD"); // API Public
-       })();
+    <!-- Copyright -->
+    <div class="copyright">
+        © 2025 HMB-TECH –·– TOUS DROITS RÉSERVÉS
+    </div>
 
-       document.addEventListener('DOMContentLoaded', function() {
-           const form = document.getElementById('newsletterForm');
-           const overlayConfirmation = document.getElementById('overlayConfirmation');
-           const overlayMessage = document.getElementById('overlayMessage');
-           const errorMessage = document.getElementById('errorMessage');
-           const newsletterContainer = document.getElementById('newsletterContainer');
-           const emailInput = document.getElementById('email'); // Récupérer l'élément input de l'e-mail
+    <!-- JavaScript pour gérer l'envoi et l'affichage -->
+    <script>
+        document.getElementById('newsletter-form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Empêcher la redirection
 
-           // Initially hide messages
-           errorMessage.style.display = 'none';
+            let formData = new FormData(this);
 
-           form.addEventListener('submit', function(event) {
-               event.preventDefault(); // Empêche la soumission par défaut du formulaire
+            // Envoi asynchrone avec fetch vers Formspree
+            fetch("https://formspree.io/f/mzzeegng", {
+                method: "POST",
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            }).then(response => {
+                if (response.ok) {
+                    let overlay = document.getElementById('overlay');
+                    overlay.style.display = 'block'; // Afficher l'overlay
 
-               const email = emailInput.value; // Récupérer la valeur de l'e-mail ici
+                    setTimeout(() => {
+                        overlay.style.display = 'none'; // Disparaît après 3 secondes
+                    }, 3000);
 
-               const serviceID = "service_i4ab3qv"; // Service ID
-               const templateIDForAdmin = "template_8xgvkg9"; // Template ID
-
-               const paramsToAdmin = {
-                   email: email
-               };
-
-               emailjs.send(serviceID, templateIDForAdmin, paramsToAdmin)
-                   .then(function(response) {
-                       console.log('SUCCESS!', response.status, response.text);
-                       errorMessage.style.display = 'none';
-                       overlayMessage.textContent = "Votre abonnement à HMB-TECH a réussi !";
-                       overlayConfirmation.classList.add('show'); // Affiche l'overlay
-
-                       // Optionnel : Masquer l'overlay après quelques secondes
-                       setTimeout(function() {
-                           overlayConfirmation.classList.remove('show');
-                       }, 3000); // 3000 millisecondes = 2 secondes
-
-                       // NE PAS effacer le champ e-mail ici
-                       // form.reset();
-                   }, function(error) {
-                       console.error('FAILED...', error);
-                       errorMessage.style.display = 'block';
-                       overlayConfirmation.classList.remove('show');
-                   });
-           });
-       });
+                    document.getElementById('newsletter-form').reset();
+                } else {
+                    alert("Une erreur s'est produite, veuillez réessayer.");
+                }
+            }).catch(error => {
+                alert("Erreur de connexion.");
+            });
+        });
     </script>
 
+</body>
+</html>
 <!-- Bouton de téléchargement -->
 <button onclick="generateStatsPDF()" 
         style="position: fixed; bottom: 20px; right: 20px;
