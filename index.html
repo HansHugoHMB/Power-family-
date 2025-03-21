@@ -574,10 +574,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Newsletter HMB-TECH</title>
 
-    <!-- Bootstrap via CDN -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 
-    <!-- Style personnalisé -->
     <style>
         body {
             background-color: #121212; /* Fond sombre */
@@ -622,14 +620,14 @@
             background: linear-gradient(135deg, #5a0ebb, #1a65eb);
         }
 
-        /* Overlay de confirmation */
-        .overlay {
+        /* Overlay de confirmation finale */
+        .overlay-confirmation {
             display: none;
             position: fixed;
             top: 20%;
             left: 50%;
             transform: translateX(-50%);
-            width: 80vw; /* 80% de la largeur de la fenêtre */
+            width: 90vw; /* 90% de la largeur de la fenêtre */
             background: rgba(10, 10, 50, 0.95); /* Bleu foncé inspiré de l'image */
             color: white;
             padding: 20px;
@@ -638,6 +636,45 @@
             font-size: 20px;
             font-weight: bold;
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+            z-index: 1050; /* Au-dessus de l'overlay de saisie email */
+        }
+
+        /* Overlay de saisie email */
+        .email-overlay {
+            display: none;
+            position: fixed;
+            bottom: 0; /* Apparaît au-dessus du clavier sur mobile */
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90vw;
+            background: rgba(30, 30, 30, 0.95);
+            color: white;
+            padding: 20px;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            text-align: center;
+            z-index: 1000;
+            box-shadow: 0px -4px 10px rgba(0, 0, 0, 0.3);
+        }
+        .email-overlay input[type="email"] {
+            width: calc(100% - 40px); /* Ajustement pour le bouton */
+            padding: 10px;
+            margin-bottom: 10px;
+            border: none;
+            border-radius: 5px;
+            color: black; /* Assurer la visibilité du texte */
+        }
+        .email-overlay button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            color: white;
+            cursor: pointer;
+        }
+        .email-overlay button:hover {
+            background: linear-gradient(135deg, #5a0ebb, #1a65eb);
         }
 
         /* Copyright */
@@ -665,25 +702,52 @@
                 <label for="weekly">✅ Hebdo</label>
             </div>
             <div class="form-group">
-                <input type="email" class="form-control" id="email" name="_replyto" placeholder="Votre adresse e-mail" required>
+                <input type="email" class="form-control" id="email" name="_replyto" placeholder="Votre adresse e-mail" required readonly style="cursor: pointer;">
             </div>
             <button type="submit" class="btn btn-primary">Envoyer</button>
         </form>
     </div>
 
-    <!-- Overlay de confirmation -->
-    <div class="overlay" id="overlay">
+    <div class="email-overlay" id="email-overlay">
+        <input type="email" id="email-overlay-input" placeholder="Votre adresse e-mail">
+        <button id="confirm-email-button">Confirmer</button>
+    </div>
+
+    <div class="overlay-confirmation" id="overlay-confirmation">
         🎉 FÉLICITATIONS ! VOUS ÊTES DÉSORMAIS ABONNÉ À HMB-TECH 🎉
     </div>
 
-    <!-- Copyright -->
     <div class="copyright">
         © 2025 HMB-TECH –·– TOUS DROITS RÉSERVÉS
     </div>
 
-    <!-- JavaScript pour gérer l'envoi et l'affichage -->
     <script>
-        document.getElementById('newsletter-form').addEventListener('submit', function(event) {
+        const newsletterForm = document.getElementById('newsletter-form');
+        const emailInput = document.getElementById('email');
+        const emailOverlay = document.getElementById('email-overlay');
+        const emailOverlayInput = document.getElementById('email-overlay-input');
+        const confirmEmailButton = document.getElementById('confirm-email-button');
+        const overlayConfirmation = document.getElementById('overlay-confirmation');
+
+        emailInput.addEventListener('focus', function() {
+            emailOverlay.style.display = 'block';
+            emailOverlayInput.focus(); // Focus sur l'input de l'overlay
+        });
+
+        confirmEmailButton.addEventListener('click', function() {
+            const email = emailOverlayInput.value;
+            emailInput.value = email;
+            emailOverlay.style.display = 'none';
+        });
+
+        // Permettre la confirmation de l'email avec la touche Entrée dans l'overlay
+        emailOverlayInput.addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                confirmEmailButton.click();
+            }
+        });
+
+        newsletterForm.addEventListener('submit', function(event) {
             event.preventDefault(); // Empêcher la redirection
 
             let formData = new FormData(this);
@@ -697,20 +761,27 @@
                 }
             }).then(response => {
                 if (response.ok) {
-                    let overlay = document.getElementById('overlay');
-                    overlay.style.display = 'block'; // Afficher l'overlay
+                    overlayConfirmation.style.width = '90vw';
+                    overlayConfirmation.style.display = 'block'; // Afficher l'overlay de confirmation finale
 
                     setTimeout(() => {
-                        overlay.style.display = 'none'; // Disparaît après 3 secondes
+                        overlayConfirmation.style.display = 'none'; // Disparaît après 3 secondes
                     }, 3000);
 
-                    document.getElementById('newsletter-form').reset();
+                    newsletterForm.reset();
                 } else {
                     alert("Une erreur s'est produite, veuillez réessayer.");
                 }
             }).catch(error => {
                 alert("Erreur de connexion.");
             });
+        });
+
+        // Permettre la soumission finale avec la touche Entrée (si l'email a été confirmé)
+        newsletterForm.addEventListener('keypress', function(event) {
+            if (event.key === 'Enter' && emailInput.value) {
+                this.dispatchEvent(new Event('submit'));
+            }
         });
     </script>
 
