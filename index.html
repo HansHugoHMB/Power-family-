@@ -676,6 +676,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
+<!-- Inclure Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
 <!-- Bouton principal -->
 <button onclick="generateStatsPDF()" 
         style="position: fixed; bottom: 20px; right: 20px;
@@ -685,7 +688,6 @@
                align-items: center; justify-content: center;">
     ⎙
 </button>
-</head>
 
 <!-- Librairies -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -745,13 +747,17 @@ function generateStatsPDF() {
         repeatHeader: true
     });
 
-    // En-tête
-    doc.setFontSize(16);
-    doc.setTextColor(13, 28, 64);
-    doc.text('Rapport Statistique', 10, 20);
+    // Ajouter un en-tête sur chaque page
+    const pages = doc.internal.getNumberOfPages();
+    for (let i = 1; i <= pages; i++) {
+        doc.setPage(i);
+        doc.setFontSize(12);
+        doc.setTextColor(13, 28, 64);
+        doc.text("STATISTIQUES PRÉSENCES PRÉPA H25", 10, 10); // En-tête
+        doc.text("by HMB-TECH", 10, 15); // Sous-titre
+    }
 
     // Pied de page
-    const pages = doc.internal.getNumberOfPages();
     for (let i = 1; i <= pages; i++) {
         doc.setPage(i);
         doc.setFontSize(8);
@@ -769,7 +775,9 @@ function generateStatsPDF() {
     const downloadButton = document.createElement('a');
     downloadButton.href = pdfOutput;
     downloadButton.download = `STATS_H25_${Date.now()}.pdf`;
-    downloadButton.innerHTML = '📥'; // Icône pour le téléchargement
+    
+    // Utiliser l'icône de téléchargement de Font Awesome
+    downloadButton.innerHTML = '<i class="fas fa-download"></i>'; 
     
     // Style du bouton de téléchargement (rond et au-dessus du bouton principal)
     downloadButton.style.position = 'fixed';
