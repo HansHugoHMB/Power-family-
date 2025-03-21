@@ -643,18 +643,17 @@
         .email-overlay {
             display: none;
             position: fixed;
-            bottom: 0; /* Apparaît au-dessus du clavier sur mobile */
+            top: 50%; /* Positionnement vertical au centre */
             left: 50%;
-            transform: translateX(-50%);
+            transform: translate(-50%, -50%); /* Centrage horizontal et vertical */
             width: 90vw;
             background: rgba(30, 30, 30, 0.95);
             color: white;
             padding: 20px;
-            border-top-left-radius: 10px;
-            border-top-right-radius: 10px;
+            border-radius: 10px;
             text-align: center;
             z-index: 1000;
-            box-shadow: 0px -4px 10px rgba(0, 0, 0, 0.3);
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5); /* Ombre plus marquée pour le centre */
         }
         .email-overlay input[type="email"] {
             width: calc(100% - 40px); /* Ajustement pour le bouton */
