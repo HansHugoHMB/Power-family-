@@ -525,6 +525,22 @@
 
 
     </script>
+
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+      navigator.serviceWorker.register('/service-worker.js').then(function(registration) {
+        // L'enregistrement a réussi
+        console.log('ServiceWorker enregistré avec succès avec la portée : ', registration.scope);
+      }, function(err) {
+        // L'enregistrement a échoué :(
+        console.log('L'enregistrement du ServiceWorker a échoué : ', err);
+      });
+    });
+  } else {
+    console.log('Les Service Workers ne sont pas pris en charge par ce navigateur.');
+  }
+</script>
 </body>
 </html>
 
