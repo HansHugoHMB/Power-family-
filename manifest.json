@@ -1,22 +1,35 @@
 {
   "name": "https://prepa.pages.dev/",
   "short_name": "PRÉPA",
-  "start_url": "https://prepa.pages.dev/",
+  "start_url": "/index.html",
   "display": "standalone",
   "background_color": "#0D1C40",
   "theme_color": "#0D1C40",
-  "icons": [
+  "scope": "/",
+  "description": "Application pour la préparation H25",
+  "orientation": "any",
+  "related_applications": [
     {
-      "src": "/https://raw.githubusercontent.com/HansHugoHMB/Images/main/LPH3.png",
-      "sizes": "192x192",
-      "type": "image/png"
+      "platform": "webapp",
+      "url": "https://prepa-h.pages.dev/"
     },
     {
-      "src": "/https://raw.githubusercontent.com/HansHugoHMB/Images/main/LPH3.png",
-      "sizes": "512x512",
-      "type": "image/png"
+      "platform": "webapp",
+      "url": "https://prepa.pages.dev/"
+    },
+    {
+      "platform": "webapp",
+      "url": "https://mbayamuambahans.home.blog/"
     }
   ],
-  "scope": "/",
-  "start_url": "/index.html"
+  "prefer_related_applications": false,
+  "screenshots": [],
+  "categories": ["education", "productivity"],
+  "lang": "fr-FR",
+  "dir": "ltr",
+  "serviceworker": {
+    "src": "/service-worker.js",
+    "scope": "/"
+  },
+  "version": "03.2025_HMB-TECH"
 }
