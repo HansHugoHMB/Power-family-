@@ -37,7 +37,7 @@
         }
         th, td { border: 1px solid #C0C0C0; padding: 1px; text-align: left; }
         .code-input {  
-    width: 15px;  
+    width: 25px;  
     text-align: center;  
     margin: 0 auto;  
 }
@@ -197,7 +197,7 @@
                 <tr>
                     <th>N°</th>
                     <th>Nom</th>
-                    <th style="text-align: center;">CD</th>
+                    <th style="text-align: center;">Code</th>
                     <th>Statut</th>
                 </tr>
             </thead>
@@ -405,7 +405,7 @@
                                                 <td>
                         <input class="code-input" type="password"
                                oninput="validateCode(${index}, this.value)">
-                        <span id="status-${index}" style="display:none; text-align:center;">✔</h8></span>
+                        <span id="status-${index}" style="display:none; text-align:center;"><p id="status-${index}" style="display:none; position:absolute; top:50%; left:50%; transform:translate(-50%, -50%);">✔</p></h8></span>
                     </td>
 
                     <td id="textStatus-${index}">Absent</td>
