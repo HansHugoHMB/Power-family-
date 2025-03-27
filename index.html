@@ -399,11 +399,10 @@
                 <tr id="row-${index}">
                     <td>${index + 1}</td>
                     <td>${student.name}</td>
-                             <td>
+                                                <td>
                         <input class="code-input" type="password"
                                oninput="validateCode(${index}, this.value)">
-                        <span id="status-${index}" style="display:none; display:flex; align-items:center; justify-content:center; width:20px; height:20px;">✔</span>
-
+                        <span id="status-${index}" style="display:none;"><p style="text-align: center;">✔</p></span>
                     </td>
 
                     <td id="textStatus-${index}">Absent</td>
