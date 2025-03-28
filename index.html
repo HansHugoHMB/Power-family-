@@ -283,10 +283,17 @@
 
 <div class="absent-students-section" style="background-color: #0D1C40; color: white; padding: 10px; border-radius: 8px; width: 80%; margin: 0 auto;">
     <h3 style="font-weight: bold; font-style: italic; text-align: center; font-size: 12px;">Liste des étudiants absents</h3>
-    <ul id="absentStudentList">
-        <!-- Liste des étudiants -->
-    </ul>
+    <table style="width: 100%; border-collapse: collapse; color: white;">
+        <thead>
+            <tr>
+                <th style="text-align: left; padding: 5px; border-bottom: 1px solid white;">Nom</th>
+            </tr>
+        </thead>
+        <tbody id="absentStudentListTable">
+            </tbody>
+    </table>
 </div>
+
     <script>
         // Liste complète des élèves avec codes AAA000+
         const students = [
@@ -462,15 +469,18 @@
         }
 
         function updateAbsentListDisplay() {
-            const absentListElement = document.getElementById('absentStudentList');
-            absentListElement.innerHTML = '';
+    const absentListTableBody = document.getElementById('absentStudentListTable');
+    absentListTableBody.innerHTML = '';
 
-            absentStudents.forEach(studentName => {
-                const li = document.createElement('li');
-                li.textContent = studentName;
-                absentListElement.appendChild(li);
-            });
-        }
+    absentStudents.forEach(studentName => {
+        const row = absentListTableBody.insertRow();
+        const cell = row.insertCell();
+        cell.textContent = studentName;
+        cell.style.padding = '5px'; // Ajouter un peu de padding pour l'affichage
+        cell.style.textAlign = 'left'; // Aligner le texte à gauche
+        cell.style.borderBottom = '1px solid #ddd'; // Ajouter une bordure légère entre les lignes (optionnel)
+    });
+}
 
 
         function validateCode(index, value) {
