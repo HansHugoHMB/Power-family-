@@ -269,16 +269,28 @@
 
 <div class="fraude-students-section" style="background-color: #0D1C40; color: white; padding: 10px; border-radius: 8px; width: 80%; margin: 0 auto; margin-bottom: 5mm;">
     <h3 style="font-weight: bold; font-style: italic; text-align: center; font-size: 12px;">Étudiants avec code erroné</h3>
-    <ul id="fraudeStudentList">
-        <!-- Liste des étudiants -->
-    </ul>
+    <table style="width: 100%; border-collapse: collapse; color: white;">
+        <thead>
+            <tr>
+                <th style="text-align: left; padding: 5px; border-bottom: 1px solid white;">Nom</th>
+            </tr>
+        </thead>
+        <tbody id="fraudeStudentListTable">
+            </tbody>
+    </table>
 </div>
 
 <div class="present-students-section" style="background-color: #0D1C40; color: white; padding: 10px; border-radius: 8px; width: 80%; margin: 0 auto; margin-bottom: 5mm;">
     <h3 style="font-weight: bold; font-style: italic; text-align: center; font-size: 12px;">Liste des étudiants présents</h3>
-    <ul id="presentStudentList">
-        <!-- Liste des étudiants -->
-    </ul>
+    <table style="width: 100%; border-collapse: collapse; color: white;">
+        <thead>
+            <tr>
+                <th style="text-align: left; padding: 5px; border-bottom: 1px solid white;">Nom</th>
+            </tr>
+        </thead>
+        <tbody id="presentStudentListTable">
+            </tbody>
+    </table>
 </div>
 
 <div class="absent-students-section" style="background-color: #0D1C40; color: white; padding: 10px; border-radius: 8px; width: 80%; margin: 0 auto;">
@@ -447,26 +459,32 @@
         }
 
         function updateFraudeListDisplay() {
-            const fraudeListElement = document.getElementById('fraudeStudentList');
-            fraudeListElement.innerHTML = ''; // Effacer la liste précédente
+    const fraudeListTableBody = document.getElementById('fraudeStudentListTable');
+    fraudeListTableBody.innerHTML = '';
 
-            fraudeStudents.forEach(studentName => {
-                const li = document.createElement('li');
-                li.textContent = studentName;
-                fraudeListElement.appendChild(li);
-            });
-        }
+    fraudeStudents.forEach(studentName => {
+        const row = fraudeListTableBody.insertRow();
+        const cell = row.insertCell();
+        cell.textContent = studentName;
+        cell.style.padding = '5px';
+        cell.style.textAlign = 'left';
+        cell.style.borderBottom = '1px solid #ddd';
+    });
+}
 
         function updatePresentListDisplay() {
-            const presentListElement = document.getElementById('presentStudentList');
-            presentListElement.innerHTML = '';
+    const presentListTableBody = document.getElementById('presentStudentListTable');
+    presentListTableBody.innerHTML = '';
 
-            presentStudents.forEach(studentName => {
-                const li = document.createElement('li');
-                li.textContent = studentName;
-                presentListElement.appendChild(li);
-            });
-        }
+    presentStudents.forEach(studentName => {
+        const row = presentListTableBody.insertRow();
+        const cell = row.insertCell();
+        cell.textContent = studentName;
+        cell.style.padding = '5px';
+        cell.style.textAlign = 'left';
+        cell.style.borderBottom = '1px solid #ddd';
+    });
+}
 
         function updateAbsentListDisplay() {
     const absentListTableBody = document.getElementById('absentStudentListTable');
