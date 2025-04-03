@@ -614,10 +614,6 @@
             });
         }
     </script>
-
-
-</script>
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -629,7 +625,7 @@
 
     <style>
         body {
-            background-color: #121212; /* Fond sombre */
+            background-color: #0D1C40; /* Fond sombre */
             color: white;
             font-family: Arial, sans-serif;
             display: flex;
@@ -742,17 +738,17 @@
 
     <div class="newsletter-container">
         <h1>Recevez le meilleur de l'actu</h1>
-        <form id="newsletter-form">
+        <form id="newsletter-form" action="https://docs.google.com/forms/d/e/1FAIpQLSexMU03MDvDv-G1ddC1aBaC9OvUueJ92WvFuTKBh3XMGvRxsQ/formResponse" method="POST" target="hidden_iframe">
             <div class="form-group form-check">
-                <input type="checkbox" class="form-check-input" id="daily" name="subscription" value="Tous les jours" checked>
+                <input type="checkbox" class="form-check-input" id="daily" name="entry.1889021612" value="Hebdomadaire" checked>
                 <label for="daily">✅ Tous les jours</label>
             </div>
             <div class="form-group form-check">
-                <input type="checkbox" class="form-check-input" id="weekly" name="subscription" value="Hebdo" checked>
+                <input type="checkbox" class="form-check-input" id="weekly" name="entry.1185604264" value="Quotidien" checked>
                 <label for="weekly">✅ Hebdo</label>
             </div>
             <div class="form-group">
-                <input type="email" class="form-control" id="email" name="_replyto" placeholder="Votre adresse e-mail" required readonly style="cursor: pointer;">
+                <input type="email" class="form-control" id="email" name="entry.1899983470" placeholder="Votre adresse e-mail" required readonly style="cursor: pointer;">
             </div>
             <button type="submit" class="btn btn-primary" id="submit-button">Envoyer</button>
         </form>
@@ -763,7 +759,7 @@
         <button id="confirm-email-button">Confirmer</button>
     </div>
 
-    <div class="overlay-confirmation" id="overlay-confirmation">
+    <div class="overlay-confirmation" id="overlay-confirmation" style="display: none;">
         🎉 FÉLICITATIONS ! VOUS ÊTES DÉSORMAIS ABONNÉ À HMB-TECH 🎉
     </div>
 
@@ -818,29 +814,32 @@
 
             let formData = new FormData(this);
 
-            // Envoi asynchrone avec fetch vers Formspree
-            fetch("https://formspree.io/f/mzzeegng", {
+            // Envoi asynchrone avec fetch vers Google Forms
+            fetch(this.action, {
                 method: "POST",
                 body: formData,
                 headers: {
                     'Accept': 'application/json'
                 }
             }).then(response => {
-                if (response.ok) {
-                    overlayConfirmation.style.width = '90vw';
-                    overlayConfirmation.style.display = 'block'; // Afficher l'overlay de confirmation finale
-
-                    setTimeout(() => {
-                        overlayConfirmation.style.display = 'none'; // Disparaît après 3 secondes
-                    }, 3000);
-
-                    newsletterForm.reset();
-                } else {
-                    alert("Une erreur s'est produite, veuillez réessayer.");
+                if (!response.ok) {
+                    console.error("Erreur lors de l'envoi du formulaire.");
                 }
             }).catch(error => {
-                alert("Erreur de connexion.");
+                console.error("Erreur de connexion.", error);
             });
+
+            // Afficher l'overlay de confirmation 3 secondes après l'envoi (clic sur le bouton)
+            setTimeout(() => {
+                overlayConfirmation.style.width = '90vw';
+                overlayConfirmation.style.display = 'block';
+            }, 3000);
+
+            setTimeout(() => {
+                overlayConfirmation.style.display = 'none'; // Disparaît après 6 secondes (3s d'affichage)
+            }, 6000);
+
+            newsletterForm.reset();
         });
 
         // Permettre la soumission finale avec la touche Entrée (si l'email a été confirmé)
@@ -863,6 +862,9 @@
 
 </body>
 </html>
+
+
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
