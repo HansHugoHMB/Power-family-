@@ -1,1041 +1,285 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<link rel="icon" href="https://raw.githubusercontent.com/HansHugoHMB/Images/main/FAV.ico" type="image/x-icon">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
-<!DOCTYPE html>
-<html lang="fr">
-<head>
     <meta charset="UTF-8">
-    <title>Power Family Présences</title>
-    <style>
-        /* ... vos styles CSS existants ... */
-    </style>
-<link rel="manifest" href="/manifest.json">
-    </head>
-<body style="font-family: serif;">
-    <meta charset="UTF-8">
-    <title>Power Family Présences</title>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 20px; }
-        /* Style pour le conteneur du tableau pour le centrer */
-        .table-container {
-            display: flex; /* Utilisation de flexbox pour le centrage */
-            justify-content: center; /* Centrer horizontalement */
-            margin-left: 3mm; /* Marge à gauche de 3mm */
-            margin-right: 3mm; /* Marge à droite de 3mm */
-            width: auto; /* Ajuster la largeur automatiquement au contenu */
-        }
-
-        table {
-            border-collapse: collapse;
-            margin-bottom: 15px;
-            width: 100%; /* Le tableau prend 100% de la largeur de son conteneur */
-            max-width: 1000px; /* Optionnel : pour limiter la largeur maximale du tableau si nécessaire */
-        }
-        th, td { border: 1px solid #C0C0C0; padding: 1px; text-align: center; }
-        .code-input {  
-    width: 25px;  
-    text-align: center;  
-    margin: 0 auto;  
-}
-
-        /* Couleurs des lignes */
-        tr:nth-child(3n+1) { background-color: #0D1C40; }
-        tr:nth-child(3n+2) { background-color: #0D1C40; }
-        tr:nth-child(3n+3) { background-color: #0D1C40; }
-
-        .valid { background-color: #0D1C40 !important; }
-        .invalid { background-color: #FF0000 !important; }
-
-        /* Style du bouton */
-        #printBtn {
-            padding: 10px 20px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-bottom: 20px;
-        }
-
-        #totalSection {
-            margin: 20px 0;
-            padding: 15px;
-            background-color: #f0f0f0;
-            border-radius: 5px;
-        }
-
-        /* Styles pour les nouvelles sections de listes */
-        .present-students-section, .absent-students-section {
-            margin-top: 30px;
-            padding: 15px;
-            border-radius: 5px;
-        }
-
-        .present-students-section {
-            background-color: rgba(173, 216, 230, 0.3); /* Bleu transparent */
-        }
-
-        .absent-students-section {
-            background-color: rgba(255, 182, 193, 0.3); /* Rose transparent */
-        }
-
-        .present-students-section h3, .absent-students-section h3 {
-            margin-top: 0;
-        }
-         .fraude-students-section {
-            margin-top: 30px;
-            padding: 15px;
-            background-color: #ffe0b2;
-            border-radius: 5px;
-        }
-         .fraude-students-section h3 {
-            margin-top: 0;
-        } 
-<!DOCTYPE html>
-<html>
-<head>
-<style>
-.rdc-banner {
-    position: relative;
-    width: 100%;
-    height: 1cm;
-    overflow: hidden;
-}
-
-.color-wave {
-    width: 300%;
-    height: 100%;
-    background: linear-gradient(
-        to right,
-        #0077B5,
-        #0077B5 33.33%,
-        #FFD700 33.33%,
-        #FFD700 66.66%,
-        #CE1126 66.66%,
-        #CE1126 100%
-    );
-    animation: slide 10s linear infinite;
-}
-
-@keyframes slide {
-    0% { transform: translateX(-66.66%); }
-    100% { transform: translateX(0); }
-}
-</style>
-<link rel="manifest" href="/manifest.json">
-</head>
-<body>
-
-<div class="rdc-banner">
-    <div class="color-wave"></div>
-</div>
-
-</body>
-</html>
-
-<style>
-/* --- Styles à ajouter pour le tableau avec espacement de 1cm --- */
-.table-container table {
-    border-spacing: 0 1cm; /* Espacement vertical entre les lignes de 1cm */
-    border-radius: 8px; /* Bordures rondes pour le tableau */
-    overflow: hidden; /* Important pour que les bordures rondes fonctionnent avec l'espacement */
-}
-
-.table-container th {
-    background-color: #0D1C40; /* Couleur de l'entête du site */
-    color: white; /* Assurez-vous que le texte de l'entête est lisible */
-    padding: 5px; /* Conservez le padding existant ou ajustez-le */
-    text-align: left; /* Conservez l'alignement du texte */
-}
-
-.table-container thead tr th:first-child {
-    border-top-left-radius: 5px;
-}
-
-.table-container thead tr th:last-child {
-    border-top-right-radius: 5px;
-}
-
-.table-container tbody tr {
-    background-color: rgba(13, 28, 64, 0.05); /* Fond légèrement transparent pour les lignes */
-    border-radius: 5px; /* Bordures rondes pour les lignes */
-}
-
-.table-container tbody tr td:first-child {
-    border-bottom-left-radius: 5px;
-}
-
-.table-container tbody tr td:last-child {
-    border-bottom-right-radius: 5px;
-}
-
-.table-container td {
-    padding: 5px; /* Conservez le padding existant ou ajustez-le */
-}
-</style>
-</head>
-<body style="font-family: 'Changa', sans-serif;">
-
-<div class="rdc-banner">
-    <div class="color-wave"></div>
-</div>
-
-</body>
-</html>
-
-<br>
-    <div>
-<h4 style="text-align: center;">LISTE DES PRÉSENCES</h4>
-     </div>
-
-    <div class="table-container">  <table>
-            <thead>
-                <tr>
-                    <th>N°</th>
-                    <th style="text-align: left;">Nom</th>
-                    <th style="text-align: center;">Code</th>
-                    <th>Statut</th>
-                </tr>
-            </thead>
-            <tbody id="studentList">
-                </tbody>
-        </table>
-    </div>
-
-<div class="statistiques-container">
-    <h3>Statistiques en temps réel</h3>
-    <div class="stat">
-        <div class="present">
-            Présents: <span id="totalPresent">0</span>
-        </div>
-        <div class="absent">
-            Absents: <span id="totalAbsent">0</span>
-        </div>
-        <div class="frauduleux">
-            Frauduleux: <span id="totalFraude">0</span>
-        </div>
-    </div>
-</div>
-
-<style>
-    /* Conteneur principal avec couleur et bordure */
-    .statistiques-container {
-        margin: 20px 0;
-        padding: 15px;
-        background: #0D1C40; /* Même couleur que les autres divs */
-        color: white;
-        text-align: center;
-        border-radius: 15px;
-        border: 5px solid transparent;
-        border-image: linear-gradient(
-            90deg, 
-            #1E90FF, /* Bleu */
-            #FFD700, /* Jaune */
-            #CE1126  /* Rouge */
-        ) 1;
-    }
-
-    /* Contenu des statistiques */
-    .statistiques-container h3 {
-        font-size: 16px; /* Taille réduite */
-        font-weight: bold;
-        font-style: italic;
-        text-transform: uppercase;
-    }
-
-    .statistiques-container .stat {
-        display: flex;
-        gap: 20px;
-        justify-content: center;
-        margin-top: 10px;
-    }
-
-    .statistiques-container .stat div {
-        padding: 10px;
-        border-radius: 5px;
-        font-weight: bold;
-    }
-
-    .present { background: #000000; color: #FFFFFF; }
-    .absent { background: #000000; color: #FFFFFF; }
-    .frauduleux { background: #000000; color: #FFFFFF; }
-
-</style>
-   
-
-<div class="fraude-students-section" style="background-color: #0D1C40; color: white; padding: 10px; border-radius: 8px; width: 80%; margin: 0 auto; margin-bottom: 5mm;">
-    <table style="width: 100%; border-collapse: collapse; color: white;">
-        <thead>
-            <tr>
-                <th style="text-align: center; padding: 5px; border-bottom: 1px solid white;">Étudiants avec code erroné</th>
-            </tr>
-        </thead>
-        <tbody id="fraudeStudentListTable">
-            </tbody>
-    </table>
-</div>
-
-<div class="present-students-section" style="background-color: #0D1C40; color: white; padding: 10px; border-radius: 8px; width: 80%; margin: 0 auto; margin-bottom: 5mm;">
-    <table style="width: 100%; border-collapse: collapse; color: white;">
-        <thead>
-            <tr>
-                <th style="text-align: center; padding: 5px; border-bottom: 1px solid white;">Liste des étudiants présents</th>
-            </tr>
-        </thead>
-        <tbody id="presentStudentListTable">
-            </tbody>
-    </table>
-</div>
-
-<div class="absent-students-section" style="background-color: #0D1C40; color: white; padding: 10px; border-radius: 8px; width: 80%; margin: 0 auto;">
-    <table style="width: 100%; border-collapse: collapse; color: white;">
-        <thead>
-            <tr>
-                <th style="text-align: center; padding: 5px; border-bottom: 1px solid white;">Liste des étudiants absents</th>
-            </tr>
-        </thead>
-        <tbody id="absentStudentListTable">
-            </tbody>
-    </table>
-</div>
-
-    <script>
-        // Liste complète des élèves avec codes AAA000+
-        const students = [
-            { name: "IBEMBA – NTEMBI", code: "AAA000" },
-            { name: "KITAMBWE - MUDIMBI", code: "AAA001" },
-            { name: "MBALA - LUBAKI", code: "AAA002" },
-            { name: "MBALA - MBIMBA", code: "AAA003" },
-            { name: "MBAMBINA - WAZANGBA", code: "AAA004" },
-            { name: "MBANDJO – IYELE", code: "AAA005" },
-            { name: "MBATU - KIMWANGA", code: "AAA006" },
-            { name: "MBAYA – BAYA – HANS", code: "AAA007" },
-            { name: "MBAYA – FAUSTIN", code: "AAA008" },
-            { name: "MBAYO – BONONGE", code: "AAA009" },
-            { name: "MBEKU – ELEKWA", code: "AAA010" },
-            { name: "MBELE – KALUSUTI", code: "AAA011" },
-            { name: "MBELENGA-MBOMBAWANDE", code: "AAA012" },
-            { name: "MBEMA – ZONGO", code: "AAA013" },
-            { name: "MBEMBA – KUKU – MIRADIE", code: "AAA014" },
-            { name: "MBENGI – MBO", code: "AAA015" },
-            { name: "MBIMBA - MUFUNGIZI", code: "AAA016" },
-            { name: "MBIRIZE - IMANI", code: "AAA017" },
-            { name: "MBO – MFUMU", code: "AAA018" },
-            { name: "MBO – WEMBA", code: "AAA019" },
-            { name: "MBOBO – LUPOMBO", code: "AAA020" },
-            { name: "MBOKO –NTOKO", code: "AAA021" },
-            { name: "MBOLOLO – MWIMPE", code: "AAA022" },
-            { name: "MBOMA – KALAMBA", code: "AAA023" },
-            { name: "MBOMA – NDOSALA", code: "AAA024" },
-            { name: "MBOMA – TAUBALA", code: "AAA025" },
-            { name: "MBOSO – MAWETE", code: "AAA026" },
-            { name: "MBUAKI - MIEZI", code: "AAA027" },
-            { name: "MBUBA - NDONGALA", code: "AAA028" },
-            { name: "MBUEZO – LUNGENY", code: "AAA029" },
-            { name: "MBUKA - MATUVANG", code: "AAA030" },
-            { name: "MBUKU – KISALU", code: "AAA031" },
-            { name: "MBULA – MBANZA", code: "AAA032" },
-            { name: "MBULAYI - TSHIBANGU", code: "AAA033" },
-            { name: "MBUMBA – NDEMBE", code: "AAA034" },
-            { name: "MBUYA - MUJANI", code: "AAA035" },
-            { name: "MBUYAMBA - TSHISWAKA", code: "AAA036" },
-            { name: "MBUYI – KOLE", code: "AAA037" },
-            { name: "MBUYI – NDAYE", code: "AAA038" },
-            { name: "MBWELIMA - TANGA", code: "AAA039" },
-            { name: "MBWITI - KUYAKANA", code: "AAA040" },
-            { name: "MEKANDA – IWOKO", code: "AAA041" },
-            { name: "MENEMENE – NKOSI", code: "AAA042" },
-            { name: "MENGA - MABALA", code: "AAA043" },
-            { name: "MESA – MUSALU", code: "AAA044" },
-            { name: "MFULUNGANI -NFULAMESO", code: "AAA045" },
-            { name: "MIANTISE – NDOOLE", code: "AAA046" },
-            { name: "MIBO – MPEWA", code: "AAA047" },
-            { name: "MIKADI – MIKADI", code: "AAA048" },
-            { name: "MIKOBI – BELAPIO", code: "AAA049" },
-            { name: "MIKUBA – ALFANI", code: "AAA050" },
-            { name: "MILONGA - MUDIMBANYA", code: "AAA051" },
-            { name: "MILUMBU – KABUYA", code: "AAA052" },
-            { name: "MINGA – KWETE", code: "AAA053" },
-            { name: "MINGA – MBATSHI", code: "AAA054" },
-            { name: "MINGA – PONGO", code: "AAA055" },
-            { name: "MIOMA – KINGOMBE", code: "AAA056" },
-            { name: "MIOMO – MAKANDA", code: "AAA057" },
-            { name: "MISENGABU - TEGRA", code: "AAA058" },
-            { name: "MISIONO – MVUNGU", code: "AAA059" },
-            { name: "MITSHIABU - ILUNGA", code: "AAA060" },
-            { name: "MITUNGA - MUBIANGAT", code: "AAA061" },
-            { name: "MITUNGINI – LUZOLO", code: "AAA062" },
-            { name: "MOBAO – MOPIA", code: "AAA063" },
-            { name: "MOBONDA - BOYELE", code: "AAA064" },
-            { name: "MODJA – ETOTI", code: "AAA065" },
-            { name: "MOGBOKULA-NDOLE", code: "AAA066" },
-            { name: "MOHELE – MATUKA", code: "AAA067" },
-            { name: "MOKIE - INKINI", code: "AAA068" },
-            { name: "MOKILI - KATSHULU - JERDAM", code: "AAA069" },
-            { name: "MOKOSI – KETA", code: "AAA070" },
-            { name: "MOKOYO-BOKIANGA", code: "AAA071" },
-            { name: "MOKUBA – BAPELE", code: "AAA072" },
-            { name: "MOKUTU – GOLO", code: "AAA073" },
-            { name: "MOLITHIO – NDOPO", code: "AAA074" },
-            { name: "MOMELE – BOKILA", code: "AAA075" },
-            { name: "MONGA - MOKESA", code: "AAA076" },
-            { name: "MONGBANI – AKOSU", code: "AAA077" },
-            { name: "MONSENGO-MAFISANGO", code: "AAA078" },
-            { name: "MONSENGO - NTWABOY", code: "AAA079" },
-            { name: "MOONGO - BOMPUSA", code: "AAA080" },
-            { name: "MOPAYI – BOKUNGU", code: "AAA081" },
-            { name: "MOPIA - BENIE", code: "AAA082" },
-            { name: "MOPINI – NGOBILA", code: "AAA083" },
-            { name: "MOPOLO – LENGO", code: "AAA084" },
-            { name: "MOTOKWA - DIDO", code: "AAA085" },
-            { name: "MOUTSIEKOU - PANDI", code: "AAA086" },
-            { name: "MOWENI – BOPOPI", code: "AAA087" },
-            { name: "MPAMALEO - BOSONTIA", code: "AAA088" },
-            { name: "MPANA - NGAMBIELI", code: "AAA089" },
-            { name: "MPATA - LITUMBE", code: "AAA090" },
-            { name: "MPAY – NKE", code: "AAA091" },
-            { name: "MPELA – BAWESI", code: "AAA092" },
-            { name: "MPEMBE – BASSA", code: "AAA093" },
-            { name: "MPENGELE – PONGO", code: "AAA094" },
-            { name: "MPETSHI - BANGONGO", code: "AAA095" },
-            { name: "MPEYA – LINGONGO", code: "AAA096" },
-            { name: "MWANGANI - KATIMUKA", code: "AAA097" },
-            { name: "NOYO – MUKENDI", code: "AAA098" }
-        ];
-
-        let fraudeStudents = []; // Tableau pour stocker les étudiants frauduleux
-        let presentStudents = []; // Tableau pour stocker les étudiants présents
-        let absentStudents = []; // Tableau pour stocker les étudiants absents
-
-
-        function renderList() {
-            const tbody = document.getElementById('studentList');
-            tbody.innerHTML = students.map((student, index) => `
-                <tr id="row-${index}">
-                    <td>${index + 1}</td>
-                    <td style="text-align: left;">${student.name}</td>
-                                                <td>
-                        <input class="code-input" type="password"
-                               oninput="validateCode(${index}, this.value)">
-                       <span id="status-${index}" style="display:none; alignItems:Centrer">★✔★</span>
-
-                    <td id="textStatus-${index}">Absent</td>
-                </tr>
-            `).join('');
-        }
-
-        function updateTotals() {
-            let present = 0, absent = 0, fraude = 0;
-            presentStudents = []; // Réinitialiser la liste des présents
-            absentStudents = [];  // Réinitialiser la liste des absents
-
-
-            students.forEach((student, index) => {
-                const status = document.getElementById(`textStatus-${index}`).textContent;
-                if(status === "Présent") {
-                    present++;
-                    presentStudents.push(student.name); // Ajouter à la liste des présents
-                }
-                else if(status === "Fraudeur") fraude++;
-                else {
-                    absent++;
-                    absentStudents.push(student.name); // Ajouter à la liste des absents
-                }
-            });
-
-            document.getElementById('totalPresent').textContent = present;
-            document.getElementById('totalAbsent').textContent = absent;
-            document.getElementById('totalFraude').textContent = fraude;
-
-            updatePresentListDisplay(); // Mettre à jour la liste des présents
-            updateAbsentListDisplay();  // Mettre à jour la liste des absents
-        }
-
-        function updateFraudeListDisplay() {
-    const fraudeListTableBody = document.getElementById('fraudeStudentListTable');
-    fraudeListTableBody.innerHTML = '';
-
-    fraudeStudents.forEach(studentName => {
-        const row = fraudeListTableBody.insertRow();
-        const cell = row.insertCell();
-        cell.textContent = studentName;
-        cell.style.padding = '5px';
-        cell.style.textAlign = 'center';
-        cell.style.borderBottom = '1px solid #ddd';
-    });
-}
-
-        function updatePresentListDisplay() {
-    const presentListTableBody = document.getElementById('presentStudentListTable');
-    presentListTableBody.innerHTML = '';
-
-    presentStudents.forEach(studentName => {
-        const row = presentListTableBody.insertRow();
-        const cell = row.insertCell();
-        cell.textContent = studentName;
-        cell.style.padding = '5px';
-        cell.style.textAlign = 'center';
-        cell.style.borderBottom = '1px solid #ddd';
-    });
-}
-
-        function updateAbsentListDisplay() {
-    const absentListTableBody = document.getElementById('absentStudentListTable');
-    absentListTableBody.innerHTML = '';
-
-    absentStudents.forEach(studentName => {
-        const row = absentListTableBody.insertRow();
-        const cell = row.insertCell();
-        cell.textContent = studentName;
-        cell.style.padding = '5px'; // Ajouter un peu de padding pour l'affichage
-        cell.style.textAlign = 'center'; // Aligner le texte à gauche
-        cell.style.borderBottom = '1px solid #ddd'; // Ajouter une bordure légère entre les lignes (optionnel)
-    });
-}
-
-
-        function validateCode(index, value) {
-            const row = document.getElementById(`row-${index}`);
-            const statusTextElement = document.getElementById(`textStatus-${index}`);
-            const statusSpanElement = document.getElementById(`status-${index}`);
-            const codeInputElement = row.querySelector('.code-input');
-            const studentName = students[index].name;
-
-
-            if (value === students[index].code) {
-                row.classList.add('valid');
-                row.classList.remove('invalid');
-                statusTextElement.innerText = "Présent";
-                codeInputElement.style.display = 'none';
-                statusSpanElement.style.display = 'inline';
-
-                // Retirer de la liste fraude, si présent
-                fraudeStudents = fraudeStudents.filter(name => name !== studentName);
-
-
-            } else if (value.length >= 6) {
-                row.classList.add('invalid');
-                row.classList.remove('valid');
-                statusTextElement.innerText = "Fraudeur";
-                codeInputElement.style.display = 'inline';
-                statusSpanElement.style.display = 'none';
-
-                // Ajouter à la liste fraude, si non présent
-                if (!fraudeStudents.includes(studentName)) {
-                    fraudeStudents.push(studentName);
-                }
-            } else {
-                row.classList.remove('valid', 'invalid');
-                statusTextElement.innerText = "Absent";
-                codeInputElement.style.display = 'inline';
-                statusSpanElement.style.display = 'none';
-
-                // Retirer de la liste fraude, si présent
-                fraudeStudents = fraudeStudents.filter(name => name !== studentName);
-            }
-
-            updateTotals();
-            updateFraudeListDisplay(); // Mettre à jour la liste des frauduleux
-        }
-
-
-        // Initialiser le tableau, les totaux et les listes
-        renderList();
-        updateTotals();
-        updateFraudeListDisplay();
-        updatePresentListDisplay();
-        updateAbsentListDisplay();
-
-
-    </script>
-
-<script>
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', function() {
-      navigator.serviceWorker.register('/service-worker.js').then(function(registration) {
-        // L'enregistrement a réussi
-        console.log('ServiceWorker enregistré avec succès avec la portée : ', registration.scope);
-      }, function(err) {
-        // L'enregistrement a échoué :(
-        console.log('L'enregistrement du ServiceWorker a échoué : ', err);
-      });
-    });
-  } else {
-    console.log('Les Service Workers ne sont pas pris en charge par ce navigateur.');
-  }
-</script>
-</body>
-</html>
-
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bouton de capture d'écran flottant (image 3cm max)</title>
-    <style>
-        .floating-image-button {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            cursor: pointer;
-            z-index: 1000;
-            user-select: none;
-            max-width: 3cm; /* Dimension maximale en largeur */
-            max-height: 3cm; /* Dimension maximale en hauteur */
-            width: auto; /* Conserve la proportion */
-            height: auto; /* Conserve la proportion */
-        }
-
-        .floating-image-button:hover {
-            opacity: 0.9;
-        }
-    </style>
-</head>
-<body>
-
-    <img src="https://raw.githubusercontent.com/HansHugoHMB/Images/main/Digi.png" alt="Bouton de capture" class="floating-image-button" onclick="capturePage()">
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    <script>
-        function capturePage() {
-            html2canvas(document.body).then(canvas => {
-                const link = document.createElement('a');
-                link.download = 'capture_ecran.png';
-                link.href = canvas.toDataURL();
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-            });
-        }
-    </script>
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Newsletter HMB-TECH</title>
-
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-
-    <style>
-        body {
-            background-color: #0D1C40; /* Fond sombre */
-            color: white;
-            font-family: Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-        .newsletter-container {
-            background: linear-gradient(135deg, #2a2a72, #009ffd);
-            padding: 20px;
-            border-radius: 10px;
-            width: 90vw; /* 90% de la largeur de la fenêtre */
-            margin: 50px auto; /* Centré */
-        }
-        .newsletter-container h1 {
-            font-size: 20px;
-            font-weight: bold;
-            text-align: center;
-        }
-        .form-group label {
-            display: block;
-            text-align: left;
-        }
-        .form-check label {
-            display: flex;
-            align-items: center;
-        }
-        .form-check input {
-            margin-right: 10px;
-        }
-        .newsletter-container input, .newsletter-container button {
-            width: 100%;
-            border-radius: 5px;
-        }
-        .btn-primary {
-            background: linear-gradient(135deg, #6a11cb, #2575fc);
-            border: none;
-        }
-        .btn-primary:hover {
-            background: linear-gradient(135deg, #5a0ebb, #1a65eb);
-        }
-
-        /* Overlay de confirmation finale */
-        .overlay-confirmation {
-            display: none;
-            position: fixed;
-            top: 20%;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 90vw; /* 90% de la largeur de la fenêtre */
-            background: rgba(10, 10, 50, 0.95); /* Bleu foncé inspiré de l'image */
-            color: white;
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-            font-size: 20px;
-            font-weight: bold;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
-            z-index: 1050; /* Au-dessus de l'overlay de saisie email */
-        }
-
-        /* Overlay de saisie email */
-        .email-overlay {
-            display: none;
-            position: fixed;
-            top: 40%; /* Positionnement vertical à 40% du haut */
-            left: 50%;
-            transform: translate(-50%, -50%); /* Centrage horizontal et vertical */
-            width: 90vw;
-            background: rgba(30, 30, 30, 0.95);
-            color: white;
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-            z-index: 1000;
-            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5); /* Ombre plus marquée pour le centre */
-        }
-        .email-overlay input[type="email"] {
-            width: calc(100% - 40px); /* Ajustement pour le bouton */
-            padding: 10px;
-            margin-bottom: 10px;
-            border: none;
-            border-radius: 5px;
-            color: black; /* Assurer la visibilité du texte */
-        }
-        .email-overlay button {
-            width: 100%;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            background: linear-gradient(135deg, #6a11cb, #2575fc);
-            color: white;
-            cursor: pointer;
-        }
-        .email-overlay button:hover {
-            background: linear-gradient(135deg, #5a0ebb, #1a65eb);
-        }
-
-        /* Copyright */
-        .copyright {
-            background: rgba(10, 10, 50, 0.95); /* Même couleur que l'overlay */
-            text-align: center;
-            padding: 10px;
-            font-size: 14px;
-            font-weight: bold;
-            margin-top: auto; /* Pour que ça colle en bas */
-        }
-    </style>
-</head>
-<body>
-
-    <div class="newsletter-container">
-        <h1>Recevez le meilleur de l'actu</h1>
-        <form id="newsletter-form" action="https://docs.google.com/forms/d/e/1FAIpQLSexMU03MDvDv-G1ddC1aBaC9OvUueJ92WvFuTKBh3XMGvRxsQ/formResponse" method="POST" target="hidden_iframe">
-            <div class="form-group form-check">
-                <input type="checkbox" class="form-check-input" id="daily" name="entry.1889021612" value="Hebdomadaire" checked>
-                <label for="daily">✅ Tous les jours</label>
-            </div>
-            <div class="form-group form-check">
-                <input type="checkbox" class="form-check-input" id="weekly" name="entry.1185604264" value="Quotidien" checked>
-                <label for="weekly">✅ Hebdo</label>
-            </div>
-            <div class="form-group">
-                <input type="email" class="form-control" id="email" name="entry.1899983470" placeholder="Votre adresse e-mail" required readonly style="cursor: pointer;">
-            </div>
-            <button type="submit" class="btn btn-primary" id="submit-button">Envoyer</button>
-        </form>
-    </div>
-
-    <div class="email-overlay" id="email-overlay">
-        <input type="email" id="email-overlay-input" placeholder="Votre adresse e-mail">
-        <button id="confirm-email-button">Confirmer</button>
-    </div>
-
-    <div class="overlay-confirmation" id="overlay-confirmation" style="display: none;">
-        🎉 FÉLICITATIONS ! VOUS ÊTES DÉSORMAIS ABONNÉ À HMB-TECH 🎉
-    </div>
-
-    <div class="copyright">
-        © 2025 HMB-TECH –·– TOUS DROITS RÉSERVÉS
-    </div>
-
-    <script>
-        const newsletterForm = document.getElementById('newsletter-form');
-        const emailInput = document.getElementById('email');
-        const emailOverlay = document.getElementById('email-overlay');
-        const emailOverlayInput = document.getElementById('email-overlay-input');
-        const confirmEmailButton = document.getElementById('confirm-email-button');
-        const overlayConfirmation = document.getElementById('overlay-confirmation');
-        const submitButton = document.getElementById('submit-button');
-
-        let emailConfirmed = false;
-        let autoSubmitTimeout;
-
-        emailInput.addEventListener('focus', function() {
-            emailOverlay.style.display = 'block';
-            emailOverlayInput.focus(); // Focus sur l'input de l'overlay
-        });
-
-        confirmEmailButton.addEventListener('click', function() {
-            const email = emailOverlayInput.value;
-            emailInput.value = email;
-            emailOverlay.style.display = 'none';
-            emailConfirmed = true;
-
-            // Démarrer le timer pour la soumission automatique
-            autoSubmitTimeout = setTimeout(() => {
-                if (emailConfirmed) {
-                    newsletterForm.dispatchEvent(new Event('submit'));
-                }
-            }, 3000);
-        });
-
-        // Permettre la confirmation de l'email avec la touche Entrée dans l'overlay
-        emailOverlayInput.addEventListener('keypress', function(event) {
-            if (event.key === 'Enter') {
-                confirmEmailButton.click();
-            }
-        });
-
-        newsletterForm.addEventListener('submit', function(event) {
-            event.preventDefault(); // Empêcher la redirection
-
-            // Empêcher la soumission automatique si l'utilisateur clique sur "Envoyer"
-            clearTimeout(autoSubmitTimeout);
-            emailConfirmed = false; // Réinitialiser pour une prochaine interaction
-
-            let formData = new FormData(this);
-
-            // Envoi asynchrone avec fetch vers Google Forms
-            fetch(this.action, {
-                method: "POST",
-                body: formData,
-                headers: {
-                    'Accept': 'application/json'
-                }
-            }).then(response => {
-                if (!response.ok) {
-                    console.error("Erreur lors de l'envoi du formulaire.");
-                }
-            }).catch(error => {
-                console.error("Erreur de connexion.", error);
-            });
-
-            // Afficher l'overlay de confirmation 3 secondes après l'envoi (clic sur le bouton)
-            setTimeout(() => {
-                overlayConfirmation.style.width = '90vw';
-                overlayConfirmation.style.display = 'block';
-            }, 3000);
-
-            setTimeout(() => {
-                overlayConfirmation.style.display = 'none'; // Disparaît après 6 secondes (3s d'affichage)
-            }, 6000);
-
-            newsletterForm.reset();
-        });
-
-        // Permettre la soumission finale avec la touche Entrée (si l'email a été confirmé)
-        newsletterForm.addEventListener('keypress', function(event) {
-            if (event.key === 'Enter' && emailInput.value && !autoSubmitTimeout) {
-                // Empêcher la double soumission si le timer est actif
-                this.dispatchEvent(new Event('submit'));
-            }
-        });
-
-        // Empêcher la soumission par défaut du formulaire si l'email n'est pas confirmé
-        submitButton.addEventListener('click', function(event) {
-            if (!emailConfirmed) {
-                event.preventDefault();
-                emailOverlay.style.display = 'block';
-                emailOverlayInput.focus();
-            }
-        });
-    </script>
-
-</body>
-</html>
-
-
-
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-<!-- Inclure Font Awesome -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
-<!-- Bouton principal -->
-<button onclick="generateStatsPDF()" 
-        style="position: fixed; bottom: 20px; right: 20px;
-               width: 50px; height: 50px; border-radius: 50%;
-               background: #0D1C40; color: white; border: none;
-               cursor: pointer; font-size: 24px; display: flex;
-               align-items: center; justify-content: center;">
-    ⎙
-</button>
-
-<!-- Librairies -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
-
-<script>
-function generateStatsPDF() {
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF({
-        orientation: 'portrait',
-        unit: 'mm',
-        format: 'a4'
-    });
-
-    // Configuration du tableau
-    const headers = [
-        [
-            `PRÉSENTS (${presentStudents.length})`, 
-            `ABSENTS (${absentStudents.length})`, 
-            `FRAUDEURS (${fraudeStudents.length})`
-        ]
-    ];
-
-    // Corps du tableau
-    const body = [];
-    const maxRows = Math.max(presentStudents.length, absentStudents.length, fraudeStudents.length);
-    for (let i = 0; i < maxRows; i++) {
-        body.push([
-            presentStudents[i] || '-',
-            absentStudents[i] || '-',
-            fraudeStudents[i] || '-'
-        ]);
-    }
-
-    // Génération du PDF
-    doc.autoTable({
-        head: headers,
-        body: body,
-        startY: 25,
-        theme: 'grid',
-        styles: {
-            fontSize: 9,
-            cellPadding: 1.5,
-            lineHeight: 1.1,
-            valign: 'middle'
-        },
-        headerStyles: {
-            fillColor: [13, 28, 64],
-            textColor: 255,
-            fontStyle: 'bold',
-            minCellHeight: 6
-        },
-        bodyStyles: {
-            minCellHeight: 5
-        },
-        margin: { left: 10, right: 10 },
-        repeatHeader: true
-    });
-
-    // Ajouter un en-tête sur chaque page
-    const pages = doc.internal.getNumberOfPages();
-    for (let i = 1; i <= pages; i++) {
-        doc.setPage(i);
-        doc.setFontSize(12);
-        doc.setTextColor(13, 28, 64);
-        doc.text("STATISTIQUES PRÉSENCES PRÉPA H25", 10, 10); // En-tête
-        doc.text("", 10, 15); // Sous-titre
-    }
-
-    // Pied de page
-    for (let i = 1; i <= pages; i++) {
-        doc.setPage(i);
-        doc.setFontSize(8);
-        doc.text(
-            `Page ${i}/${pages} - © HMB-TECH ${new Date().getFullYear()}`,
-            doc.internal.pageSize.width - 45,
-            doc.internal.pageSize.height - 8
-        );
-    }
-
-    // Créer un lien de téléchargement
-    const pdfOutput = doc.output('bloburl');
-    
-    // Créer le bouton de téléchargement
-    const downloadButton = document.createElement('a');
-    downloadButton.href = pdfOutput;
-    downloadButton.download = `STATS_H25_${Date.now()}.pdf`;
-    
-    // Utiliser l'icône de téléchargement de Font Awesome
-    downloadButton.innerHTML = '<i class="fas fa-download"></i>'; 
-    
-    // Style du bouton de téléchargement (rond et au-dessus du bouton principal)
-    downloadButton.style.position = 'fixed';
-    downloadButton.style.bottom = '80px'; // Position juste au-dessus du bouton principal
-    downloadButton.style.left = '20px';  // Aligné à gauche
-    downloadButton.style.width = '50px';
-    downloadButton.style.height = '50px';
-    downloadButton.style.borderRadius = '50%';
-    downloadButton.style.backgroundColor = '#0D1C40';
-    downloadButton.style.color = 'white';
-    downloadButton.style.fontSize = '24px';
-    downloadButton.style.display = 'flex';
-    downloadButton.style.alignItems = 'center';
-    downloadButton.style.justifyContent = 'center';
-    downloadButton.style.cursor = 'pointer';
-    downloadButton.style.textDecoration = 'none';
-
-    // Ajouter le bouton à la page
-    document.body.appendChild(downloadButton);
-}
-</script>
-
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Site avec image et couleur de fond</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Power Family - Présences</title>
+    <link rel="icon" href="https://raw.githubusercontent.com/HansHugoHMB/Images/main/FAV.ico" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Changa&display=swap" rel="stylesheet">
     <style>
         body {
             margin: 0;
-            height: 100vh;
-            background-color: #0C1C41; /* Troisième plan : Couleur de fond */
-            background-image: url('https://github.com/HansHugoHMB/Images/raw/main/ISTA_3.png'); /* Deuxième plan : Image */
+            min-height: 100vh;
+            background-color: #0C1C41;
+            background-image: url('https://github.com/HansHugoHMB/Images/raw/main/ISTA_3.png');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
-        }
-
-        .content {
-            position: relative;
-            z-index: 1; /* Premier plan : Le contenu du site */
-            padding: 20px;
+            font-family: 'Changa', sans-serif;
             color: white;
-            font-family: Changa, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 0; /* Remove default body padding */
         }
 
-        h1, p {
-            margin: 20px 0;
+        .presence-form {
+            background-color: rgba(13, 28, 64, 0.95);
+            padding: 1rem; /* Further decrease padding to reduce height */
+            border-radius: 10px;
+            width: 80%; /* Set width to 80% of viewport */
+            max-width: 400px; /* Limit maximum width for better readability on larger screens */
+            text-align: center;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            border: 2px solid white;
+        }
+
+        .code-input {
+            width: 80%;
+            padding: 10px; /* Decrease padding slightly */
+            margin: 10px 0; /* Decrease margin slightly */
+            text-align: center;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 5px;
+            background: white;
+            font-family: 'Changa', sans-serif;
+        }
+
+        .submit-btn {
+            background-color: #0D1C40;
+            color: white;
+            border: 2px solid white;
+            padding: 8px 20px; /* Decrease padding slightly */
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1em;
+            margin-top: 10px; /* Decrease margin slightly */
+            transition: all 0.3s ease;
+            font-family: 'Changa', sans-serif;
+        }
+
+        .submit-btn:hover {
+            background-color: white;
+            color: #0D1C40;
+        }
+
+        .name-display {
+            margin-top: 10px; /* Decrease margin slightly */
+            padding: 10px; /* Decrease padding slightly */
+            min-height: 25px; /* Decrease min-height */
+            font-weight: bold;
+            font-size: 1.2em;
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 5px;
+            font-family: 'Changa', sans-serif;
+            display: none; /* Initially hide the name display */
+        }
+
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #0D1C40; /* Set the background color to blue */
+            color: white;
+            padding: 15px; /* Decrease padding slightly */
+            border-radius: 10px;
+            text-align: center;
+            border: 2px solid white;
+            z-index: 2000;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            font-family: 'Changa', sans-serif;
+        }
+
+        .popup h3 {
+            margin: 0;
+            padding-bottom: 6px; /* Decrease padding slightly */
         }
     </style>
 </head>
 <body>
+    <div class="image-container" style="position: fixed; top: 5mm; left: 40%; transform: translateX(-50%); z-index: 9999;">
+    <img src="https://raw.githubusercontent.com/HansHugoHMB/Images/main/loading.svg" alt="Loading Image" style="width: 150%; height: auto;">
+</div>
+    <div class="presence-form">
+        <h2>Enregistrement de Présence</h2>
+        <input type="password" id="codeInput" class="code-input" placeholder="Entrez votre code">
+        <div id="nameDisplay" class="name-display"></div>
+        <button id="submitBtn" class="submit-btn">Valider</button>
+    </div>
+
+    <div id="popup" class="popup">
+        <h3>FÉLICITATIONS !</h3>
+        <p>Vous êtes présent pour aujourd'hui.</p>
+    </div>
+
+    <script>
+        function formatName(string) {
+            return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+        }
+
+        const students = {
+            'AAA000': {nom: "Ibemba", postnom: "Ntembi"},
+            'AAA001': {nom: "Kitambwe", postnom: "Mudimbi"},
+            'AAA002': {nom: "Mbala", postnom: "Lubaki"},
+            'AAA003': {nom: "Mbala", postnom: "Mbimba"},
+            'AAA004': {nom: "Mbambina", postnom: "Wazangba"},
+            'AAA005': {nom: "Mbandjo", postnom: "Iyele"},
+            'AAA006': {nom: "Mbatu", postnom: "Kimwanga"},
+            'AAA007': {nom: "Mbaya", postnom: "Baya"},
+            'AAA008': {nom: "Mbaya", postnom: "Faustin"},
+            'AAA009': {nom: "Mbayo", postnom: "Bononge"},
+            'AAA010': {nom: "Mbeku", postnom: "Elekwa"},
+            'AAA011': {nom: "Mbele", postnom: "Kalusuti"},
+            'AAA012': {nom: "Mbelenga", postnom: "Mbombawande"},
+            'AAA013': {nom: "Mbema", postnom: "Zongo"},
+            'AAA014': {nom: "Mbemba", postnom: "Kuku"},
+            'AAA015': {nom: "Mbengi", postnom: "Mbo"},
+            'AAA016': {nom: "Mbimba", postnom: "Mufungizi"},
+            'AAA017': {nom: "Mbirize", postnom: "Imani"},
+            'AAA018': {nom: "Mbo", postnom: "Mfumu"},
+            'AAA019': {nom: "Mbo", postnom: "Wemba"},
+            'AAA020': {nom: "Mbobo", postnom: "Lupombo"},
+            'AAA021': {nom: "Mboko", postnom: "Ntoko"},
+            'AAA022': {nom: "Mbololo", postnom: "Mwimpe"},
+            'AAA023': {nom: "Mboma", postnom: "Kalamba"},
+            'AAA024': {nom: "Mboma", postnom: "Ndosala"},
+            'AAA025': {nom: "Mboma", postnom: "Taubala"},
+            'AAA026': {nom: "Mboso", postnom: "Mawete"},
+            'AAA027': {nom: "Mbuaki", postnom: "Miezi"},
+            'AAA028': {nom: "Mbuba", postnom: "Ndongala"},
+            'AAA029': {nom: "Mbuezo", postnom: "Lungeny"},
+            'AAA030': {nom: "Mbuka", postnom: "Matuvang"},
+            'AAA031': {nom: "Mbuku", postnom: "Kisalu"},
+            'AAA032': {nom: "Mbula", postnom: "Mbanza"},
+            'AAA033': {nom: "Mbulayi", postnom: "Tshibangu"},
+            'AAA034': {nom: "Mbumba", postnom: "Ndembe"},
+            'AAA035': {nom: "Mbuya", postnom: "Mujani"},
+            'AAA036': {nom: "Mbuyamba", postnom: "Tshiswaka"},
+            'AAA037': {nom: "Mbuyi", postnom: "Kole"},
+            'AAA038': {nom: "Mbuyi", postnom: "Ndaye"},
+            'AAA039': {nom: "Mbwelima", postnom: "Tanga"},
+            'AAA040': {nom: "Mbwiti", postnom: "Kuyakana"},
+            'AAA041': {nom: "Mekanda", postnom: "Iwoko"},
+            'AAA042': {nom: "Menemene", postnom: "Nkosi"},
+            'AAA043': {nom: "Menga", postnom: "Mabala"},
+            'AAA044': {nom: "Mesa", postnom: "Musalu"},
+            'AAA045': {nom: "Mfulungani", postnom: "Nfulameso"},
+            'AAA046': {nom: "Miantise", postnom: "Ndoole"},
+            'AAA047': {nom: "Mibo", postnom: "Mpewa"},
+            'AAA048': {nom: "Mikadi", postnom: "Mikadi"},
+            'AAA049': {nom: "Mikobi", postnom: "Belapio"},
+            'AAA050': {nom: "Mikuba", postnom: "Alfani"},
+            'AAA051': {nom: "Milonga", postnom: "Mudimbanya"},
+            'AAA052': {nom: "Milumbu", postnom: "Kabuya"},
+            'AAA053': {nom: "Minga", postnom: "Kwete"},
+            'AAA054': {nom: "Minga", postnom: "Mbatshi"},
+            'AAA055': {nom: "Minga", postnom: "Pongo"},
+            'AAA056': {nom: "Mioma", postnom: "Kingombe"},
+            'AAA057': {nom: "Miomo", postnom: "Makanda"},
+            'AAA058': {nom: "Misengabu", postnom: "Tegra"},
+            'AAA059': {nom: "Misiono", postnom: "Mvungu"},
+            'AAA060': {nom: "Mitshiabu", postnom: "Ilunga"},
+            'AAA061': {nom: "Mitunga", postnom: "Mubiangat"},
+            'AAA062': {nom: "Mitungini", postnom: "Luzolo"},
+            'AAA063': {nom: "Mobao", postnom: "Mopia"},
+            'AAA064': {nom: "Mobonda", postnom: "Boyele"},
+            'AAA065': {nom: "Modja", postnom: "Etoti"},
+            'AAA066': {nom: "Mogbokula", postnom: "Ndole"},
+            'AAA067': {nom: "Mohele", postnom: "Matuka"},
+            'AAA068': {nom: "Mokie", postnom: "Inkini"},
+            'AAA069': {nom: "Mokili", postnom: "Katshulu"},
+            'AAA070': {nom: "Mokosi", postnom: "Keta"},
+            'AAA071': {nom: "Mokoyo", postnom: "Bokianga"},
+            'AAA072': {nom: "Mokuba", postnom: "Bapele"},
+            'AAA073': {nom: "Mokutu", postnom: "Golo"},
+            'AAA074': {nom: "Molithio", postnom: "Ndopo"},
+            'AAA075': {nom: "Momele", postnom: "Bokila"},
+            'AAA076': {nom: "Monga", postnom: "Mokesa"},
+            'AAA077': {nom: "Mongbani", postnom: "Akosu"},
+            'AAA078': {nom: "Monsengo", postnom: "Mafisango"},
+            'AAA079': {nom: "Monsengo", postnom: "Ntwaboy"},
+            'AAA080': {nom: "Moongo", postnom: "Bompusa"},
+            'AAA081': {nom: "Mopayi", postnom: "Bokungu"},
+            'AAA082': {nom: "Mopia", postnom: "Benie"},
+            'AAA083': {nom: "Mopini", postnom: "Ngobila"},
+            'AAA084': {nom: "Mopolo", postnom: "Lengo"},
+            'AAA085': {nom: "Motokwa", postnom: "Dido"},
+            'AAA086': {nom: "Moutsiekou", postnom: "Pandi"},
+            'AAA087': {nom: "Moweni", postnom: "Bopopi"},
+            'AAA088': {nom: "Mpamaleo", postnom: "Bosontia"},
+            'AAA089': {nom: "Mpana", postnom: "Ngambieli"},
+            'AAA090': {nom: "Mpata", postnom: "Litumbe"},
+            'AAA091': {nom: "Mpay", postnom: "Nke"},
+            'AAA092': {nom: "Mpela", postnom: "Bawesi"},
+            'AAA093': {nom: "Mpembe", postnom: "Bassa"},
+            'AAA094': {nom: "Mpengele", postnom: "Pongo"},
+            'AAA095': {nom: "Mpetshi", postnom: "Bangongo"},
+            'AAA096': {nom: "Mpeya", postnom: "Lingongo"},
+            'AAA097': {nom: "Mwangani", postnom: "Katimuka"},
+            'AAA098': {nom: "Noyo", postnom: "Mukendi"}
+        };
+
+        function validateAndSubmit() {
+            const code = document.getElementById('codeInput').value;
+            const nameDisplay = document.getElementById('nameDisplay');
+            const popup = document.getElementById('popup');
+
+            if (students[code]) {
+                const student = students[code];
+                const displayName = `${formatName(student.nom)} ${formatName(student.postnom)}`;
+                nameDisplay.textContent = displayName;
+                nameDisplay.style.display = 'block'; // Show the name
+
+                // Envoyer à Google Forms
+                const formData = new FormData();
+                formData.append('entry.620452725', formatName(student.nom)); // ID for nom from the provided link
+                formData.append('entry.1336191696', formatName(student.postnom)); // ID for postnom from the provided link
+
+                fetch('https://docs.google.com/forms/d/e/1FAIpQLScDkzgykAv1EiCLqv9cTzGK7uCAFfgKG27ZMwrZcGfuEXynaA/formResponse', { // Updated Google Forms link (using the base URL)
+                    method: 'POST',
+                    body: formData,
+                    mode: 'no-cors'
+                });
+
+                // Afficher le popup
+                setTimeout(() => {
+                    popup.style.display = 'block';
+
+                    // Cacher le popup et réinitialiser
+                    setTimeout(() => {
+                        popup.style.display = 'none';
+                        document.getElementById('codeInput').value = '';
+                        nameDisplay.textContent = '';
+                        nameDisplay.style.display = 'none'; // Hide the name again
+                    }, 3000);
+                }, 2000);
+            } else {
+                nameDisplay.textContent = 'Code invalide';
+                nameDisplay.style.color = '#ff4444';
+                nameDisplay.style.display = 'block'; // Show the error message
+                setTimeout(() => {
+                    nameDisplay.style.color = 'white';
+                    nameDisplay.style.display = 'none'; // Hide the error message
+                }, 2000);
+            }
+        }
+
+        // Event Listeners
+        document.getElementById('submitBtn').addEventListener('click', validateAndSubmit);
+        document.getElementById('codeInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                validateAndSubmit();
+            }
+        });
+    </script>
+    
+    
 </body>
 </html>
 
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Police Jaini</title>
-    <!-- Lien vers Google Fonts pour la police Jaini -->
-    <link href="https://fonts.googleapis.com/css2?family=Changa&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
-</head>
-</html>
