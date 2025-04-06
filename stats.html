@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HMB-TECH SCORE</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background-color: #0D1C40;
+      overflow: hidden;
+    }
+
+    body {
+      box-sizing: border-box;
+      border: 1.4px solid #ffffff;
+      border-bottom-left-radius: 5mm;
+      border-bottom-right-radius: 5mm;
+      font-family: Arial, sans-serif;
+    }
+
+    header {
+      height: 2cm;
+      background-color: #0D1C40;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5em;
+      font-weight: bold;
+    }
+
+    .iframe-wrapper {
+      position: relative;
+      width: 100vw;
+      height: calc(100vh - 2cm);
+      background-color: white;
+      overflow: hidden;
+    }
+
+    iframe {
+      position: absolute;
+      top: -0.7cm;
+      left: 0;
+      width: calc(100vw + 0.5cm);
+      height: calc(100vh - 2cm + 1.7cm);
+      border: none;
+    }
+
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(13, 28, 64, 0.2);
+      pointer-events: none;
+      z-index: 2;
+    }
+  
+
+    .loading-page {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #0D1C40;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 3;
+    }
+
+    .loading-page img {
+      width: 60px;
+      height: 60px;
+    }
+  </style>
+</head>
+<body>
+  <div class="loading-page">
+    <img src="https://github.com/HansHugoHMB/Images/raw/main/loading.svg" alt="Chargement...">
+  </div>
+
+  <header>STATISTIQUES DES PRÉSENCES</header>
+
+  <div class="iframe-wrapper">
+    <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vQu16xe62680U_GnILvWyFDrQUbgHb2oFh1dU2zU4cL1Akt762pVehYh_vFpN_KOpgt87dpBiGRdZXX/pubhtml?widget=true&amp;headers=false"
+      allowfullscreen
+      onload="setTimeout(() => document.querySelector('.loading-page').style.display='none', 5000)">
+    </iframe>
+    <div class="overlay"></div>
+  </div>
+</body>
+</html> 
