@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Système de Présence - Power Family</title>
+    <link rel="icon" href="https://raw.githubusercontent.com/HansHugoHMB/Images/main/FAV.ico" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Changa&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <style>
+        :root {
+            --main-bg: #0D1C40;
+            --gold: #FFD700;
+            --white: #FFFFFF;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background-color: var(--main-bg);
+            font-family: 'Changa', sans-serif;
+            color: var(--gold);
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: rgba(13, 28, 64, 0.95);
+            border-radius: 10px;
+            border: 2px solid var(--gold);
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .tab {
+            padding: 10px 20px;
+            background-color: var(--main-bg);
+            color: var(--gold);
+            border: 2px solid var(--gold);
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .tab.active {
+            background-color: var(--gold);
+            color: var(--main-bg);
+        }
+
+        .content-section {
+            display: none;
+            padding: 20px;
+            background-color: rgba(13, 28, 64, 0.8);
+            border-radius: 10px;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        input, button {
+            padding: 12px;
+            margin: 5px 0;
+            border-radius: 5px;
+            border: 2px solid var(--gold);
+            background-color: var(--main-bg);
+            color: var(--gold);
+            font-family: 'Changa', sans-serif;
+            width: 100%;
+            max-width: 300px;
+        }
+
+        button {
+            background-color: var(--gold);
+            color: var(--main-bg);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background-color: var(--main-bg);
+            color: var(--gold);
+        }
+
+        .presence-list {
+            margin-top: 20px;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        .presence-item {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid var(--gold);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="tabs">
+            <div class="tab active" data-tab="presence">Présence</div>
+            <div class="tab" data-tab="history">Historique</div>
+            <div class="tab" data-tab="export">Exporter</div>
+        </div>
+
+        <div id="presence" class="content-section active">
+            <input type="text" id="matricule" placeholder="Entrez votre code (ex: AAA000)" maxlength="6">
+            <button onclick="signPresence()">Signer la présence</button>
+            <div id="today-presence" class="presence-list"></div>
+        </div>
+
+        <div id="history" class="content-section">
+            <div id="history-list" class="presence-list"></div>
+        </div>
+
+        <div id="export" class="content-section">
+            <button onclick="exportToExcel()">Exporter en Excel</button>
+            <button onclick="exportToPDF()">Exporter en PDF</button>
+            <button onclick="exportToCSV()">Exporter en CSV</button>
+        </div>
+    </div>
+
+    <script>
+        // Configuration GitHub
+        const githubTokenPart1 = 'ghp_FdhLrRA2VYSXENmPbV5ZtDeFBCAeNc2xp';
+        const githubTokenPart2 = 'MaI';
+        const githubToken = githubTokenPart1 + githubTokenPart2;
+        const owner = 'HansHugoHMB';
+        const repo = 'Power-family-';
+
+        // Base de données des étudiants
+        const students = {
+            'AAA000': {nom: "Ibemba", postnom: "Ntembi"},
+            'AAA001': {nom: "Kitambwe", postnom: "Mudimbi"},
+            'AAA002': {nom: "Mbala", postnom: "Lubaki"},
+            'AAA003': {nom: "Mbala", postnom: "Mbimba"},
+            'AAA004': {nom: "Mbambina", postnom: "Wazangba"},
+            'AAA005': {nom: "Mbandjo", postnom: "Iyele"},
+            'AAA006': {nom: "Mbatu", postnom: "Kimwanga"},
+            'AAA007': {nom: "Mbaya", postnom: "Baya"},
+            'AAA008': {nom: "Mbaya", postnom: "Faustin"},
+            'AAA009': {nom: "Mbayo", postnom: "Bononge"},
+            'AAA010': {nom: "Mbeku", postnom: "Elekwa"},
+            'AAA011': {nom: "Mbele", postnom: "Kalusuti"},
+            'AAA012': {nom: "Mbelenga", postnom: "Mbombawande"},
+            'AAA013': {nom: "Mbema", postnom: "Zongo"},
+            'AAA014': {nom: "Mbemba", postnom: "Kuku"},
+            'AAA015': {nom: "Mbengi", postnom: "Mbo"},
+            'AAA016': {nom: "Mbimba", postnom: "Mufungizi"},
+            'AAA017': {nom: "Mbirize", postnom: "Imani"},
+            'AAA018': {nom: "Mbo", postnom: "Mfumu"},
+            'AAA019': {nom: "Mbo", postnom: "Wemba"},
+            'AAA020': {nom: "Mbobo", postnom: "Lupombo"},
+            'AAA021': {nom: "Mboko", postnom: "Ntoko"},
+            'AAA022': {nom: "Mbololo", postnom: "Mwimpe"},
+            'AAA023': {nom: "Mboma", postnom: "Kalamba"},
+            'AAA024': {nom: "Mboma", postnom: "Ndosala"},
+            'AAA025': {nom: "Mboma", postnom: "Taubala"},
+            'AAA026': {nom: "Mboso", postnom: "Mawete"},
+            'AAA027': {nom: "Mbuaki", postnom: "Miezi"},
+            'AAA028': {nom: "Mbuba", postnom: "Ndongala"},
+            'AAA029': {nom: "Mbuezo", postnom: "Lungeny"},
+            'AAA030': {nom: "Mbuka", postnom: "Matuvang"},
+            'AAA031': {nom: "Mbuku", postnom: "Kisalu"},
+            'AAA032': {nom: "Mbula", postnom: "Mbanza"},
+            'AAA033': {nom: "Mbulayi", postnom: "Tshibangu"},
+            'AAA034': {nom: "Mbumba", postnom: "Ndembe"},
+            'AAA035': {nom: "Mbuya", postnom: "Mujani"},
+            'AAA036': {nom: "Mbuyamba", postnom: "Tshiswaka"},
+            'AAA037': {nom: "Mbuyi", postnom: "Kole"},
+            'AAA038': {nom: "Mbuyi", postnom: "Ndaye"},
+            'AAA039': {nom: "Mbwelima", postnom: "Tanga"},
+            'AAA040': {nom: "Mbwiti", postnom: "Kuyakana"},
+            'AAA041': {nom: "Mekanda", postnom: "Iwoko"},
+            'AAA042': {nom: "Menemene", postnom: "Nkosi"},
+            'AAA043': {nom: "Menga", postnom: "Mabala"},
+            'AAA044': {nom: "Mesa", postnom: "Musalu"},
+            'AAA045': {nom: "Mfulungani", postnom: "Nfulameso"},
+            'AAA046': {nom: "Miantise", postnom: "Ndoole"},
+            'AAA047': {nom: "Mibo", postnom: "Mpewa"},
+            'AAA048': {nom: "Mikadi", postnom: "Mikadi"},
+            'AAA049': {nom: "Mikobi", postnom: "Belapio"},
+            'AAA050': {nom: "Mikuba", postnom: "Alfani"},
+            'AAA051': {nom: "Milonga", postnom: "Mudimbanya"},
+            'AAA052': {nom: "Milumbu", postnom: "Kabuya"},
+            'AAA053': {nom: "Minga", postnom: "Kwete"},
+            'AAA054': {nom: "Minga", postnom: "Mbatshi"},
+            'AAA055': {nom: "Minga", postnom: "Pongo"},
+            'AAA056': {nom: "Mioma", postnom: "Kingombe"},
+            'AAA057': {nom: "Miomo", postnom: "Makanda"},
+            'AAA058': {nom: "Misengabu", postnom: "Tegra"},
+            'AAA059': {nom: "Misiono", postnom: "Mvungu"},
+            'AAA060': {nom: "Mitshiabu", postnom: "Ilunga"},
+            'AAA061': {nom: "Mitunga", postnom: "Mubiangat"},
+            'AAA062': {nom: "Mitungini", postnom: "Luzolo"},
+            'AAA063': {nom: "Mobao", postnom: "Mopia"},
+            'AAA064': {nom: "Mobonda", postnom: "Boyele"},
+            'AAA065': {nom: "Modja", postnom: "Etoti"},
+            'AAA066': {nom: "Mogbokula", postnom: "Ndole"},
+            'AAA067': {nom: "Mohele", postnom: "Matuka"},
+            'AAA068': {nom: "Mokie", postnom: "Inkini"},
+            'AAA069': {nom: "Mokili", postnom: "Katshulu"},
+            'AAA070': {nom: "Mokosi", postnom: "Keta"},
+            'AAA071': {nom: "Mokoyo", postnom: "Bokianga"},
+            'AAA072': {nom: "Mokuba", postnom: "Bapele"},
+            'AAA073': {nom: "Mokutu", postnom: "Golo"},
+            'AAA074': {nom: "Molithio", postnom: "Ndopo"},
+            'AAA075': {nom: "Momele", postnom: "Bokila"},
+            'AAA076': {nom: "Monga", postnom: "Mokesa"},
+            'AAA077': {nom: "Mongbani", postnom: "Akosu"},
+            'AAA078': {nom: "Monsengo", postnom: "Mafisango"},
+            'AAA079': {nom: "Monsengo", postnom: "Ntwaboy"},
+            'AAA080': {nom: "Moongo", postnom: "Bompusa"},
+            'AAA081': {nom: "Mopayi", postnom: "Bokungu"},
+            'AAA082': {nom: "Mopia", postnom: "Benie"},
+            'AAA083': {nom: "Mopini", postnom: "Ngobila"},
+            'AAA084': {nom: "Mopolo", postnom: "Lengo"},
+            'AAA085': {nom: "Motokwa", postnom: "Dido"},
+            'AAA086': {nom: "Moutsiekou", postnom: "Pandi"},
+            'AAA087': {nom: "Moweni", postnom: "Bopopi"},
+            'AAA088': {nom: "Mpamaleo", postnom: "Bosontia"},
+            'AAA089': {nom: "Mpana", postnom: "Ngambieli"},
+            'AAA090': {nom: "Mpata", postnom: "Litumbe"},
+            'AAA091': {nom: "Mpay", postnom: "Nke"},
+            'AAA092': {nom: "Mpela", postnom: "Bawesi"},
+            'AAA093': {nom: "Mpembe", postnom: "Bassa"},
+            'AAA094': {nom: "Mpengele", postnom: "Pongo"},
+            'AAA095': {nom: "Mpetshi", postnom: "Bangongo"},
+            'AAA096': {nom: "Mpeya", postnom: "Lingongo"},
+            'AAA097': {nom: "Mwangani", postnom: "Katimuka"},
+            'AAA098': {nom: "Noyo", postnom: "Mukendi"}
+        };
+
+        let presenceData = {
+            today: [],
+            history: []
+        };
+
+        // Fonction pour signer une présence
+        async function signPresence() {
+            const matricule = document.getElementById('matricule').value.toUpperCase();
+            const student = students[matricule];
+            if (student) {
+                const timestamp = new Date().toISOString();
+                presenceData.today.push({
+                    matricule,
+                    nom: student.nom,
+                    postnom: student.postnom,
+                    timestamp
+                });
+                updateTodayPresenceDisplay();
+                alert(`Présence enregistrée pour ${student.nom} ${student.postnom}`);
+            } else {
+                alert("Matricule invalide !");
+            }
+            document.getElementById('matricule').value = '';
+        }
+
+        // Mise à jour de la liste des présences du jour
+        function updateTodayPresenceDisplay() {
+            const container = document.getElementById('today-presence');
+            container.innerHTML = '';
+            presenceData.today.forEach(presence => {
+                const presenceItem = document.createElement('div');
+                presenceItem.className = 'presence-item';
+                presenceItem.textContent = `${presence.nom} ${presence.postnom} - ${new Date(presence.timestamp).toLocaleTimeString()}`;
+                container.appendChild(presenceItem);
+            });
+        }
+
+        // Fonction pour exporter les données en Excel
+        function exportToExcel() {
+            const worksheet = XLSX.utils.json_to_sheet(presenceData.today);
+            const workbook = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(workbook, worksheet, "Présences");
+            XLSX.writeFile(workbook, "presences.xlsx");
+        }
+
+        // Fonction pour exporter les données en PDF
+        async function exportToPDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            let y = 10;
+            doc.text("Présences du Jour", 10, y);
+            presenceData.today.forEach(presence => {
+                y += 10;
+                doc.text(`${presence.nom} ${presence.postnom} - ${new Date(presence.timestamp).toLocaleTimeString()}`, 10, y);
+            });
+            doc.save("presences.pdf");
+        }
+
+        // Fonction pour exporter les données en CSV
+        function exportToCSV() {
+            let csvContent = "data:text/csv;charset=utf-8,Matricule,Nom,Postnom,Horodatage\n";
+            presenceData.today.forEach(presence => {
+                csvContent += `${presence.matricule},${presence.nom},${presence.postnom},${presence.timestamp}\n`;
+            });
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", "presences.csv");
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        // Gestion des onglets
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.content-section').forEach(section => section.classList.remove('active'));
+                tab.classList.add('active');
+                document.getElementById(tab.dataset.tab).classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
