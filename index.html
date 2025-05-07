@@ -2,129 +2,183 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Power Family - Présences</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Système de Présence - Power Family</title>
     <link rel="icon" href="https://raw.githubusercontent.com/HansHugoHMB/Images/main/FAV.ico" type="image/x-icon">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Changa&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
+        :root {
+            --main-bg: #0D1C40;
+            --gold: #FFD700;
+            --white: #FFFFFF;
+        }
+
         body {
             margin: 0;
             min-height: 100vh;
-            background-color: #0C1C41;
+            background-color: var(--main-bg);
             background-image: url('https://github.com/HansHugoHMB/Images/raw/main/ISTA_3.png');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
             font-family: 'Changa', sans-serif;
-            color: white;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 0; /* Remove default body padding */
+            color: var(--gold);
         }
 
-        .presence-form {
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
             background-color: rgba(13, 28, 64, 0.95);
-            padding: 1rem; /* Further decrease padding to reduce height */
             border-radius: 10px;
-            width: 80%; /* Set width to 80% of viewport */
-            max-width: 400px; /* Limit maximum width for better readability on larger screens */
-            text-align: center;
-            box-shadow: 0 0 20px rgba(0,0,0,0.5);
-            border: 2px solid white;
+            border: 2px solid var(--gold);
         }
 
-        .code-input {
-            width: 80%;
-            padding: 10px; /* Decrease padding slightly */
-            margin: 10px 0; /* Decrease margin slightly */
-            text-align: center;
-            font-size: 1.2em;
-            border: none;
-            border-radius: 5px;
-            background: white;
-            font-family: 'Changa', sans-serif;
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
         }
 
-        .submit-btn {
-            background-color: #0D1C40;
-            color: white;
-            border: 2px solid white;
-            padding: 8px 20px; /* Decrease padding slightly */
+        .tab {
+            padding: 10px 20px;
+            background-color: var(--main-bg);
+            color: var(--gold);
+            border: 2px solid var(--gold);
             border-radius: 5px;
             cursor: pointer;
-            font-size: 1.1em;
-            margin-top: 10px; /* Decrease margin slightly */
             transition: all 0.3s ease;
-            font-family: 'Changa', sans-serif;
         }
 
-        .submit-btn:hover {
-            background-color: white;
-            color: #0D1C40;
+        .tab.active {
+            background-color: var(--gold);
+            color: var(--main-bg);
+        }
+
+        .content-section {
+            display: none;
+            padding: 20px;
+            background-color: rgba(13, 28, 64, 0.8);
+            border-radius: 10px;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        input, button {
+            padding: 12px;
+            margin: 5px 0;
+            border-radius: 5px;
+            border: 2px solid var(--gold);
+            background-color: var(--main-bg);
+            color: var(--gold);
+            font-family: 'Changa', sans-serif;
+            width: 100%;
+            max-width: 300px;
+        }
+
+        button {
+            background-color: var(--gold);
+            color: var(--main-bg);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background-color: var(--main-bg);
+            color: var(--gold);
+        }
+
+        .presence-list {
+            margin-top: 20px;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        .presence-item {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid var(--gold);
+        }
+
+        .chart-container {
+            height: 300px;
+            margin: 20px 0;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
         }
 
         .name-display {
-            margin-top: 10px; /* Decrease margin slightly */
-            padding: 10px; /* Decrease padding slightly */
-            min-height: 25px; /* Decrease min-height */
-            font-weight: bold;
-            font-size: 1.2em;
-            background-color: rgba(255,255,255,0.1);
+            margin: 10px 0;
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.1);
             border-radius: 5px;
-            font-family: 'Changa', sans-serif;
-            display: none; /* Initially hide the name display */
-        }
-
-        .popup {
             display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: #0D1C40; /* Set the background color to blue */
-            color: white;
-            padding: 15px; /* Decrease padding slightly */
-            border-radius: 10px;
-            text-align: center;
-            border: 2px solid white;
-            z-index: 2000;
-            box-shadow: 0 0 20px rgba(0,0,0,0.5);
-            font-family: 'Changa', sans-serif;
         }
 
-        .popup h3 {
-            margin: 0;
-            padding-bottom: 6px; /* Decrease padding slightly */
+        @media (max-width: 768px) {
+            .tabs {
+                flex-direction: column;
+            }
+            
+            .container {
+                width: 95%;
+                padding: 10px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="image-container" style="position: fixed; top: 5mm; left: 40%; transform: translateX(-50%); z-index: 9999;">
-    <img src="https://raw.githubusercontent.com/HansHugoHMB/Images/main/loading.svg" alt="Loading Image" style="width: 100%; height: auto;">
-</div>
-    <div class="presence-form">
-        <h2>Enregistrement de Présence</h2>
-        <input type="password" id="codeInput" class="code-input" placeholder="Entrez votre code">
-        <div id="nameDisplay" class="name-display"></div>
-        <button id="submitBtn" class="submit-btn">Valider</button>
+    <div class="container">
+        <div class="tabs">
+            <div class="tab active" data-tab="presence">Présence</div>
+            <div class="tab" data-tab="history">Historique</div>
+            <div class="tab" data-tab="stats">Statistiques</div>
+            <div class="tab" data-tab="admin">Admin</div>
+        </div>
+
+        <div id="presence" class="content-section active">
+            <input type="text" id="matricule" placeholder="Entrez votre code (ex: AAA000)" maxlength="6">
+            <div id="name-display" class="name-display"></div>
+            <button onclick="signPresence()">Signer la présence</button>
+            <div class="presence-list" id="today-presence"></div>
+        </div>
+
+        <div id="history" class="content-section">
+            <div class="presence-list" id="history-list"></div>
+        </div>
+
+        <div id="stats" class="content-section">
+            <div class="chart-container">
+                <canvas id="daily-chart"></canvas>
+            </div>
+            <div class="chart-container">
+                <canvas id="weekly-chart"></canvas>
+            </div>
+        </div>
+
+        <div id="admin" class="content-section">
+            <input type="password" id="admin-code" placeholder="Code administrateur">
+            <button onclick="validateAdmin()">Connexion</button>
+            <button id="reset-button" style="display:none" onclick="resetPresences()">Réinitialiser les présences</button>
+        </div>
     </div>
 
-    <div id="popup" class="popup">
-        <h3>FÉLICITATIONS !</h3>
-        <p>Vous êtes présent pour aujourd'hui.</p>
-    </div>
-    <script src="https://image-guard-lib.pages.dev/dist/imageGuard.min.js"></script>
     <script>
-        function formatName(string) {
-            return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
-        }
-
+        // Configuration GitHub
+        const githubTokenPart1 = 'ghp_YourToken';
+        const githubTokenPart2 = 'PartHere';
+        const githubToken = githubTokenPart1 + githubTokenPart2;
+        
+        // Base de données des étudiants
         const students = {
-            'AAA000': {nom: "Ibemba", postnom: "Ntembi"},
+                        'AAA000': {nom: "Ibemba", postnom: "Ntembi"},
             'AAA001': {nom: "Kitambwe", postnom: "Mudimbi"},
             'AAA002': {nom: "Mbala", postnom: "Lubaki"},
             'AAA003': {nom: "Mbala", postnom: "Mbimba"},
@@ -225,61 +279,315 @@
             'AAA098': {nom: "Noyo", postnom: "Mukendi"}
         };
 
-        function validateAndSubmit() {
-            const code = document.getElementById('codeInput').value;
-            const nameDisplay = document.getElementById('nameDisplay');
-            const popup = document.getElementById('popup');
+        let presenceData = {
+            today: [],
+            history: []
+        };
 
-            if (students[code]) {
-                const student = students[code];
-                const displayName = `${formatName(student.nom)} ${formatName(student.postnom)}`;
-                nameDisplay.textContent = displayName;
-                nameDisplay.style.display = 'block'; // Show the name
-
-                // Envoyer à Google Forms
-                const formData = new FormData();
-                formData.append('entry.620452725', formatName(student.nom)); // ID for nom from the provided link
-                formData.append('entry.1336191696', formatName(student.postnom)); // ID for postnom from the provided link
-
-                fetch('https://docs.google.com/forms/d/e/1FAIpQLScDkzgykAv1EiCLqv9cTzGK7uCAFfgKG27ZMwrZcGfuEXynaA/formResponse', { // Updated Google Forms link (using the base URL)
-                    method: 'POST',
-                    body: formData,
-                    mode: 'no-cors'
+        // Fonction pour charger les présences du jour
+        async function loadTodayPresences() {
+            const date = new Date().toISOString().split('T')[0];
+            try {
+                const response = await fetch(`https://api.github.com/repos/HansHugoHMB/Power-family-/contents/attendance/${date}.json`, {
+                    headers: {
+                        'Authorization': `token ${githubToken}`
+                    }
                 });
-
-                // Afficher le popup
-                setTimeout(() => {
-                    popup.style.display = 'block';
-
-                    // Cacher le popup et réinitialiser
-                    setTimeout(() => {
-                        popup.style.display = 'none';
-                        document.getElementById('codeInput').value = '';
-                        nameDisplay.textContent = '';
-                        nameDisplay.style.display = 'none'; // Hide the name again
-                    }, 3000);
-                }, 2000);
-            } else {
-                nameDisplay.textContent = 'Code invalide';
-                nameDisplay.style.color = '#ff4444';
-                nameDisplay.style.display = 'block'; // Show the error message
-                setTimeout(() => {
-                    nameDisplay.style.color = 'white';
-                    nameDisplay.style.display = 'none'; // Hide the error message
-                }, 2000);
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    presenceData.today = JSON.parse(atob(data.content));
+                    updateTodayPresenceDisplay();
+                }
+            } catch (error) {
+                console.log('Pas de données pour aujourd\'hui');
+                presenceData.today = [];
             }
         }
 
-        // Event Listeners
-        document.getElementById('submitBtn').addEventListener('click', validateAndSubmit);
-        document.getElementById('codeInput').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                validateAndSubmit();
+        // Fonction pour signer une présence
+        async function signPresence() {
+            const matricule = document.getElementById('matricule').value.toUpperCase();
+            const nameDisplay = document.getElementById('name-display');
+            
+            if (students[matricule]) {
+                const student = students[matricule];
+                const timestamp = new Date().toISOString();
+                
+                // Vérifier si l'étudiant n'est pas déjà présent
+                if (!presenceData.today.find(p => p.matricule === matricule)) {
+                    presenceData.today.push({
+                        matricule,
+                        nom: student.nom,
+                        postnom: student.postnom,
+                        timestamp
+                    });
+                    
+                    await savePresencesToGitHub();
+                    updateTodayPresenceDisplay();
+                    
+                    nameDisplay.textContent = `Présence enregistrée pour ${student.nom} ${student.postnom}`;
+                    nameDisplay.style.color = 'var(--gold)';
+                } else {
+                    nameDisplay.textContent = 'Vous avez déjà signé aujourd\'hui';
+                    nameDisplay.style.color = '#ff4444';
+                }
+            } else {
+                nameDisplay.textContent = 'Code invalide';
+                nameDisplay.style.color = '#ff4444';
             }
+            
+            nameDisplay.style.display = 'block';
+            setTimeout(() => {
+                nameDisplay.style.display = 'none';
+                document.getElementById('matricule').value = '';
+            }, 3000);
+        }
+
+        // Fonction pour sauvegarder les présences sur GitHub
+        async function savePresencesToGitHub() {
+            const date = new Date().toISOString().split('T')[0];
+            const content = btoa(JSON.stringify(presenceData.today));
+            
+            try {
+                const url = `https://api.github.com/repos/HansHugoHMB/Power-family-/contents/attendance/${date}.json`;
+                const headers = {
+                    'Authorization': `token ${githubToken}`,
+                    'Content-Type': 'application/json'
+                };
+                
+                // Vérifier si le fichier existe
+                const checkResponse = await fetch(url, { headers });
+                
+                if (checkResponse.ok) {
+                    const existingFile = await checkResponse.json();
+                    // Mettre à jour le fichier existant
+                    await fetch(url, {
+                        method: 'PUT',
+                        headers,
+                        body: JSON.stringify({
+                            message: `Update attendance for ${date}`,
+                            content,
+                            sha: existingFile.sha
+                        })
+                    });
+                } else {
+                    // Créer un nouveau fichier
+                    await fetch(url, {
+                        method: 'PUT',
+                        headers,
+                        body: JSON.stringify({
+                            message: `Add attendance for ${date}`,
+                            content
+                        })
+                    });
+                }
+            } catch (error) {
+                console.error('Erreur lors de la sauvegarde:', error);
+            }
+        }
+
+        // Fonction pour charger l'historique
+        async function loadHistory() {
+            try {
+                const response = await fetch('https://api.github.com/repos/HansHugoHMB/Power-family-/contents/attendance', {
+                    headers: {
+                        'Authorization': `token ${githubToken}`
+                    }
+                });
+                
+                if (response.ok) {
+                    const files = await response.json();
+                    presenceData.history = [];
+                    
+                    for (const file of files) {
+                        if (file.name.endsWith('.json')) {
+                            const fileResponse = await fetch(file.download_url);
+                            const fileData = await fileResponse.json();
+                            presenceData.history.push({
+                                date: file.name.replace('.json', ''),
+                                presences: fileData
+                            });
+                        }
+                    }
+                    
+                    updateHistoryDisplay();
+                    updateStats();
+                }
+            } catch (error) {
+                console.error('Erreur lors du chargement de l\'historique:', error);
+            }
+        }
+
+        // Fonction pour valider le code admin
+        function validateAdmin() {
+            const adminCode = document.getElementById('admin-code').value;
+            if (adminCode === '1972') {
+                document.getElementById('reset-button').style.display = 'block';
+                document.getElementById('admin-code').style.display = 'none';
+            } else {
+                alert('Code administrateur incorrect');
+            }
+        }
+
+        // Fonction pour réinitialiser les présences
+        async function resetPresences() {
+            if (confirm('Êtes-vous sûr de vouloir réinitialiser les présences ?')) {
+                const date = new Date().toISOString().split('T')[0];
+                
+                // Déplacer le fichier du jour vers les archives
+                if (presenceData.today.length > 0) {
+                    // Sauvegarder dans les archives
+                    try {
+                        const content = btoa(JSON.stringify(presenceData.today));
+                        await fetch(`https://api.github.com/repos/HansHugoHMB/Power-family-/contents/archive/${date}.json`, {
+                            method: 'PUT',
+                            headers: {
+                                'Authorization': `token ${githubToken}`,
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                message: `Archive attendance for ${date}`,
+                                content
+                            })
+                        });
+                        
+                        // Réinitialiser les présences du jour
+                        presenceData.today = [];
+                        await savePresencesToGitHub();
+                        updateTodayPresenceDisplay();
+                        
+                        alert('Les présences ont été réinitialisées et archivées');
+                    } catch (error) {
+                        console.error('Erreur lors de l\'archivage:', error);
+                        alert('Erreur lors de la réinitialisation des présences');
+                    }
+                }
+            }
+        }
+
+        // Fonctions d'affichage
+        function updateTodayPresenceDisplay() {
+            const container = document.getElementById('today-presence');
+            container.innerHTML = '';
+            
+            presenceData.today.forEach(presence => {
+                const element = document.createElement('div');
+                element.className = 'presence-item';
+                element.textContent = `${presence.nom} ${presence.postnom} - ${new Date(presence.timestamp).toLocaleTimeString()}`;
+                container.appendChild(element);
+            });
+        }
+
+        function updateHistoryDisplay() {
+            const container = document.getElementById('history-list');
+            container.innerHTML = '';
+            
+            presenceData.history.sort((a, b) => b.date.localeCompare(a.date));
+            
+            presenceData.history.forEach(day => {
+                const element = document.createElement('div');
+                element.className = 'presence-item';
+                
+                const date = new Date(day.date).toLocaleDateString('fr-FR', {
+                    weekday: 'long',
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                });
+                
+                element.innerHTML = `
+                    <h3>${date}</h3>
+                    <p>${day.presences.length} présences</p>
+                    <div class="presence-details">
+                        ${day.presences.map(p => 
+                            `<div>${p.nom} ${p.postnom} - ${new Date(p.timestamp).toLocaleTimeString()}</div>`
+                        ).join('')}
+                    </div>
+                `;
+                
+                container.appendChild(element);
+            });
+        }
+
+        function updateStats() {
+            // Statistiques quotidiennes
+            const dailyCtx = document.getElementById('daily-chart').getContext('2d');
+            new Chart(dailyCtx, {
+                type: 'bar',
+                data: {
+                    labels: presenceData.history.slice(-7).map(day => 
+                        new Date(day.date).toLocaleDateString('fr-FR', {weekday: 'short'})
+                    ),
+                    datasets: [{
+                        label: 'Présences par jour',
+                        data: presenceData.history.slice(-7).map(day => day.presences.length),
+                        backgroundColor: 'rgba(255, 215, 0, 0.5)',
+                        borderColor: 'rgba(255, 215, 0, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+
+            // Statistiques hebdomadaires
+            const weeklyData = {};
+            presenceData.history.forEach(day => {
+                const date = new Date(day.date);
+                const weekNum = getWeekNumber(date);
+                weeklyData[weekNum] = (weeklyData[weekNum] || 0) + day.presences.length;
+            });
+
+            const weeklyCtx = document.getElementById('weekly-chart').getContext('2d');
+            new Chart(weeklyCtx, {
+                type: 'line',
+                data: {
+                    labels: Object.keys(weeklyData).slice(-4).map(week => `Semaine ${week}`),
+                    datasets: [{
+                        label: 'Présences par semaine',
+                        data: Object.values(weeklyData).slice(-4),
+                        borderColor: 'rgba(255, 215, 0, 1)',
+                        tension: 0.1
+                    }]
+                }
+            });
+        }
+
+        function getWeekNumber(date) {
+            const firstDayOfYear = new Date(date.getFullYear(), 0, 1);
+            return Math.ceil((((date - firstDayOfYear) / 86400000) + firstDayOfYear.getDay() + 1) / 7);
+        }
+
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', () => {
+            // Gestion des onglets
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.addEventListener('click', () => {
+                    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                    document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+                    
+                    tab.classList.add('active');
+                    document.getElementById(tab.dataset.tab).classList.add('active');
+                });
+            });
+
+            // Chargement initial des données
+            loadTodayPresences();
+            loadHistory();
+            
+            // Event listener pour la touche Enter
+            document.getElementById('matricule').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    signPresence();
+                }
+            });
         });
     </script>
-    
-    
 </body>
 </html>
-
